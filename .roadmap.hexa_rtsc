@@ -1,0 +1,98 @@
+# .roadmap.hexa_rtsc — repo-overall tracker
+
+> Cross-cutting state: invariant lattice, release cadence, cycle history,
+> deadlines, pointers. Sister substrate of `hexa-bio` / `hexa-millennium` /
+> `hexa-cosmos` under `need-singularity` org.
+
+**Last sync**: 2026-05-06 · **Current release**: v1.0.0 · **Branch**: `main`
+
+---
+
+## §0 Terminal goal — room-temperature superconductor 실증
+
+hexa-rtsc 도착지 = **T_c ≥ 300 K, ambient pressure 초전도체 실증**.
+
+DoD (Definition of Done):
+
+1. BCS 또는 BCS-너머 메커니즘 n=6 closed-form fit 완성 (λ → T_c 예측 식).
+2. LK-99 등 후보 substrate falsifier 명확화 (재현 실패 → 다음 후보 lattice 갱신).
+3. 48T SC coil 실현 (hexa-fusion / petite-cern / hexa-ufo 의존 해소 — RTSC 가
+   상위 substrate 로서 3 sister 의존을 풀어 줌).
+
+n=6 invariant lattice (§A.1) 는 도착지의 *correctness machinery* — 도착지
+자체가 아닌 후보 closed-form 정합성 보장 도구.
+
+## §A.1 Invariant lattice (n=6)
+
+```
+σ(6) · φ(6) = n · τ(6) = J₂ = 24
+   12   ·   2  =  6  ·   4  = 24
+```
+
+| Symbol | Value | Role | RTSC projection |
+|--------|-------|------|-----------------|
+| σ(6)   | 12    | sigma — cardinality bin | 12 candidate substrate families (cuprate / iron-pnictide / hydride / nickelate / LK-99-class / ...) |
+| τ(6)   | 4     | tau — state quartet | 4 phases: normal · pseudogap · SC · strange-metal |
+| φ(6)   | 2     | phi — verdict bit | superconducting / normal (binary at fixed T) |
+| J₂     | 24    | Mathieu / Leech symmetry | M₂₄ · O ⊂ I octahedral pairing-group |
+
+## §A.2 Release cadence
+
+| Version | Date            | Status       | Highlights |
+|---------|-----------------|--------------|------------|
+| v1.0.0  | 2026-05-06      | RELEASED     | rtsc + sc 시드 + substrate-of-substrates cross-link 3개 (hexa-fusion / petite-cern / hexa-ufo) |
+| v1.1.0  | _planned 2026-09_ | TARGET     | RT-SC 후보 물질 catalog (LK-99, H3S, LaH10, YBCO, BSCCO, FeSe, infinite-layer nickelate, ...) 정리 spec |
+| v1.2.0  | _planned 2026-12_ | TARGET     | n=6 closed-form fit BCS coupling λ → T_c 예측 .hexa module |
+| v2.0.0  | _planned 2027-Q2_ | ASPIRATIONAL | RT-SC 실증 시 cross-verify with hexa-fusion 48 T coil 의존 (substrate-of-substrates 해소) |
+
+## §A.3 Cycle history
+
+- **cycle 1 (2026-05-06)**: v1.0.0 RELEASED — rtsc + sc 시드, 3-link
+  substrate-of-substrates 도식 wired.
+
+## §A.4 Falsifier preregister
+
+| ID         | Statement                                                                                      | Status     |
+|------------|------------------------------------------------------------------------------------------------|------------|
+| F-RTSC-1   | LK-99 (Pb₁₀₋ₓCuₓ(PO₄)₆O) 재현 실패 (2023 후 다수) — 다른 후보 substrate spec 갱신 필요          | OPEN — v1.1.0 catalog 에 negative result 등재 |
+| F-RTSC-2   | BCS λ 한계 (T_c ≤ 30 K McMillan ceiling) 너머 메커니즘 n=6 closed-form fit 가능?                 | OPEN — v1.2.0 closed-form module 의 핵심 검증 |
+| F-RTSC-3   | 48 T SC coil 실현 시 hexa-fusion · petite-cern · hexa-ufo 3 sister 의존 모두 해소 동시 만족? | OPEN — v2.0.0 cross-verify gate |
+
+**Witness schema convention** (sister `hexa-bio` §A.8 alias-registry 동형):
+
+| Falsifier  | Witness schema (planned)            | Cycle |
+|------------|-------------------------------------|-------|
+| F-RTSC-1   | `raw_77_rtsc_lk99_repro_v1`         | 2     |
+| F-RTSC-2   | `raw_77_rtsc_bcs_n6_fit_v1`         | 3     |
+| F-RTSC-3   | `raw_77_rtsc_48t_coil_v1`           | 5     |
+
+## §A.5 Pending decisions
+
+- **[UNDEFINED] BCS-너머 메커니즘 family fix** — strong-coupling Eliashberg /
+  bipolaron / RVB / unconventional pairing 중 n=6 projection 우선순위 미정.
+  v1.1.0 catalog 작업 시 동시에 fix 필요.
+- **[UNDEFINED] cross-link priority** — v2.0.0 cross-verify 시 hexa-fusion
+  48 T coil dependency 가 가장 빠른 trigger 인지, hexa-ufo magnetic-confinement
+  side branch 가 더 빠른지 deadline 미정.
+- **[UNDEFINED] negative-result 처리** — LK-99 재현 실패 catalog 에 어떤
+  granularity (synthesis route / sample purity / measurement protocol) 까지
+  기록할지 SLA 미정.
+
+---
+
+## §B POINTERS
+
+- Sister substrates: `~/core/hexa-bio` · `~/core/hexa-millennium` ·
+  `~/core/hexa-cosmos`
+- Cross-link upstream: `~/core/hexa-fusion` (48 T coil) ·
+  `~/core/petite-cern` (high-field magnet) · `~/core/hexa-ufo`
+  (magnetic-confinement)
+- Release notes: `RELEASE_NOTES_v1.0.0.md`
+- Changelog: `CHANGELOG.md`
+
+## §C Cross-cutting Require
+
+- **(R1)** `~/core/n6-architecture/` canonical SSOT 수정 금지 — symlink 소스, repo 는 consumer
+- **(R2)** Empirical SSOT 미정 (v1.2.0 closed-form module land 시 fix)
+- **(R3)** Witness = raw 108 schema → registry append-only (sister hexa-bio 패턴)
+- **(R4)** Negative-result (LK-99 등) 명시 등재 — silent drop 금지
