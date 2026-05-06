@@ -1,4 +1,4 @@
-# hexa-rtsc 🧲 — Room-Temp Superconductor (substrate-of-substrates)
+# 🧲 hexa-rtsc — Room-Temp Superconductor (substrate-of-substrates)
 
 > **Room-Temp Superconductor — Meissner + 48T SC coil. Substrate-of-substrates for fusion · UFO · accelerator.**
 >
