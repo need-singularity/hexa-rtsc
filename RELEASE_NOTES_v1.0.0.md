@@ -18,7 +18,7 @@ sandbox. RT-SC is **academically unproven** (LK-99 et al. unsettled).
   sister substrates depend on:
   - `need-singularity/hexa-fusion` (48T SC coil)
   - `need-singularity/hexa-ufo` (Stage-1 Meissner levitation)
-  - `need-singularity/petite-cern` (SC magnet)
+  - `need-singularity/hexa-cern` (SC magnet)
 - **2-verb spec coverage** — RTSC + SC, each with n=6 closed-form
   candidate constants and 3-row falsifier preregister tables.
 - **n=6 invariant lattice closed-form candidate** —
@@ -83,7 +83,7 @@ unlock simultaneously:
 
 - **need-singularity/hexa-fusion** — 48T SC coil dependency (σ·τ=48 confinement gate)
 - **need-singularity/hexa-ufo** — Stage-1 Meissner levitation dependency (B-field expulsion)
-- **need-singularity/petite-cern** — SC magnet dependency (accelerator beamline bending)
+- **need-singularity/hexa-cern** — SC magnet dependency (accelerator beamline bending)
 
 If RT-SC is not realised, all three downstream substrates remain
 upper-bounded by current liquid-helium-cooled SC technology

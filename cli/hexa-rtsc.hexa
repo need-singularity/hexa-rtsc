@@ -93,7 +93,7 @@ fn _print_caveats() {
     println("     CLOSED-FORM CANDIDATE, not empirical fit. Synthesis-side validation")
     println("     is out-of-repo (would require materials lab).")
     println("  4. Substrate-of-substrates: hexa-fusion (48T coil), hexa-ufo (Meissner),")
-    println("     petite-cern (SC magnet) all depend on this base. Their working")
+    println("     hexa-cern (SC magnet) all depend on this base. Their working")
     println("     status is upper-bounded by RT-SC empirical realisation.")
 }
 
@@ -124,7 +124,7 @@ fn cmd_status(a: [str]) {
     println("  substrate-of-substrates downstream consumers:")
     println("    need-singularity/hexa-fusion    (48T SC coil dep)")
     println("    need-singularity/hexa-ufo       (Stage-1 Meissner levitation dep)")
-    println("    need-singularity/petite-cern    (SC magnet dep)")
+    println("    need-singularity/hexa-cern    (SC magnet dep)")
     println("")
     println("  drill into a verb:")
     println("    hexa-rtsc rtsc       (prints spec excerpt + falsifier table)")
@@ -248,7 +248,7 @@ fn cmd_help() {
     println("  PLACEHOLDER. Working .hexa empirical sandbox is TBD.")
     println("")
     println("substrate-of-substrates: hexa-fusion (48T coil) · hexa-ufo (Meissner)")
-    println("                         · petite-cern (SC magnet) all depend on this base.")
+    println("                         · hexa-cern (SC magnet) all depend on this base.")
 }
 
 // ─── main ───

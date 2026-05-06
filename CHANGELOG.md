@@ -37,6 +37,6 @@ All notable changes to **hexa-rtsc** are documented here. Format follows
 
 - `need-singularity/hexa-fusion` — 48T SC coil dependency
 - `need-singularity/hexa-ufo` — Stage-1 Meissner levitation dependency
-- `need-singularity/petite-cern` — SC magnet dependency
+- `need-singularity/hexa-cern` — SC magnet dependency
 
 [1.0.0]: https://github.com/need-singularity/hexa-rtsc/releases/tag/v1.0.0

@@ -80,13 +80,13 @@ academic_status = "UNPROVEN — RT-SC remains academically unsettled as of 2026-
 # hexa-rtsc is the n=6 base substrate that 3 sister substrates depend on:
 #   hexa-fusion    — needs 48T SC coil (σ·τ=48 satisfies confinement gate)
 #   hexa-ufo       — needs Stage-1 Meissner levitation (B-field expulsion)
-#   petite-cern    — needs SC magnet (accelerator beamline bending)
+#   hexa-cern    — needs SC magnet (accelerator beamline bending)
 [substrate_role]
 role = "substrate-of-substrates"
 downstream_consumers = [
     "need-singularity/hexa-fusion (48T SC coil dep)",
     "need-singularity/hexa-ufo (Stage-1 Meissner levitation dep)",
-    "need-singularity/petite-cern (SC magnet dep)",
+    "need-singularity/hexa-cern (SC magnet dep)",
 ]
 
 # ── Cost profile ──────────────────────────────────────────

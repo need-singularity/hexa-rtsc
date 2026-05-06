@@ -23,7 +23,7 @@ three sister substrates depend on:
 
 - **need-singularity/hexa-fusion** — needs **48T SC coil** (σ·τ=48 satisfies confinement gate)
 - **need-singularity/hexa-ufo** — needs **Stage-1 Meissner levitation** (B-field expulsion)
-- **need-singularity/petite-cern** — needs **SC magnet** (accelerator beamline bending)
+- **need-singularity/hexa-cern** — needs **SC magnet** (accelerator beamline bending)
 
 If RT-SC is empirically realised, all three downstream substrates unlock at
 once: tabletop fusion, room-temp magnetic levitation, and benchtop accelerator
@@ -162,7 +162,7 @@ depend on it:
 
 - [need-singularity/hexa-fusion](https://github.com/need-singularity/hexa-fusion) — 48T SC coil dependency (σ·τ=48 confinement gate)
 - [need-singularity/hexa-ufo](https://github.com/need-singularity/hexa-ufo) — Stage-1 Meissner levitation dependency (B-field expulsion)
-- [need-singularity/petite-cern](https://github.com/need-singularity/petite-cern) — SC magnet dependency (accelerator beamline bending)
+- [need-singularity/hexa-cern](https://github.com/need-singularity/hexa-cern) — SC magnet dependency (accelerator beamline bending)
 
 Their working status is upper-bounded by RT-SC empirical realisation. If
 this substrate stays in SPEC_ONLY status, all three downstream substrates
@@ -218,6 +218,6 @@ MIT. See [LICENSE](LICENSE).
 - Sister standalone: [`hexa-bio v1.0.0`](https://github.com/need-singularity/hexa-bio) (Molecular Toolkit substrate)
 - Downstream consumer: [`hexa-fusion`](https://github.com/need-singularity/hexa-fusion) (48T SC coil dep)
 - Downstream consumer: [`hexa-ufo`](https://github.com/need-singularity/hexa-ufo) (Meissner levitation dep)
-- Downstream consumer: [`petite-cern`](https://github.com/need-singularity/petite-cern) (SC magnet dep)
+- Downstream consumer: [`hexa-cern`](https://github.com/need-singularity/hexa-cern) (SC magnet dep)
 - Upstream concept SSOT: `n6-architecture/domains/energy/room-temp-sc/room-temp-sc.md`
 - Upstream concept SSOT: `n6-architecture/domains/energy/superconductor/superconductor.md`
