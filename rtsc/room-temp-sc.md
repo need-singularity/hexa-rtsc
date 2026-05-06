@@ -1,3 +1,6 @@
+<!-- @canonical: n6-architecture@0570a835:domains/energy/room-temp-sc/room-temp-sc.md -->
+<!-- @extracted: 2026-05-06 -->
+<!-- @md5_at_extraction: 5ba955ca9b38199d0ecfe59c7d182a54 -->
 <!-- gold-standard: shared/harness/sample.md -->
 ---
 domain: room-temp-sc

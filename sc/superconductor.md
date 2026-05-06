@@ -1,3 +1,6 @@
+<!-- @canonical: n6-architecture@0570a835:domains/energy/superconductor/superconductor.md -->
+<!-- @extracted: 2026-05-06 -->
+<!-- @md5_at_extraction: a4a1db3e33bab1664b0ae90c9b4f9414 -->
 <!-- gold-standard: shared/harness/sample.md -->
 ---
 domain: superconductor
