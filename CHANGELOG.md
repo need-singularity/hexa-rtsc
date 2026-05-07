@@ -5,6 +5,38 @@ All notable changes to **hexa-rtsc** are documented here. Format follows
 
 ## [Unreleased]
 
+### Added (2026-05-08 — 12th iteration · numerics_lk99_parity T2 ×2 · ALL F-RTSC AT T2×2)
+
+- **`verify/numerics_lk99_parity.hexa`** (T2 numerical, slot #14, pillar
+  `rtsc`, second-stack on F-RTSC-1) — 7-claim historical RT-SC cohort
+  parity: La₂CuO₄ (1986, 30K, CONFIRMED N=8) / Y-Ba-Cu-O (1987, 92K,
+  CONFIRMED N=12) / USO (1987, retracted) / Cu-Pb-hydride (2018, 200K,
+  unconfirmed) / C-S-H (2020, 287K, RETRACTED Dias) / Lu-N-H (2023, 294K,
+  RETRACTED Dias) / LK-99 (2023, 400K, unconfirmed). τ(6)=4 floor cleanly
+  separates confirmed (N≥8) from unconfirmed (N=0) — sharp bimodal
+  distribution. Confirmed Tc mean = 61K << unconfirmed mean ≈ 295K
+  (claim ambition correlates inversely with reproduction success).
+  Post-2010 retraction acceleration noted. **14/14 PASS** · sentinel
+  `__HEXA_RTSC_NUMERICS_LK99_PARITY__ PASS`.
+- F-RTSC-1: T2 stack now 2 (numerics_lk99 + numerics_lk99_parity).
+
+### 🎯 Milestone: ALL 6 FALSIFIERS AT T2 ×2 STACK
+
+All 6 preregistered falsifiers now have T1 + T2 ×2 (numerics + parity).
+Recipe §7.3 sat-1 progress: stack-depth 2/3 across full board. One more
+T2 each → full sat-1 satisfaction.
+
+### Closure (post iter 12)
+
+| Falsifier | T1 | T2 stack | T3 | closure |
+|-----------|----|----|----|---------|
+| F-RTSC-1  | ✓ | numerics_lk99 + parity | ✗ | 67% |
+| F-RTSC-2  | ✓ | numerics_mcmillan + parity | ✗ | 67% |
+| F-RTSC-3  | ✓ | numerics_hc2_48t + parity | ✗ | 67% |
+| F-SC-1    | ✓ | numerics_bcs + bcs_parity | ✗ | 67% |
+| F-SC-2    | ✓ | numerics_bcs + bcs_parity | ✗ | 67% |
+| F-SC-3    | ✓ | numerics_bcs + bcs_parity | ✗ | 67% |
+
 ### Added (2026-05-08 — 11th iteration · numerics_hc2_48t_parity T2 ×2 · F-RTSC-3 stack)
 
 - **`verify/numerics_hc2_48t_parity.hexa`** (T2 numerical, slot #13, pillar

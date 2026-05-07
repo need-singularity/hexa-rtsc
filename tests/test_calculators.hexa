@@ -29,6 +29,7 @@ let CALCULATORS: [[str]] = [
     ["verify/numerics_bcs_parity.hexa",       "__HEXA_RTSC_NUMERICS_BCS_PARITY__ PASS"],
     ["verify/numerics_mcmillan_parity.hexa",  "__HEXA_RTSC_NUMERICS_MCMILLAN_PARITY__ PASS"],
     ["verify/numerics_hc2_48t_parity.hexa",   "__HEXA_RTSC_NUMERICS_HC2_48T_PARITY__ PASS"],
+    ["verify/numerics_lk99_parity.hexa",      "__HEXA_RTSC_NUMERICS_LK99_PARITY__ PASS"],
 ]
 
 fn main() {

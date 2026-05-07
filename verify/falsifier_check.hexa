@@ -84,7 +84,7 @@ fn _check(ok: bool, label: str, detail: str) {
 let F1_ID            = "F-RTSC-1"
 let F1_RETRACT       = "LK-99 reproduction failure → next-candidate substrate spec update"
 let F1_T1_SCRIPTS: [str] = ["calc_lk99.hexa"]
-let F1_T2_SCRIPTS: [str] = ["numerics_lk99.hexa"]
+let F1_T2_SCRIPTS: [str] = ["numerics_lk99.hexa", "numerics_lk99_parity.hexa"]
 let F1_T3_DESCRIPTION = "synthesis lab: independent LK-99 / cuprate / hydride reproduction"
 
 let F2_ID            = "F-RTSC-2"
