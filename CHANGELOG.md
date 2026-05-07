@@ -5,6 +5,38 @@ All notable changes to **hexa-rtsc** are documented here. Format follows
 
 ## [Unreleased]
 
+### Added (2026-05-07 — 8th iteration · numerics_lk99 T2 · ALL 6F AT 67% · sat-1 toehold)
+
+- **`verify/numerics_lk99.hexa`** (T2 numerical, slot #10, pillar `rtsc`) —
+  closes F-RTSC-1 via float reproduction-stat eval. τ(6)=4 floor reproduced.
+  LK-99 confirmation rate p_c = 0/10 = 0.0. Binomial 95% CI upper bound
+  p_max = 1 - 0.05^(1/10) ≈ 0.26 (true positive rate ≤ 26% with 95%
+  confidence given 0/10 observation). σ-φ=10 false-positive multiplier
+  consistency. Bayesian posterior threshold: k ≥ 4 confirmations needed
+  to flip prior 0.1 → posterior > 0.5 at BF=2 (≈ τ(6) floor by independent
+  derivation). σ(6)=12 substrate family partition (9 confirmed + 3
+  unconfirmed). **15/15 PASS** · sentinel `__HEXA_RTSC_NUMERICS_LK99__ PASS`.
+- F-RTSC-1 closure 33% → **67% PARTIAL** (T1 calc_lk99 + T2 numerics_lk99).
+
+### 🎯 Milestone: ALL 6 FALSIFIERS AT 67% CLOSURE (sat-1 toehold)
+
+Recipe §7.2 sat-1 first leg satisfied: `min(F1.T2, F2.T2, F3.T2, ...) ≥ 1`.
+Full sat-1 requires `min ≥ 3` per recipe §7.3 — i.e., each falsifier needs
+≥3 T2 stack-script. Path forward: deepen T2 stack via parity / solver
+scripts (numerics_*_parity.hexa, numerics_*_solver.hexa) per recipe §7.4
+priority #5-6 + §1 slot #6,7,11.
+
+### Closure progress (post iter 8)
+
+| Falsifier | T1 | T2 | T3 | closure |
+|-----------|----|----|----|---------|
+| F-RTSC-1  | ✓ calc_lk99 | ✓ numerics_lk99 | ✗ | **67% PARTIAL** |
+| F-RTSC-2  | ✓ calc_mcmillan | ✓ numerics_mcmillan | ✗ | **67% PARTIAL** |
+| F-RTSC-3  | ✓ calc_hc2_48t | ✓ numerics_hc2_48t | ✗ | **67% PARTIAL** |
+| F-SC-1    | ✓ calc_bcs | ✓ numerics_bcs | ✗ | **67% PARTIAL** |
+| F-SC-2    | ✓ calc_bcs | ✓ numerics_bcs | ✗ | **67% PARTIAL** |
+| F-SC-3    | ✓ calc_bcs | ✓ numerics_bcs | ✗ | **67% PARTIAL** |
+
 ### Added (2026-05-07 — 7th iteration · numerics_hc2_48t T2 · F-RTSC-3 → 67%)
 
 - **`verify/numerics_hc2_48t.hexa`** (T2 numerical, slot #9, pillar `rtsc`) —
