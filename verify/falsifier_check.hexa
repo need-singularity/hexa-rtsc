@@ -102,19 +102,19 @@ let F3_T3_DESCRIPTION = "magnet bench: sustained 48 T SC coil at 4.2 K + downstr
 let F4_ID            = "F-SC-1"
 let F4_RETRACT       = "Cooper pair size ≠ φ(6)=2 → DEMOTE φ=2 boson pair claim"
 let F4_T1_SCRIPTS: [str] = ["calc_bcs.hexa"]
-let F4_T2_SCRIPTS: [str] = ["numerics_bcs.hexa"]
+let F4_T2_SCRIPTS: [str] = ["numerics_bcs.hexa", "numerics_bcs_parity.hexa"]
 let F4_T3_DESCRIPTION = "UPS / STM / INS measurement of Cooper pair coherence + composition"
 
 let F5_ID            = "F-SC-2"
 let F5_RETRACT       = "Abrikosov vortex lattice ≠ CN=6 → DEMOTE hexagonal lattice claim"
 let F5_T1_SCRIPTS: [str] = ["calc_bcs.hexa"]
-let F5_T2_SCRIPTS: [str] = ["numerics_bcs.hexa"]
+let F5_T2_SCRIPTS: [str] = ["numerics_bcs.hexa", "numerics_bcs_parity.hexa"]
 let F5_T3_DESCRIPTION = "Bitter decoration / SANS imaging of vortex coordination number"
 
 let F6_ID            = "F-SC-3"
 let F6_RETRACT       = "BCS specific-heat jump ratio ΔC/γTc ≠ ~1.43 → DEMOTE σ(6)=12 molecule"
 let F6_T1_SCRIPTS: [str] = ["calc_bcs.hexa"]
-let F6_T2_SCRIPTS: [str] = ["numerics_bcs.hexa"]
+let F6_T2_SCRIPTS: [str] = ["numerics_bcs.hexa", "numerics_bcs_parity.hexa"]
 let F6_T3_DESCRIPTION = "calorimetry below Tc: ΔC jump ratio measurement on s-wave SC"
 
 let FALSIFIER_IDS: [str] = [

@@ -5,6 +5,37 @@ All notable changes to **hexa-rtsc** are documented here. Format follows
 
 ## [Unreleased]
 
+### Added (2026-05-08 — 9th iteration · numerics_bcs_parity T2 ×2 · F-SC stack deepening)
+
+- **`verify/numerics_bcs_parity.hexa`** (T2 numerical, slot #11, pillar `sc`,
+  second-stack on F-SC-{1,2,3}) — recipe §6 hexa-rtsc 4-machine class parity:
+  Nb-Ti / Nb₃Sn / MgB₂ / YBCO. 4×4 grid (4 ratios × 4 SC classes) verified:
+  all 4 classes' 2Δ/kTc fits closure section [φ, σ/φ] = [2, 6]; all are
+  Type-II (κ > 1/√2); Hc2(0) monotone with Tc trend (14 < 28 < 74 < 120 T);
+  ΔC/γTc spans BCS canonical 1.426 (Nb-Ti 1.4, ±0.05) to d-wave (YBCO 4.5);
+  4-class avg 2Δ/kTc = 4.225 ∈ [2,6] (strong-coupling pull above s-wave 3.528);
+  48 T target sits between Nb₃Sn (28) and MgB₂ (74) — achievable.
+  **19/19 PASS** · sentinel `__HEXA_RTSC_NUMERICS_BCS_PARITY__ PASS`.
+
+### Changed
+
+- F-SC-{1,2,3}: T2_SCRIPTS = ["numerics_bcs.hexa", "numerics_bcs_parity.hexa"]
+  → **T2 ×2 stack** (closure stays 67% but stack-depth advances toward
+  full sat-1 target T2 ≥ 3 each). Total checks 31 → 34.
+
+### Closure progress (post iter 9 — T2 ×2 first stack)
+
+| Falsifier | T1 | T2 | T3 | closure | T2 stack |
+|-----------|----|----|----|---------|----------|
+| F-RTSC-1  | ✓ | ✓ numerics_lk99 | ✗ | 67% | 1 |
+| F-RTSC-2  | ✓ | ✓ numerics_mcmillan | ✗ | 67% | 1 |
+| F-RTSC-3  | ✓ | ✓ numerics_hc2_48t | ✗ | 67% | 1 |
+| F-SC-1    | ✓ | ✓ numerics_bcs + numerics_bcs_parity | ✗ | 67% | **2** |
+| F-SC-2    | ✓ | ✓ numerics_bcs + numerics_bcs_parity | ✗ | 67% | **2** |
+| F-SC-3    | ✓ | ✓ numerics_bcs + numerics_bcs_parity | ✗ | 67% | **2** |
+
+Sat-1 progress: 3/6 falsifiers at T2 ×2 stack. Need ×3 each for full sat-1.
+
 ### Added (2026-05-07 — 8th iteration · numerics_lk99 T2 · ALL 6F AT 67% · sat-1 toehold)
 
 - **`verify/numerics_lk99.hexa`** (T2 numerical, slot #10, pillar `rtsc`) —
