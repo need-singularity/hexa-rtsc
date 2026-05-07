@@ -5,6 +5,55 @@ All notable changes to **hexa-rtsc** are documented here. Format follows
 
 ## [Unreleased]
 
+### Added (2026-05-07 — 4th iteration · F-RTSC-1 T1 calc_lk99 · T1 SWEEP COMPLETE)
+
+Recipe ref: `~/core/bedrock/docs/runnable_surface_recipe.md` §7.4 priority #3
+final pass — all 6 falsifiers now have T1 algebraic anchor at 33% closure.
+**Algebraic tier (T1) saturation reached.** Next iteration moves to T2
+numerics tier (slot #5+ per recipe §1).
+
+- **`verify/calc_lk99.hexa`** (T1 algebraic, slot #6, pillar `rtsc`) —
+  closed-form anchor for F-RTSC-1 (LK-99 reproduction failure → next-
+  candidate substrate update). Live σ(6)=12 candidate substrate family
+  enumeration (cuprate / iron-pnictide / hydride / nickelate / LK-99-class
+  / MgB₂-class / organic / heavy-fermion / Sr₂RuO₄ / RbCs-fulleride /
+  Bi-cuprate / Lu-N-H retracted-slot). τ(6)=4 phase ladder (synth →
+  measure → publish → reproduce). Reproduction floor N ≥ τ=4. LK-99
+  stoichiometry (PO₄)₆ "₆" anchor + Pb count 10 = σ-φ. Timeline
+  (2023-07 claim, 2023-08-12 ~10 negative reproductions, 0 confirmed).
+  Historical confirmed catalog (BCS / BSCCO / YBCO / RbCs / MgB₂ /
+  iron-pnictide / H₃S / LaH₁₀ — 8 entries) vs retracted catalog
+  (USO / Cu-Pb-hydride / Dias 2020 / Dias 2023 / LK-99 — 5 entries).
+  False-positive multiplier σ-φ = 10. **27/27 PASS** · sentinel
+  `__HEXA_RTSC_CALC_LK99__ PASS`.
+
+### Changed
+
+- `verify/falsifier_check.hexa`: F1_T1_SCRIPTS = ["calc_lk99.hexa"] →
+  F-RTSC-1 closure 0% → 33%. **All 6 falsifiers now at 33% (T1 sweep
+  complete).** Total checks 24 → 25.
+- `verify/run_all.hexa`: SCRIPTS list 6 → 7.
+- `cli/hexa-rtsc.hexa`: `verify` subcommand inventory 6 → 7.
+- `tests/test_calculators.hexa`: CALCULATORS row added (calc_lk99, 4 total).
+- `tests/test_falsifier.hexa`: pass criterion 24/24 → 25/25.
+- `tests/test_verify.hexa`: pass criterion 6/6 → 7/7.
+
+### Closure progress (post iter 4 — T1 SWEEP COMPLETE)
+
+| Falsifier | T1 | T2 | T3 | closure |
+|-----------|----|----|----|---------|
+| F-RTSC-1  | ✓ calc_lk99 | ✗ | ✗ | 33% EARLY (algebra only) |
+| F-RTSC-2  | ✓ calc_mcmillan | ✗ | ✗ | 33% EARLY (algebra only) |
+| F-RTSC-3  | ✓ calc_hc2_48t | ✗ | ✗ | 33% EARLY (algebra only) |
+| F-SC-1    | ✓ calc_bcs | ✗ | ✗ | 33% EARLY (algebra only) |
+| F-SC-2    | ✓ calc_bcs | ✗ | ✗ | 33% EARLY (algebra only) |
+| F-SC-3    | ✓ calc_bcs | ✗ | ✗ | 33% EARLY (algebra only) |
+
+**Milestone:** algebraic tier (T1) saturation. 4 calc_*.hexa scripts
+covering all 6 preregistered falsifiers — recipe §1 slot #3-4 fully
+populated. Next iteration starts T2 numerics tier (numerics_*.hexa,
+slot #5+) — first chunk likely numerics_bcs.hexa or numerics_lk99_parity.hexa.
+
 ### Added (2026-05-07 — 3rd iteration · F-RTSC-3 T1 calc_hc2_48t)
 
 Recipe ref: `~/core/bedrock/docs/runnable_surface_recipe.md` §7.4 priority #3
