@@ -5,6 +5,19 @@ All notable changes to **hexa-rtsc** are documented here. Format follows
 
 ## [Unreleased]
 
+### Added (2026-05-07 — 6th iteration · numerics_mcmillan T2 · F-RTSC-2 → 67%)
+
+- **`verify/numerics_mcmillan.hexa`** (T2 numerical, slot #8, pillar `rtsc`) —
+  closes F-RTSC-2 via float McMillan/Allen-Dynes evaluation. λ ∈ [0.5, 2.0]
+  sweep at Θ_D=400K, μ*=0.13: max Tc = 44 K (well below RT-SC 300 K).
+  Reference SC parity via Allen-Dynes(ω_log): Pb 7.20 K (rel_err 0%),
+  Nb 10.46 K (12%), Hg 3.63 K (14%). §8.1 universal Cooper at λ_eff=φ=2.
+  λ→∞ phonon-free: Tc ≈ 97.5 K, requires Θ_D ≥ 1230 K for Tc=300K
+  (above any known phonon spectrum → BCS framework rules out RT-SC).
+  Allen-Dynes ≡ McMillan equivalence at math_pure floor. **16/16 PASS** ·
+  sentinel `__HEXA_RTSC_NUMERICS_MCMILLAN__ PASS`.
+- F-RTSC-2 closure 33% → **67% PARTIAL** (T1 calc_mcmillan + T2 numerics_mcmillan).
+
 ### Added (2026-05-07 — 5th iteration · numerics_bcs T2 · FIRST 67% closure)
 
 Recipe ref: `~/core/bedrock/docs/runnable_surface_recipe.md` §1 slot #5

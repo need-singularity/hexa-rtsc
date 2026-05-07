@@ -90,7 +90,7 @@ let F1_T3_DESCRIPTION = "synthesis lab: independent LK-99 / cuprate / hydride re
 let F2_ID            = "F-RTSC-2"
 let F2_RETRACT       = "BCS λ McMillan ceiling (Tc ≤ 30 K) — beyond mechanism n=6 closed-form fit"
 let F2_T1_SCRIPTS: [str] = ["calc_mcmillan.hexa"]
-let F2_T2_SCRIPTS: [str] = []
+let F2_T2_SCRIPTS: [str] = ["numerics_mcmillan.hexa"]
 let F2_T3_DESCRIPTION = "high-Tc bench: λ-vs-Tc data above McMillan ceiling, n=6 fit residual"
 
 let F3_ID            = "F-RTSC-3"

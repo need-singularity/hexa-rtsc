@@ -15,6 +15,7 @@ let SCRIPTS: [str] = [
     "verify/calc_hc2_48t.hexa",
     "verify/calc_lk99.hexa",
     "verify/numerics_bcs.hexa",
+    "verify/numerics_mcmillan.hexa",
     "verify/falsifier_check.hexa",
 ]
 
