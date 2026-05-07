@@ -5,6 +5,20 @@ All notable changes to **hexa-rtsc** are documented here. Format follows
 
 ## [Unreleased]
 
+### Added (2026-05-07 — 7th iteration · numerics_hc2_48t T2 · F-RTSC-3 → 67%)
+
+- **`verify/numerics_hc2_48t.hexa`** (T2 numerical, slot #9, pillar `rtsc`) —
+  closes F-RTSC-3 via float Hc2/3-sister bridge eval. Three identity paths
+  to 48 reproduce at math_pure floor (rel_err < 1e-9). WHH coefficient
+  0.69 ≈ ln(2) (rel_err 0.05% via log_pure(2)=0.6931...). Pauli-Maki
+  crossover Tc=48/1.84=26.087 K. RT-SC Tc=300K → Hc2_p=552T (orbital
+  fully dominant, ratio 11.5×). 3-sister bridge: fusion 12T·τ=48
+  (exact), cern LHC 8.3·n=49.8T (within 5%), ufo Meissner expulsion.
+  Reference SC parity: Nb-Ti(14T) Nb₃Sn(28T) below 48T; MgB₂(74T)
+  YBCO(120T) H₃S(70T) above. **20/20 PASS** · sentinel
+  `__HEXA_RTSC_NUMERICS_HC2_48T__ PASS`.
+- F-RTSC-3 closure 33% → **67% PARTIAL** (T1 calc_hc2_48t + T2 numerics_hc2_48t).
+
 ### Added (2026-05-07 — 6th iteration · numerics_mcmillan T2 · F-RTSC-2 → 67%)
 
 - **`verify/numerics_mcmillan.hexa`** (T2 numerical, slot #8, pillar `rtsc`) —

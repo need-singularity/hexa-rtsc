@@ -24,6 +24,7 @@ let CALCULATORS: [[str]] = [
     ["verify/calc_lk99.hexa",     "__HEXA_RTSC_CALC_LK99__ PASS"],
     ["verify/numerics_bcs.hexa",      "__HEXA_RTSC_NUMERICS_BCS__ PASS"],
     ["verify/numerics_mcmillan.hexa", "__HEXA_RTSC_NUMERICS_MCMILLAN__ PASS"],
+    ["verify/numerics_hc2_48t.hexa",  "__HEXA_RTSC_NUMERICS_HC2_48T__ PASS"],
 ]
 
 fn main() {
