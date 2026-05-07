@@ -5,6 +5,53 @@ All notable changes to **hexa-rtsc** are documented here. Format follows
 
 ## [Unreleased]
 
+### Added (2026-05-07 — 5th iteration · numerics_bcs T2 · FIRST 67% closure)
+
+Recipe ref: `~/core/bedrock/docs/runnable_surface_recipe.md` §1 slot #5
+(numerics_<pillar1>) + §4 5-invariant lint contract. T2 numerical tier
+opened — first chunk via `self/runtime/math_pure`.
+
+- **`verify/numerics_bcs.hexa`** (T2 numerical, slot #7, pillar `sc`) —
+  closes F-SC-{1,2,3} via float arithmetic re-derivation:
+    §8.2  2Δ/kTc = 2π·e^(-γ_E) ≈ 3.5278 (rel_err 1.4e-4 vs 3.528 published)
+    §8.4  ΔC/γTc = σ(6)/(7·ζ(3)) ≈ 1.4261 (rel_err 8.9e-5 vs 1.426 published)
+    GL κ_c = 1/√2 ≈ 0.7071 (rel_err 1.6e-16 — math_pure precision floor)
+    ζ(3) reproduced via 100-term series (rel_err 4e-5 vs Apéry constant)
+    n=6 anchor float ↔ int round-trip (sqrt_pure(σ²)=σ, exp(log(σ))=σ)
+    Type-I (Sn 0.16, Al 0.04 < 1/√2) vs Type-II (Nb 1.3, YBCO 95 > 1/√2)
+    s-wave / d-wave / Allen-Dynes gap ratios all in closure [φ, σ/φ]=[2,6]
+  **Recipe §4 5 invariants**: math_pure import ✓ · sentinel ✓ · FALSIFIERS ✓
+  · exit(0) ✓ · RUN/FAIL counters ✓. **19/19 PASS** · sentinel
+  `__HEXA_RTSC_NUMERICS_BCS__ PASS`.
+
+### Changed
+
+- `verify/falsifier_check.hexa`: F4_T2_SCRIPTS = F5_T2_SCRIPTS = F6_T2_SCRIPTS
+  = ["numerics_bcs.hexa"] → **F-SC-{1,2,3} closure 33% → 67% PARTIAL**
+  (T1+T2 locked). Total checks 25 → 28 (+3 T2-presence audits).
+- `verify/run_all.hexa`: SCRIPTS list 7 → 8 (numerics_bcs added).
+- `cli/hexa-rtsc.hexa`: `verify` subcommand inventory 7 → 8.
+- `tests/test_calculators.hexa`: CALCULATORS row added (numerics_bcs, 5 total).
+- `tests/test_falsifier.hexa`: pass criterion 25/25 → 28/28.
+- `tests/test_verify.hexa`: pass criterion 7/7 → 8/8.
+
+### Closure progress (post iter 5 — FIRST 67% milestone)
+
+| Falsifier | T1 | T2 | T3 | closure |
+|-----------|----|----|----|---------|
+| F-RTSC-1  | ✓ calc_lk99 | ✗ | ✗ | 33% EARLY |
+| F-RTSC-2  | ✓ calc_mcmillan | ✗ | ✗ | 33% EARLY |
+| F-RTSC-3  | ✓ calc_hc2_48t | ✗ | ✗ | 33% EARLY |
+| F-SC-1    | ✓ calc_bcs | ✓ numerics_bcs | ✗ | **67% PARTIAL** |
+| F-SC-2    | ✓ calc_bcs | ✓ numerics_bcs | ✗ | **67% PARTIAL** |
+| F-SC-3    | ✓ calc_bcs | ✓ numerics_bcs | ✗ | **67% PARTIAL** |
+
+**Milestone:** 3/6 falsifiers at 67% closure (T1+T2 algebra+numerics). Recipe
+§7.2 sat-1 progress: 50% of falsifiers at saturation target. Next chunks
+land T2 for F-RTSC-{1,2,3} (numerics_mcmillan / numerics_hc2_48t / numerics_lk99
+parity scripts) + numerics_bcs_parity.hexa (Nb/Sn/In/Pb/Hg s-wave gap
+published comparison) for F-SC stack-of-3.
+
 ### Added (2026-05-07 — 4th iteration · F-RTSC-1 T1 calc_lk99 · T1 SWEEP COMPLETE)
 
 Recipe ref: `~/core/bedrock/docs/runnable_surface_recipe.md` §7.4 priority #3

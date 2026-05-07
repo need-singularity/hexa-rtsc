@@ -1,9 +1,9 @@
 #!hexa strict
-// tests/test_verify.hexa — exercise verify/run_all.hexa (7 invariant audits).
+// tests/test_verify.hexa — exercise verify/run_all.hexa (8 invariant audits).
 //
-// Pass criterion: "7/7 scripts passed" from verify/run_all.hexa
-//   (lattice + cross_doc + calc_{bcs,mcmillan,hc2_48t,lk99} + falsifier).
-// All 6 falsifiers now T1-anchored (33% closure each).
+// Pass criterion: "8/8 scripts passed" from verify/run_all.hexa
+//   (lattice + cross_doc + 4×calc_* + numerics_bcs + falsifier).
+// F-SC-{1,2,3} at 67% (T1+T2); F-RTSC-{1,2,3} at 33% (T1 only).
 // Run:
 //     hexa run tests/test_verify.hexa
 //
@@ -15,8 +15,8 @@ fn main() {
     if root.len() > 0 { p = root + "/verify/run_all.hexa" }
 
     let raw = exec("hexa run " + p + " 2>&1")
-    if raw.contains("7/7 scripts passed") {
-        println("test_verify: PASS  (verify/run_all.hexa 7/7)")
+    if raw.contains("8/8 scripts passed") {
+        println("test_verify: PASS  (verify/run_all.hexa 8/8)")
         return
     }
     println("test_verify: FAIL")
