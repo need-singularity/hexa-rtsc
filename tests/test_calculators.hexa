@@ -8,6 +8,7 @@
 // Inventory (grows per iteration of docs/runnable_surface_recipe.md):
 //   verify/calc_bcs.hexa       __HEXA_RTSC_CALC_BCS__ PASS         (T1, F-SC-1/2/3)
 //   verify/calc_mcmillan.hexa  __HEXA_RTSC_CALC_MCMILLAN__ PASS    (T1, F-RTSC-2)
+//   verify/calc_hc2_48t.hexa   __HEXA_RTSC_CALC_HC2_48T__ PASS     (T1, F-RTSC-3)
 //
 // Run:
 //     hexa run tests/test_calculators.hexa
@@ -17,6 +18,7 @@
 let CALCULATORS: [[str]] = [
     ["verify/calc_bcs.hexa",      "__HEXA_RTSC_CALC_BCS__ PASS"],
     ["verify/calc_mcmillan.hexa", "__HEXA_RTSC_CALC_MCMILLAN__ PASS"],
+    ["verify/calc_hc2_48t.hexa",  "__HEXA_RTSC_CALC_HC2_48T__ PASS"],
 ]
 
 fn main() {

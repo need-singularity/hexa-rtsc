@@ -5,6 +5,47 @@ All notable changes to **hexa-rtsc** are documented here. Format follows
 
 ## [Unreleased]
 
+### Added (2026-05-07 — 3rd iteration · F-RTSC-3 T1 calc_hc2_48t)
+
+Recipe ref: `~/core/bedrock/docs/runnable_surface_recipe.md` §7.4 priority #3
+(calc_<pillar> for next falsifier). All-T1 sweep continues — 5 of 6
+falsifiers now have algebraic anchor.
+
+- **`verify/calc_hc2_48t.hexa`** (T1 algebraic, slot #5, pillar `rtsc`) —
+  closed-form derivation anchoring F-RTSC-3 (48 T SC coil substrate-of-
+  substrates bridge). Three independent identity paths to 48: (a) σ·τ=12·4,
+  (b) J₂²/σ=576/12, (c) (2σ)²/(2n)=576/12. n=6 uniqueness (σ(n)·τ(n)=48
+  only at n=6 in [1..12]). WHH 0.69 ≈ ln(2) coefficient. GL coherence
+  Hc2 ∝ 1/ξ² with Φ₀=h/(φ·e) anchor. Pauli–Maki crossover Tc=26K
+  (orbital binding above). 3-sister bridge: fusion 12T·τ=48, cern LHC·n=48,
+  ufo Meissner expulsion. Reference SC catalog: Nb-Ti(14T) / Nb₃Sn(28T) /
+  MgB₂(74T) / YBCO(120T) / H₃S(70T) — 48 T achievable. **29/29 PASS** ·
+  sentinel `__HEXA_RTSC_CALC_HC2_48T__ PASS`.
+
+### Changed
+
+- `verify/falsifier_check.hexa`: F3_T1_SCRIPTS = ["calc_hc2_48t.hexa"] →
+  F-RTSC-3 closure 0% → 33% (EARLY, algebra only). Total checks 23 → 24.
+- `verify/run_all.hexa`: SCRIPTS list 5 → 6 (calc_hc2_48t added).
+- `cli/hexa-rtsc.hexa`: `verify` subcommand inventory 5 → 6.
+- `tests/test_calculators.hexa`: CALCULATORS row added (calc_hc2_48t).
+- `tests/test_falsifier.hexa`: pass criterion 23/23 → 24/24.
+- `tests/test_verify.hexa`: pass criterion 5/5 → 6/6.
+
+### Closure progress (post iter 3)
+
+| Falsifier | T1 | T2 | T3 | closure |
+|-----------|----|----|----|---------|
+| F-RTSC-1  | ✗  | ✗  | ✗  | 0% UNVERIFIED |
+| F-RTSC-2  | ✓ calc_mcmillan | ✗ | ✗ | 33% EARLY (algebra only) |
+| F-RTSC-3  | ✓ calc_hc2_48t | ✗ | ✗ | 33% EARLY (algebra only) |
+| F-SC-1    | ✓ calc_bcs | ✗ | ✗ | 33% EARLY (algebra only) |
+| F-SC-2    | ✓ calc_bcs | ✗ | ✗ | 33% EARLY (algebra only) |
+| F-SC-3    | ✓ calc_bcs | ✗ | ✗ | 33% EARLY (algebra only) |
+
+5/6 falsifiers at 33%. Last T1 chunk = `calc_lk99` for F-RTSC-1 (LK-99
+negative-result anchor + σ(6)=12 candidate substrate family catalog).
+
 ### Added (2026-05-07 — 2nd iteration · F-RTSC-2 T1 calc_mcmillan)
 
 Recipe ref: `~/core/bedrock/docs/runnable_surface_recipe.md` §7.4 priority #3
