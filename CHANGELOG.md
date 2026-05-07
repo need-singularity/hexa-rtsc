@@ -5,6 +5,61 @@ All notable changes to **hexa-rtsc** are documented here. Format follows
 
 ## [Unreleased]
 
+### Added (2026-05-08 — 18th iteration · numerics_lk99_solver · F-RTSC-1 T2 ×3 · 🎯 RSC SATURATED)
+
+- **`verify/numerics_lk99_solver.hexa`** (T2 numerical, recipe §1
+  slot #6, third T2 leg on F-RTSC-1) — Newton inversion of the
+  Clopper–Pearson binomial confidence-interval upper bound. Forward:
+  `F(p) = ∑_{j=0}^k C(n,j) p^j (1-p)^{n-j} − α`. For k=0 closed-form:
+  `p_α(0,n) = 1 − α^{1/n}`. Newton: `p_{n+1} = p_n − F/F'`,
+  `F'(p) = −n · C(n-1,k) · p^k · (1-p)^{n-k-1}`. Verifies (a) 5 RT-SC
+  reproduction-cohort entries (LK-99 / C-S-H Dias / Lu-N-H Dias /
+  Cu-Pb-H / USO) — Newton k=0 UCL matches closed form to rel_err ≤ 3e-12,
+  converges in ≤ 5 iters. (b) k=1 / n=10 sanity: Newton converges,
+  monotone p_k1 > p_k0, forward CDF residual ≤ 7e-15. (c) Binomial
+  coefficient anchors C(10,0)=1, C(10,2)=45, C(6,3)=20. (d) n=6
+  reproduction floor τ(6)=4 + σ-φ=10 false-positive multiplier in
+  solver scope. **25/25 PASS** · sentinel
+  `__HEXA_RTSC_NUMERICS_LK99_SOLVER__ PASS`.
+- `verify/run_all.hexa` SCRIPTS list 20 → 21 (+ numerics_lk99_solver).
+- `cli/hexa-rtsc.hexa` cmd_verify SCRIPTS + names list 20 → 21.
+- `tests/test_calculators.hexa` CALCULATORS list 17 → 18.
+- `tests/test_verify.hexa` aggregate count 20/20 → 21/21.
+- `verify/lint_numerics.hexa` NUMERICS_SCRIPTS 12 → 13 (now **92/92
+  PASS** across 13 scripts).
+- `verify/falsifier_check.hexa` F1_T2_SCRIPTS array 2 → 3 — F-RTSC-1
+  closure stack-depth lifts to T2 ×3.
+
+### 🎯 MILESTONE: RSC LOOP SATURATED (sat-1 + sat-2)
+
+All 6 preregistered falsifiers now at T2 ×3 stack-depth. Recipe §7.2
+saturation conditions:
+
+- **sat-1** (each T2 stack ≥ 3): ✓ **F-RTSC-{1,2,3} + F-SC-{1,2,3}**
+- **sat-2** (recipe §1 16-script standard complete + lint clean):
+  ✓ 13 numerics scripts on disk, 92/92 lint PASS
+
+Recipe §7.2 → loop end. Per §7.7: post-saturation cron firings should
+run health-checks only; new chunk additions are **not authorized**
+unless (a) regression genuinely fails, (b) user explicitly requests
+new work outside recipe scope, or (c) Stage-1+ T3 hardware track opens.
+
+### Closure (post iter 18 — final, RSC SATURATED)
+
+| Falsifier | T1 | T2 stack | T3 | closure |
+|-----------|----|----|----|---------|
+| F-RTSC-1 | calc_lk99 | numerics_lk99 + _parity + **_solver** | TBD | 67% (T2 ×3 ✓) |
+| F-RTSC-2 | calc_mcmillan | numerics_mcmillan + _parity + _solver | TBD | 67% (T2 ×3 ✓) |
+| F-RTSC-3 | calc_hc2_48t | numerics_hc2_48t + _parity + _solver | TBD | 67% (T2 ×3 ✓) |
+| F-SC-1   | calc_bcs | numerics_bcs + _parity + _solver | TBD | 67% (T2 ×3 ✓) |
+| F-SC-2   | calc_bcs | numerics_bcs + _parity + _solver | TBD | 67% (T2 ×3 ✓) |
+| F-SC-3   | calc_bcs | numerics_bcs + _parity + _solver | TBD | 67% (T2 ×3 ✓) |
+
+T1 + T2 ×3 closure complete across all 6 falsifiers. T3 (empirical
+RT-SC bench / synthesis lab / 48 T coil prototype) remains TBD by
+design — closure caps at 67 % until Stage-1+ hardware lands. T3 is
+out of `.hexa` recipe scope (recipe §9).
+
 ### Added (2026-05-08 — 17th iteration · numerics_hc2_48t_solver · F-RTSC-3 T2 ×3 stack)
 
 - **`verify/numerics_hc2_48t_solver.hexa`** (T2 numerical, recipe §1

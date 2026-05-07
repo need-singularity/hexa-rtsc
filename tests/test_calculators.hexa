@@ -34,6 +34,7 @@ let CALCULATORS: [[str]] = [
     ["verify/numerics_bcs_solver.hexa",             "__HEXA_RTSC_NUMERICS_BCS_SOLVER__ PASS"],
     ["verify/numerics_mcmillan_solver.hexa",        "__HEXA_RTSC_NUMERICS_MCMILLAN_SOLVER__ PASS"],
     ["verify/numerics_hc2_48t_solver.hexa",         "__HEXA_RTSC_NUMERICS_HC2_48T_SOLVER__ PASS"],
+    ["verify/numerics_lk99_solver.hexa",            "__HEXA_RTSC_NUMERICS_LK99_SOLVER__ PASS"],
     ["verify/lint_numerics.hexa",                   "__HEXA_RTSC_LINT_NUMERICS__ PASS"],
 ]
 

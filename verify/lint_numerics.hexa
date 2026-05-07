@@ -95,6 +95,7 @@ let NUMERICS_SCRIPTS: [str] = [
     "numerics_hc2_48t_solver.hexa",
     "numerics_lk99.hexa",
     "numerics_lk99_parity.hexa",
+    "numerics_lk99_solver.hexa",
     "numerics_lattice_arithmetic.hexa",
 ]
 
