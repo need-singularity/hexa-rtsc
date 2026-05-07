@@ -5,6 +5,56 @@ All notable changes to **hexa-rtsc** are documented here. Format follows
 
 ## [Unreleased]
 
+### Added (2026-05-08 — 14th iteration · lint_numerics · meta tier slot #15 · 16-script standard COMPLETE)
+
+- **`verify/lint_numerics.hexa`** (meta tier, recipe §1 slot #15, recipe §4
+  5-invariant grep-lint) — structural conformance lint over every
+  `verify/numerics_*.hexa` script. For each registered file, asserts:
+  (1) `use "self/runtime/math_pure"` import (no raw float math),
+  (2) `__HEXA_RTSC_<NAME>__ PASS` sentinel suffix on success path,
+  (3) `FALSIFIERS` array declared, (4) `exit(0)` terminal call,
+  (5) `let mut RUN = 0` + `let mut FAIL = 0` counter pair. Plus
+  inventory drift-lock (6): `NUMERICS_SCRIPTS` registered array length
+  must equal on-disk `verify/numerics_*.hexa` glob length, with
+  bidirectional set membership (every registered file exists, every
+  on-disk file is registered) — prevents silent additions / deletions.
+  **64/64 PASS** across all 9 numerics scripts · sentinel
+  `__HEXA_RTSC_LINT_NUMERICS__ PASS`.
+- `verify/run_all.hexa` SCRIPTS list 16 → 17 (+ lint_numerics).
+- `cli/hexa-rtsc.hexa` cmd_verify SCRIPTS + names list 16 → 17.
+- `tests/test_calculators.hexa` CALCULATORS list 13 → 14 (lint_numerics
+  sentinel pair).
+- `tests/test_verify.hexa` aggregate count 16/16 → 17/17.
+
+### 🎯 Milestone: recipe §1 16-script standard COMPLETE
+
+All 16 recipe slots filled (4 algebraic + 9 numerical + 2 meta + 1
+falsifier check). T1/T2 closure-progress is now structurally
+regression-locked end-to-end:
+
+- T1 algebra ×4: lattice, cross-doc, calc_{bcs, mcmillan, hc2_48t, lk99}
+- T2 numerics ×9: 4 numerics_<pillar>, 4 numerics_<pillar>_parity,
+  numerics_lattice_arithmetic
+- Meta ×2: falsifier_check (closure tracker), lint_numerics (5-invariant lint)
+
+Recipe §7.3 sat-2 (recipe-exhausted) → satisfied. Pending sat-1: each
+falsifier T2 stack at 2 (need ×3 each for full saturation) — slot 14
+optional T2 stack-deepening per §7.4 priority 14.
+
+### Closure (post iter 14)
+
+| Falsifier | T1 | T2 stack | T3 | closure |
+|-----------|----|----|----|---------|
+| F-RTSC-1 | calc_lk99 | numerics_lk99 + numerics_lk99_parity | TBD | 67% |
+| F-RTSC-2 | calc_mcmillan | numerics_mcmillan + numerics_mcmillan_parity | TBD | 67% |
+| F-RTSC-3 | calc_hc2_48t | numerics_hc2_48t + numerics_hc2_48t_parity | TBD | 67% |
+| F-SC-1   | calc_bcs | numerics_bcs + numerics_bcs_parity | TBD | 67% |
+| F-SC-2   | calc_bcs | numerics_bcs + numerics_bcs_parity | TBD | 67% |
+| F-SC-3   | calc_bcs | numerics_bcs + numerics_bcs_parity | TBD | 67% |
+
+All 6 falsifiers locked at 67% (T1 + T2 ×2). Empirical (T3) tier remains
+TBD by design — closure caps at 67% until Stage-1+ synthesis bench lands.
+
 ### Added (2026-05-08 — 13th iteration · numerics_lattice_arithmetic · cross-cutter T2)
 
 - **`verify/numerics_lattice_arithmetic.hexa`** (T2 cross-cutter, slot #15,
