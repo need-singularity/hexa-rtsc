@@ -5,6 +5,20 @@ All notable changes to **hexa-rtsc** are documented here. Format follows
 
 ## [Unreleased]
 
+### Added (2026-05-08 — 11th iteration · numerics_hc2_48t_parity T2 ×2 · F-RTSC-3 stack)
+
+- **`verify/numerics_hc2_48t_parity.hexa`** (T2 numerical, slot #13, pillar
+  `rtsc`, second-stack on F-RTSC-3) — 6-class deployed-magnet parity:
+  ITER TF (12T) / LHC dipole (8.3T) / NHMFL 45T hybrid / FCC-hh (16T) /
+  J-PARC SRF (0.2T) / T2K (2.6T). NHMFL 45T = highest deployed
+  confinement — 48T target sits gap=3T (just below τ(6)=4) beyond.
+  ITER · τ = 48T, LHC · n = 49.8T (within 5%) — 4 closure paths
+  converge. FCC 16T = τ² = 16 (n=6 secondary anchor). 4 materials
+  (MgB₂/Bi-2212/YBCO/H₃S) with Hc2 ≥ 48T (= τ count) at 4.2K → target
+  realisable. **12/12 PASS** · sentinel
+  `__HEXA_RTSC_NUMERICS_HC2_48T_PARITY__ PASS`.
+- F-RTSC-3: T2 stack now 2 (numerics_hc2_48t + numerics_hc2_48t_parity).
+
 ### Added (2026-05-08 — 10th iteration · numerics_mcmillan_parity T2 ×2 · F-RTSC-2 stack)
 
 - **`verify/numerics_mcmillan_parity.hexa`** (T2 numerical, slot #12, pillar

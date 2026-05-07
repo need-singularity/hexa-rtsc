@@ -24,14 +24,14 @@ fn main() {
     if root.len() > 0 { p = root + "/verify/falsifier_check.hexa" }
 
     let raw = exec("hexa run " + p + " 2>&1")
-    let count_ok = raw.contains("35/35 checks passed")
+    let count_ok = raw.contains("36/36 checks passed")
     let sentinel_ok = raw.contains("__HEXA_RTSC_FALSIFIER__ PASS")
     if count_ok && sentinel_ok {
-        println("test_falsifier: PASS  (verify/falsifier_check.hexa 35/35 + sentinel)")
+        println("test_falsifier: PASS  (verify/falsifier_check.hexa 36/36 + sentinel)")
         return
     }
     println("test_falsifier: FAIL")
-    if !count_ok    { println("  · missing '35/35 checks passed'") }
+    if !count_ok    { println("  · missing '36/36 checks passed'") }
     if !sentinel_ok { println("  · missing '__HEXA_RTSC_FALSIFIER__ PASS'") }
     println(raw.trim())
     exit(1)
