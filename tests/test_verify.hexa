@@ -15,8 +15,8 @@ fn main() {
     if root.len() > 0 { p = root + "/verify/run_all.hexa" }
 
     let raw = exec("hexa run " + p + " 2>&1")
-    if raw.contains("12/12 scripts passed") {
-        println("test_verify: PASS  (verify/run_all.hexa 12/12)")
+    if raw.contains("13/13 scripts passed") {
+        println("test_verify: PASS  (verify/run_all.hexa 13/13)")
         return
     }
     println("test_verify: FAIL")

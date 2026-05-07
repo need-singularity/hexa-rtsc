@@ -5,6 +5,20 @@ All notable changes to **hexa-rtsc** are documented here. Format follows
 
 ## [Unreleased]
 
+### Added (2026-05-08 — 10th iteration · numerics_mcmillan_parity T2 ×2 · F-RTSC-2 stack)
+
+- **`verify/numerics_mcmillan_parity.hexa`** (T2 numerical, slot #12, pillar
+  `rtsc`, second-stack on F-RTSC-2) — Allen-Dynes 1975 6-class parity:
+  Al / Sn / In / Hg / Pb / Nb. Each material's measured Tc reproduced
+  via published ω_log + λ + μ* within ±60% (Allen-Dynes systematic
+  overestimate band — full Eliashberg solver would tighten). λ regime
+  classification (weak ≤ 1/φ=0.5, mid ≤ 1, strong ≤ φ=2) verified per
+  material. All 6 μ* ≤ 1/sopfr=0.2 (Morel-Anderson ceiling). Max
+  conventional Tc (Nb 9.3K) < 30K McMillan ceiling. 6-class avg λ ∈
+  [1/φ, φ]. Tc-λ ordering check (ω_log dominance: Pb > Hg same-regime).
+  **21/21 PASS** · sentinel `__HEXA_RTSC_NUMERICS_MCMILLAN_PARITY__ PASS`.
+- F-RTSC-2: T2 stack now 2 (numerics_mcmillan + numerics_mcmillan_parity).
+
 ### Added (2026-05-08 — 9th iteration · numerics_bcs_parity T2 ×2 · F-SC stack deepening)
 
 - **`verify/numerics_bcs_parity.hexa`** (T2 numerical, slot #11, pillar `sc`,

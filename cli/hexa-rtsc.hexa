@@ -316,9 +316,10 @@ fn cmd_verify(a: [str]) {
         "verify/numerics_hc2_48t.hexa",
         "verify/numerics_lk99.hexa",
         "verify/numerics_bcs_parity.hexa",
+        "verify/numerics_mcmillan_parity.hexa",
         "verify/falsifier_check.hexa",
     ]
-    let names: [str] = ["lattice", "cross-doc", "calc-bcs", "calc-mcmillan", "calc-hc2-48t", "calc-lk99", "numerics-bcs", "numerics-mcmillan", "numerics-hc2-48t", "numerics-lk99", "numerics-bcs-parity", "falsifier"]
+    let names: [str] = ["lattice", "cross-doc", "calc-bcs", "calc-mcmillan", "calc-hc2-48t", "calc-lk99", "numerics-bcs", "numerics-mcmillan", "numerics-hc2-48t", "numerics-lk99", "numerics-bcs-parity", "numerics-mcmillan-parity", "falsifier"]
     let mut passed = 0
     let mut failed = 0
     let mut i = 0
