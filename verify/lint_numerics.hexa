@@ -96,6 +96,9 @@ let NUMERICS_SCRIPTS: [str] = [
     "numerics_lk99.hexa",
     "numerics_lk99_parity.hexa",
     "numerics_lk99_solver.hexa",
+    "numerics_lk99_dft.hexa",
+    "numerics_tdgl_vortex.hexa",
+    "numerics_whh_full.hexa",
     "numerics_lattice_arithmetic.hexa",
 ]
 
