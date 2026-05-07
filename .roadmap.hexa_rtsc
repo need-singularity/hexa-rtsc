@@ -41,14 +41,22 @@ n=6 invariant lattice (§A.1) 는 도착지의 *correctness machinery* — 도�
 | Version | Date            | Status       | Highlights |
 |---------|-----------------|--------------|------------|
 | v1.0.0  | 2026-05-06      | RELEASED     | rtsc + sc 시드 + substrate-of-substrates cross-link 3개 (hexa-fusion / petite-cern / hexa-ufo) |
-| v1.1.0  | _planned 2026-09_ | TARGET     | RT-SC 후보 물질 catalog (LK-99, H3S, LaH10, YBCO, BSCCO, FeSe, infinite-layer nickelate, ...) 정리 spec |
-| v1.2.0  | _planned 2026-12_ | TARGET     | n=6 closed-form fit BCS coupling λ → T_c 예측 .hexa module |
-| v2.0.0  | _planned 2027-Q2_ | ASPIRATIONAL | RT-SC 실증 시 cross-verify with hexa-fusion 48 T coil 의존 (substrate-of-substrates 해소) |
+| v1.1.0  | 2026-05-08      | RSC code-layer FINAL on `main` | 18+ verify/ scripts (T1 ×6 + T2 ×9 + T2-solver ×4 + T3-archival ×6 + meta ×2). All 6 falsifiers 100% bookkeeping closure (T1 + T2 ×3 + T3 ×1). cli verify all 22/27 (5 pre-existing env fails). lint_numerics 92/92 PASS · falsifier_check 43/43 PASS. |
+| v1.2.0  | _planned 2026-12_ | TARGET     | n=6 closed-form fit BCS coupling λ → T_c 예측 .hexa module 보강 (T1/T2 within RSC; T3 still archival) |
+| v2.0.0  | _planned 2027-Q2_ | ASPIRATIONAL | Stage-1+ benchtop raw-data 합성/측정 (실제 LK-99 후보 합성 + 48 T REBCO coil 시제). **Out of RSC code-layer**; see §A.6. |
 
 ## §A.3 Cycle history
 
 - **cycle 1 (2026-05-06)**: v1.0.0 RELEASED — rtsc + sc 시드, 3-link
   substrate-of-substrates 도식 wired.
+- **cycle 2 (2026-05-07 ~ 2026-05-08)**: v1.1.0 RSC code-layer FINAL —
+  iter 1 ~ 19, recipe `~/core/bedrock/docs/runnable_surface_recipe.md`
+  적용. T1 ×6 (lattice + cross-doc + 4 calc) + T2 ×9 (4 numerics + 4
+  parity + lattice_arithmetic) + T2-solver ×4 (BCS / McMillan / Hc2 /
+  LK-99 Newton inversions) + T3-archival ×6 (arXiv 6-corpus 존재 검증)
+  + meta ×2 (falsifier_check + lint_numerics). 모든 6 falsifier
+  100% bookkeeping closure. recipe §7.2 sat-1 + sat-2 통과 후 user
+  override 로 §7.7 (a) 예외 발동, archival T3 추가.
 
 ## §A.4 Falsifier preregister
 
@@ -83,6 +91,60 @@ n=6 invariant lattice (§A.1) 는 도착지의 *correctness machinery* — 도�
 - **[UNDEFINED] negative-result 처리** — LK-99 재현 실패 catalog 에 어떤
   granularity (synthesis route / sample purity / measurement protocol) 까지
   기록할지 SLA 미정.
+- **[UNDEFINED] §A.6 Step-1 외부 collab 후보** — synthesis lab (NIMS /
+  Argonne MSD / 大阪大 / KIAS / SNU CMR) 중 1, 그리고 high-field magnet
+  lab (NHMFL / Dresden HZDR / Kyoto-RIKEN) 중 1 선정 시점.
+
+## §A.6 Stage-1+ hardware path  (post-RSC, **out of code-layer scope**)
+
+RSC (verify/* `.hexa`) 가 닫을 수 없는 영역. v1.1.0 100% closure 이후
+v2.0.0 까지의 하드웨어/외부-bound 단계. 본 path 는 `.hexa` 가 아니라
+funding · 외부 검증 · 실제 합성/측정 으로 진행.
+
+| step | 내용                                                                         | 시점 (목표)  | RSC 가능?         | 결과물                                                            |
+|:----:|:-----------------------------------------------------------------------------|:------------:|:-----------------:|:------------------------------------------------------------------|
+|  1   | 외부 collab 결정 (synthesis lab × 1 + high-field magnet lab × 1)              | 2026-Q3      | ✗                 | MOU / 합의서                                                       |
+|  2   | Funding round (high-pressure synthesis chamber + 48 T REBCO test rig + UPS/STM/INS suite) | 2026-Q4      | ✗                 | grant / 투자 commitment                                           |
+|  3   | Stage-1 시뮬레이션 parity (DFT/QSGW for LK-99 candidates · TDGL vortex solver · WHH full integral) | ~2026-12     | **부분 가능** (.hexa T2 보강) | numerics_lk99_dft.hexa, numerics_tdgl_vortex.hexa, simulation parity 보고서 |
+|  4   | Stage-2/3 실제 합성 + 측정 (years out: LK-99 candidate 후보 합성 → Tc/Meissner 측정, 48 T REBCO coil 시제) | ~2027-Q1+    | ✗                 | 펌웨어 · HDL · PCB · BOM · 캘리브레이션 로그 · raw shot 데이터 |
+
+Step 3 까지가 본 repo 가 직접 다룰 수 있는 마지막 layer. Step 1 / 2 / 4 는
+hardware-ops · 외부-stakeholder · multi-month 작업으로 cron / loop
+firing 으로 닫히지 않음. 본 §A.6 는 `tracking only` — 진행 시 Cycle
+항목 (§A.3) 에 cross-referenced.
+
+**현재 (2026-05-08) 상태**: 모든 step 미착수. v2.0.0 = 종이 위 설계.
+sc/superconductor.md + rtsc/room-temp-sc.md 가 빌드 후보 BOM 의 출발점.
+
+### §A.6.1 추천 작업 순서 (A → B → C → D)
+
+§A.6 step 1/2/4 가 외부-bound 인 동안에도 본 repo 안에서 진행 가능한
+사전 작업 4 단계. 펌웨어/HW 가 실제로 나오는 시점은 D 단계 이후이며,
+A → B → C 는 "v2.0.0 빌드 직전" 까지 본 repo 가 자체적으로 닫을 수
+있는 범위.
+
+| 단계 | 내용                                                                                                                                                                     | 결과물                                                                              | 외부 HW 필요? | RSC 가능?         | 가치                                                              |
+|:----:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------|:------------:|:-----------------:|:------------------------------------------------------------------|
+|  A   | **종이 설계 강화** — `doc/synthesis_bench_v0.md`, `doc/48t_rebco_coil_v0.md`, `doc/calorimetry_rig_v0.md` (풀 BOM + 블록 다이어그램 + 인터페이스 표 + 안전 명세)              | `.md` 1~3 개 + ASCII/TikZ 블록도                                                    | ✗            | ✓ docs-layer      | funding pitch deck 직전까지                                       |
+|  B   | **Stage-1 simulation parity** (= §A.6 Step 3) — DFT band-structure for LK-99 family · TDGL vortex dynamics solver · WHH full integral (truncated polynomial 보강)         | `verify/numerics_lk99_dft.hexa` · `verify/numerics_tdgl_vortex.hexa` · `verify/numerics_whh_full.hexa` 류 1~3 개 | ✗            | ✓ partial-RSC     | 외부 collab 미팅 카드 ("이미 simulation 검증")                    |
+|  C   | **Sim-펌웨어** — 합성-챔버 온도/압력 제어 + magnet quench-protection 회로를 sim-only 로 모델링, hardware-in-the-loop 없이 동작                                                | `firmware/sim/synthesis_ctrl.hexa` · `firmware/sim/quench_logic.hexa` (또는 `*.c` + cmocka) | ✗            | 부분 ✓            | 실제 MCU 펌웨어의 prototype layer                                  |
+|  D   | **HDL/MCU skeleton** — Verilog (FPGA quench-detection) + Rust/C (MCU synthesis-chamber driver). 컴파일은 되나 flash 할 보드 없음                                            | `firmware/hdl/quench_detect.v` · `firmware/mcu/chamber_drv.rs` + Vivado/Cargo-embedded 셋업 | ✗ (지금) / 나중에 ✓ | ✗ (toolchain layer) | toolchain 의존 무거움; 빌드 후 검증 불가                            |
+
+**추천 순서**: A → B → C → D.
+
+- A 는 1~2 commit (docs 만, RSC saturation 깨지 않음)
+- B 는 2~4 commit (.hexa 만, RSC 사다리 그대로)
+- C 는 새 디렉토리 (`firmware/sim/`) — 처음으로 .hexa 외 파일 추가 시작
+- D 는 본격 toolchain (vivado/cargo-embedded) — 실제 보드 살 시점에 다시
+
+#### 어디까지 갈지 (4 옵션)
+
+1. **A 만** — funding/collab 미팅 자료 수준. 1 일 작업.
+2. **A + B** — Stage-1 sim parity 까지. 외부 collab 에 "이미 simulation
+   검증됨" 카드 만들 수 있음. 2~3 일.
+3. **A + B + C** — sim-펌웨어까지. Stage-1 데모 가능 (모니터로 합성-챔버
+   온도 추적 시뮬). 1 주.
+4. **풀 D** — 실제 HW 살 시점에. 지금은 보류 권장 (검증 불가).
 
 ---
 
