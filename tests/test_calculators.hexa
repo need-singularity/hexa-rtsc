@@ -35,6 +35,12 @@ let CALCULATORS: [[str]] = [
     ["verify/numerics_mcmillan_solver.hexa",        "__HEXA_RTSC_NUMERICS_MCMILLAN_SOLVER__ PASS"],
     ["verify/numerics_hc2_48t_solver.hexa",         "__HEXA_RTSC_NUMERICS_HC2_48T_SOLVER__ PASS"],
     ["verify/numerics_lk99_solver.hexa",            "__HEXA_RTSC_NUMERICS_LK99_SOLVER__ PASS"],
+    ["verify/empirical_lk99_arxiv.hexa",                "__HEXA_RTSC_EMPIRICAL_LK99_ARXIV__ PASS"],
+    ["verify/empirical_mcmillan_arxiv.hexa",            "__HEXA_RTSC_EMPIRICAL_MCMILLAN_ARXIV__ PASS"],
+    ["verify/empirical_hc2_high_field_arxiv.hexa",      "__HEXA_RTSC_EMPIRICAL_HC2_HIGH_FIELD_ARXIV__ PASS"],
+    ["verify/empirical_bcs_cooper_arxiv.hexa",          "__HEXA_RTSC_EMPIRICAL_BCS_COOPER_ARXIV__ PASS"],
+    ["verify/empirical_abrikosov_sans_arxiv.hexa",      "__HEXA_RTSC_EMPIRICAL_ABRIKOSOV_SANS_ARXIV__ PASS"],
+    ["verify/empirical_specific_heat_arxiv.hexa",       "__HEXA_RTSC_EMPIRICAL_SPECIFIC_HEAT_ARXIV__ PASS"],
     ["verify/lint_numerics.hexa",                   "__HEXA_RTSC_LINT_NUMERICS__ PASS"],
 ]
 

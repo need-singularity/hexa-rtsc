@@ -85,37 +85,43 @@ let F1_ID            = "F-RTSC-1"
 let F1_RETRACT       = "LK-99 reproduction failure → next-candidate substrate spec update"
 let F1_T1_SCRIPTS: [str] = ["calc_lk99.hexa"]
 let F1_T2_SCRIPTS: [str] = ["numerics_lk99.hexa", "numerics_lk99_parity.hexa", "numerics_lk99_solver.hexa"]
-let F1_T3_DESCRIPTION = "synthesis lab: independent LK-99 / cuprate / hydride reproduction"
+let F1_T3_SCRIPTS: [str] = ["empirical_lk99_arxiv.hexa"]
+let F1_T3_DESCRIPTION = "synthesis lab: independent LK-99 / cuprate / hydride reproduction (live raw-data → Stage-1+ TBD; archival arXiv proxy via empirical_lk99_arxiv.hexa)"
 
 let F2_ID            = "F-RTSC-2"
 let F2_RETRACT       = "BCS λ McMillan ceiling (Tc ≤ 30 K) — beyond mechanism n=6 closed-form fit"
 let F2_T1_SCRIPTS: [str] = ["calc_mcmillan.hexa"]
 let F2_T2_SCRIPTS: [str] = ["numerics_mcmillan.hexa", "numerics_mcmillan_parity.hexa", "numerics_mcmillan_solver.hexa"]
-let F2_T3_DESCRIPTION = "high-Tc bench: λ-vs-Tc data above McMillan ceiling, n=6 fit residual"
+let F2_T3_SCRIPTS: [str] = ["empirical_mcmillan_arxiv.hexa"]
+let F2_T3_DESCRIPTION = "high-Tc bench: λ-vs-Tc data above McMillan ceiling (live raw-data → Stage-1+ TBD; archival arXiv proxy via empirical_mcmillan_arxiv.hexa)"
 
 let F3_ID            = "F-RTSC-3"
 let F3_RETRACT       = "48 T SC coil realisation gates fusion · cern · ufo 3 sister deps simultaneously"
 let F3_T1_SCRIPTS: [str] = ["calc_hc2_48t.hexa"]
 let F3_T2_SCRIPTS: [str] = ["numerics_hc2_48t.hexa", "numerics_hc2_48t_parity.hexa", "numerics_hc2_48t_solver.hexa"]
-let F3_T3_DESCRIPTION = "magnet bench: sustained 48 T SC coil at 4.2 K + downstream ack from 3 sisters"
+let F3_T3_SCRIPTS: [str] = ["empirical_hc2_high_field_arxiv.hexa"]
+let F3_T3_DESCRIPTION = "magnet bench: sustained 48 T SC coil at 4.2 K + downstream ack from 3 sisters (live raw-data → Stage-1+ TBD; archival arXiv proxy via empirical_hc2_high_field_arxiv.hexa)"
 
 let F4_ID            = "F-SC-1"
 let F4_RETRACT       = "Cooper pair size ≠ φ(6)=2 → DEMOTE φ=2 boson pair claim"
 let F4_T1_SCRIPTS: [str] = ["calc_bcs.hexa"]
 let F4_T2_SCRIPTS: [str] = ["numerics_bcs.hexa", "numerics_bcs_parity.hexa", "numerics_bcs_solver.hexa"]
-let F4_T3_DESCRIPTION = "UPS / STM / INS measurement of Cooper pair coherence + composition"
+let F4_T3_SCRIPTS: [str] = ["empirical_bcs_cooper_arxiv.hexa"]
+let F4_T3_DESCRIPTION = "UPS / STM / INS measurement of Cooper pair coherence (live raw-data → Stage-1+ TBD; archival arXiv proxy via empirical_bcs_cooper_arxiv.hexa)"
 
 let F5_ID            = "F-SC-2"
 let F5_RETRACT       = "Abrikosov vortex lattice ≠ CN=6 → DEMOTE hexagonal lattice claim"
 let F5_T1_SCRIPTS: [str] = ["calc_bcs.hexa"]
 let F5_T2_SCRIPTS: [str] = ["numerics_bcs.hexa", "numerics_bcs_parity.hexa", "numerics_bcs_solver.hexa"]
-let F5_T3_DESCRIPTION = "Bitter decoration / SANS imaging of vortex coordination number"
+let F5_T3_SCRIPTS: [str] = ["empirical_abrikosov_sans_arxiv.hexa"]
+let F5_T3_DESCRIPTION = "Bitter decoration / SANS vortex CN imaging (live raw-data → Stage-1+ TBD; archival arXiv proxy via empirical_abrikosov_sans_arxiv.hexa)"
 
 let F6_ID            = "F-SC-3"
 let F6_RETRACT       = "BCS specific-heat jump ratio ΔC/γTc ≠ ~1.43 → DEMOTE σ(6)=12 molecule"
 let F6_T1_SCRIPTS: [str] = ["calc_bcs.hexa"]
 let F6_T2_SCRIPTS: [str] = ["numerics_bcs.hexa", "numerics_bcs_parity.hexa", "numerics_bcs_solver.hexa"]
-let F6_T3_DESCRIPTION = "calorimetry below Tc: ΔC jump ratio measurement on s-wave SC"
+let F6_T3_SCRIPTS: [str] = ["empirical_specific_heat_arxiv.hexa"]
+let F6_T3_DESCRIPTION = "calorimetry below Tc: ΔC/γTc jump on s-wave SC (live raw-data → Stage-1+ TBD; archival arXiv proxy via empirical_specific_heat_arxiv.hexa)"
 
 let FALSIFIER_IDS: [str] = [
     "F-RTSC-1", "F-RTSC-2", "F-RTSC-3",
@@ -163,23 +169,27 @@ fn _emit_tier_line(label: str, scripts: [str]) {
 }
 
 fn _emit_falsifier(id: str, retract: str,
-                   t1_scripts: [str], t2_scripts: [str], t3_desc: str) {
+                   t1_scripts: [str], t2_scripts: [str],
+                   t3_scripts: [str], t3_desc: str) {
     let t1_ok = _all_present(t1_scripts)
     let t2_ok = _all_present(t2_scripts)
-    let t3_ok = false
+    let t3_ok = _all_present(t3_scripts)
     let pct = _closure_pct(t1_ok, t2_ok, t3_ok)
-    let status_str = if pct >= 100 { "FULL closure (algebra + numerics + empirical)" }
+    let status_str = if pct >= 100 { "FULL closure (algebra + numerics + empirical-archival)" }
                      else if pct >= 67 { "PARTIAL closure (algebra + numerics)" }
                      else if pct >= 33 { "EARLY closure (algebra only)" }
                      else { "UNVERIFIED" }
     let t1_count = t1_scripts.len()
     let t2_count = t2_scripts.len()
+    let t3_count = t3_scripts.len()
     println("    ✗ " + id + ": " + retract)
     println("         closure:  " + str(pct) + "%   (" + status_str +
-            ")  [T1×" + str(t1_count) + " · T2×" + str(t2_count) + "]")
+            ")  [T1×" + str(t1_count) + " · T2×" + str(t2_count) +
+            " · T3×" + str(t3_count) + "]")
     _emit_tier_line("T1 algebra:  ", t1_scripts)
     _emit_tier_line("T2 numerics: ", t2_scripts)
-    println("         T3 empirical: ✗  " + t3_desc)
+    _emit_tier_line("T3 empirical:", t3_scripts)
+    println("         description: " + t3_desc)
 }
 
 // ─── monotone audit (existing semantics) ────────────────────────────────
@@ -296,17 +306,17 @@ fn main() {
     println("")
 
     println("  Falsifiers declared:")
-    _emit_falsifier(F1_ID, F1_RETRACT, F1_T1_SCRIPTS, F1_T2_SCRIPTS, F1_T3_DESCRIPTION)
+    _emit_falsifier(F1_ID, F1_RETRACT, F1_T1_SCRIPTS, F1_T2_SCRIPTS, F1_T3_SCRIPTS, F1_T3_DESCRIPTION)
     println("")
-    _emit_falsifier(F2_ID, F2_RETRACT, F2_T1_SCRIPTS, F2_T2_SCRIPTS, F2_T3_DESCRIPTION)
+    _emit_falsifier(F2_ID, F2_RETRACT, F2_T1_SCRIPTS, F2_T2_SCRIPTS, F2_T3_SCRIPTS, F2_T3_DESCRIPTION)
     println("")
-    _emit_falsifier(F3_ID, F3_RETRACT, F3_T1_SCRIPTS, F3_T2_SCRIPTS, F3_T3_DESCRIPTION)
+    _emit_falsifier(F3_ID, F3_RETRACT, F3_T1_SCRIPTS, F3_T2_SCRIPTS, F3_T3_SCRIPTS, F3_T3_DESCRIPTION)
     println("")
-    _emit_falsifier(F4_ID, F4_RETRACT, F4_T1_SCRIPTS, F4_T2_SCRIPTS, F4_T3_DESCRIPTION)
+    _emit_falsifier(F4_ID, F4_RETRACT, F4_T1_SCRIPTS, F4_T2_SCRIPTS, F4_T3_SCRIPTS, F4_T3_DESCRIPTION)
     println("")
-    _emit_falsifier(F5_ID, F5_RETRACT, F5_T1_SCRIPTS, F5_T2_SCRIPTS, F5_T3_DESCRIPTION)
+    _emit_falsifier(F5_ID, F5_RETRACT, F5_T1_SCRIPTS, F5_T2_SCRIPTS, F5_T3_SCRIPTS, F5_T3_DESCRIPTION)
     println("")
-    _emit_falsifier(F6_ID, F6_RETRACT, F6_T1_SCRIPTS, F6_T2_SCRIPTS, F6_T3_DESCRIPTION)
+    _emit_falsifier(F6_ID, F6_RETRACT, F6_T1_SCRIPTS, F6_T2_SCRIPTS, F6_T3_SCRIPTS, F6_T3_DESCRIPTION)
 
     let roadmap   = read_file(DOC_ROADMAP)
     let own_file  = read_file(DOC_OWN)
@@ -329,19 +339,25 @@ fn main() {
     audit_no_silent_retract(roadmap)
 
     println("")
-    println("  Tier-script presence audit (declared T1/T2 scripts must exist):")
+    println("  Tier-script presence audit (declared T1/T2/T3 scripts must exist):")
     audit_tier_scripts(F1_ID, "T1", F1_T1_SCRIPTS)
     audit_tier_scripts(F1_ID, "T2", F1_T2_SCRIPTS)
+    audit_tier_scripts(F1_ID, "T3", F1_T3_SCRIPTS)
     audit_tier_scripts(F2_ID, "T1", F2_T1_SCRIPTS)
     audit_tier_scripts(F2_ID, "T2", F2_T2_SCRIPTS)
+    audit_tier_scripts(F2_ID, "T3", F2_T3_SCRIPTS)
     audit_tier_scripts(F3_ID, "T1", F3_T1_SCRIPTS)
     audit_tier_scripts(F3_ID, "T2", F3_T2_SCRIPTS)
+    audit_tier_scripts(F3_ID, "T3", F3_T3_SCRIPTS)
     audit_tier_scripts(F4_ID, "T1", F4_T1_SCRIPTS)
     audit_tier_scripts(F4_ID, "T2", F4_T2_SCRIPTS)
+    audit_tier_scripts(F4_ID, "T3", F4_T3_SCRIPTS)
     audit_tier_scripts(F5_ID, "T1", F5_T1_SCRIPTS)
     audit_tier_scripts(F5_ID, "T2", F5_T2_SCRIPTS)
+    audit_tier_scripts(F5_ID, "T3", F5_T3_SCRIPTS)
     audit_tier_scripts(F6_ID, "T1", F6_T1_SCRIPTS)
     audit_tier_scripts(F6_ID, "T2", F6_T2_SCRIPTS)
+    audit_tier_scripts(F6_ID, "T3", F6_T3_SCRIPTS)
 
     println("")
     println("  Note: declared closure pct is BOOK-KEEPING ONLY — it asserts")

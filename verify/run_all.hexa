@@ -27,6 +27,12 @@ let SCRIPTS: [str] = [
     "verify/numerics_mcmillan_solver.hexa",
     "verify/numerics_hc2_48t_solver.hexa",
     "verify/numerics_lk99_solver.hexa",
+    "verify/empirical_lk99_arxiv.hexa",
+    "verify/empirical_mcmillan_arxiv.hexa",
+    "verify/empirical_hc2_high_field_arxiv.hexa",
+    "verify/empirical_bcs_cooper_arxiv.hexa",
+    "verify/empirical_abrikosov_sans_arxiv.hexa",
+    "verify/empirical_specific_heat_arxiv.hexa",
     "verify/falsifier_check.hexa",
     "verify/lint_numerics.hexa",
 ]
