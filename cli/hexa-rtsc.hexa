@@ -122,9 +122,9 @@ fn cmd_status(a: [str]) {
     println("  verdict: SPEC_ONLY (0/2 verbs wired; 2/2 spec + falsifier preregister)")
     println("")
     println("  substrate-of-substrates downstream consumers:")
-    println("    need-singularity/hexa-fusion    (48T SC coil dep)")
-    println("    need-singularity/hexa-ufo       (Stage-1 Meissner levitation dep)")
-    println("    need-singularity/hexa-cern    (SC magnet dep)")
+    println("    dancinlab/hexa-fusion    (48T SC coil dep)")
+    println("    dancinlab/hexa-ufo       (Stage-1 Meissner levitation dep)")
+    println("    dancinlab/hexa-cern    (SC magnet dep)")
     println("")
     println("  drill into a verb:")
     println("    hexa-rtsc rtsc       (prints spec excerpt + falsifier table)")
@@ -308,9 +308,10 @@ fn cmd_verify(a: [str]) {
         "verify/lattice_check.hexa",
         "verify/cross_doc_audit.hexa",
         "verify/calc_bcs.hexa",
+        "verify/calc_mcmillan.hexa",
         "verify/falsifier_check.hexa",
     ]
-    let names: [str] = ["lattice", "cross-doc", "calc-bcs", "falsifier"]
+    let names: [str] = ["lattice", "cross-doc", "calc-bcs", "calc-mcmillan", "falsifier"]
     let mut passed = 0
     let mut failed = 0
     let mut i = 0
@@ -395,7 +396,7 @@ fn cmd_version() {
     println("hexa-rtsc " + VERSION)
     println("standalone Room-Temp Superconductor substrate (extracted from n6-architecture 2026-05-06)")
     println("license: MIT")
-    println("repo:    https://github.com/need-singularity/hexa-rtsc")
+    println("repo:    https://github.com/dancinlab/hexa-rtsc")
 }
 
 // ─── help ───

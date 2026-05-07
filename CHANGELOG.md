@@ -5,6 +5,43 @@ All notable changes to **hexa-rtsc** are documented here. Format follows
 
 ## [Unreleased]
 
+### Added (2026-05-07 — 2nd iteration · F-RTSC-2 T1 calc_mcmillan)
+
+Recipe ref: `~/core/bedrock/docs/runnable_surface_recipe.md` §7.4 priority #3
+(calc_<pillar> for next falsifier).
+
+- **`verify/calc_mcmillan.hexa`** (T1 algebraic, slot #4, pillar `rtsc`) —
+  closed-form derivation anchoring F-RTSC-2 (BCS λ McMillan ceiling Tc ≤ 30 K).
+  §8.1 Universal Cooper structure (exp arg = -(n/φ) = -3, cutoff 1/n = 1/6),
+  §8.3 λ regime ladder (weak ≤ 1/φ=0.5, mid ≤ 1, strong ≤ φ=2 unitarity),
+  Morel–Anderson μ* ≤ 1/sopfr=0.2, ceiling-ratio target/ceiling = 300/30 = 10
+  = σ−φ (miniaturisation factor), above-ceiling material catalog (YBCO 92K,
+  Hg-1223 138K, H₃S 203K, LaH₁₀ 250K → all > 30K, BCS-beyond active),
+  McMillan/Allen–Dynes prefactors {1.20, 1.45, 1.04, 0.62} structure, §8.1
+  phonon-free limit at λ_max = φ giving exp arg = -(n/φ)/φ = -3/2.
+  **35/35 PASS** · sentinel `__HEXA_RTSC_CALC_MCMILLAN__ PASS`.
+
+### Changed
+
+- `verify/falsifier_check.hexa`: F2_T1_SCRIPTS = ["calc_mcmillan.hexa"] →
+  F-RTSC-2 closure 0% → 33% (EARLY, algebra only). Total checks 22 → 23.
+- `verify/run_all.hexa`: SCRIPTS list 4 → 5 (calc_mcmillan added).
+- `cli/hexa-rtsc.hexa`: `verify` subcommand inventory 4 → 5.
+- `tests/test_calculators.hexa`: CALCULATORS row added (calc_mcmillan).
+- `tests/test_falsifier.hexa`: pass criterion 22/22 → 23/23.
+- `tests/test_verify.hexa`: pass criterion 4/4 → 5/5.
+
+### Closure progress (post iter 2)
+
+| Falsifier | T1 | T2 | T3 | closure |
+|-----------|----|----|----|---------|
+| F-RTSC-1  | ✗  | ✗  | ✗  | 0% UNVERIFIED |
+| F-RTSC-2  | ✓ calc_mcmillan | ✗ | ✗ | 33% EARLY (algebra only) |
+| F-RTSC-3  | ✗  | ✗  | ✗  | 0% UNVERIFIED |
+| F-SC-1    | ✓ calc_bcs | ✗ | ✗ | 33% EARLY (algebra only) |
+| F-SC-2    | ✓ calc_bcs | ✗ | ✗ | 33% EARLY (algebra only) |
+| F-SC-3    | ✓ calc_bcs | ✗ | ✗ | 33% EARLY (algebra only) |
+
 ### Added (2026-05-07 — 1st iteration · runnable surface bootstrap)
 
 Recipe ref: `~/core/bedrock/docs/runnable_surface_recipe.md` §1 (16-script
