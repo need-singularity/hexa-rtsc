@@ -5,6 +5,34 @@ All notable changes to **hexa-rtsc** are documented here. Format follows
 
 ## [Unreleased]
 
+### Added (2026-05-08 — 13th iteration · numerics_lattice_arithmetic · cross-cutter T2)
+
+- **`verify/numerics_lattice_arithmetic.hexa`** (T2 cross-cutter, slot #15,
+  shared across all hexa-* projects per recipe §6 invariant 5) — math_pure
+  precision-floor regression-lock for n=6 lattice. Asserts every n=6
+  anchor reproduces in float to 1e-9 relative error: master identity
+  σ·φ = n·τ = J₂ = 24, sqrt_pure(σ²)=σ round-trip, pow_pure chain (σ²=144,
+  σ³=1728, (σ-φ)²=100, (σ-φ)³=1000), log10 chain + multiplicativity,
+  exp/log round-trip, half-integer power σ^(3/2), Hc2=σ·τ=48 via float,
+  J₂²/σ = (2σ)²/(2n) (weekstone ③), pi_pure() floor, divisor ratios
+  (σ/τ = n/φ = 3 identity). **28/28 PASS** · sentinel
+  `__HEXA_RTSC_NUMERICS_LATTICE_ARITHMETIC__ PASS`.
+
+### Inventory milestone (post iter 13)
+
+verify/ inventory now has **15 scripts** out of 16-script standard:
+- T1 algebraic ×2 cross-cutters: lattice_check, cross_doc_audit
+- T1 calc_*: calc_bcs, calc_mcmillan, calc_hc2_48t, calc_lk99 (4)
+- T2 numerics_*: numerics_bcs, numerics_mcmillan, numerics_hc2_48t,
+  numerics_lk99, numerics_bcs_parity, numerics_mcmillan_parity,
+  numerics_hc2_48t_parity, numerics_lk99_parity (8)
+- T2 cross-cutter: numerics_lattice_arithmetic (1)
+- Meta: falsifier_check (1)
+- run_all aggregator (utility, not slot-counted)
+
+**Recipe §1 16-script slots**: 15 of 16 filled. Last missing: lint_numerics
+(slot #15 — meta, validates 5-invariant compliance).
+
 ### Added (2026-05-08 — 12th iteration · numerics_lk99_parity T2 ×2 · ALL F-RTSC AT T2×2)
 
 - **`verify/numerics_lk99_parity.hexa`** (T2 numerical, slot #14, pillar
