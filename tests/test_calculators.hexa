@@ -31,6 +31,7 @@ let CALCULATORS: [[str]] = [
     ["verify/numerics_hc2_48t_parity.hexa",   "__HEXA_RTSC_NUMERICS_HC2_48T_PARITY__ PASS"],
     ["verify/numerics_lk99_parity.hexa",            "__HEXA_RTSC_NUMERICS_LK99_PARITY__ PASS"],
     ["verify/numerics_lattice_arithmetic.hexa",     "__HEXA_RTSC_NUMERICS_LATTICE_ARITHMETIC__ PASS"],
+    ["verify/numerics_bcs_solver.hexa",             "__HEXA_RTSC_NUMERICS_BCS_SOLVER__ PASS"],
     ["verify/lint_numerics.hexa",                   "__HEXA_RTSC_LINT_NUMERICS__ PASS"],
 ]
 

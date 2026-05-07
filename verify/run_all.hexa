@@ -23,6 +23,7 @@ let SCRIPTS: [str] = [
     "verify/numerics_hc2_48t_parity.hexa",
     "verify/numerics_lk99_parity.hexa",
     "verify/numerics_lattice_arithmetic.hexa",
+    "verify/numerics_bcs_solver.hexa",
     "verify/falsifier_check.hexa",
     "verify/lint_numerics.hexa",
 ]

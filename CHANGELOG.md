@@ -5,6 +5,48 @@ All notable changes to **hexa-rtsc** are documented here. Format follows
 
 ## [Unreleased]
 
+### Added (2026-05-08 — 15th iteration · numerics_bcs_solver · F-SC T2 ×3 stack)
+
+- **`verify/numerics_bcs_solver.hexa`** (T2 numerical, recipe §1 slot #6
+  `numerics_<pillar>_solver`, third T2 leg on F-SC-1/2/3 simultaneously) —
+  Newton iteration on the BCS self-consistent gap equation
+  `g(x; λ) = x · sinh(1/λ) − 1 = 0`, root `x* = 1/sinh(1/λ)` matching
+  closed-form `Δ(0) = ℏω_D / sinh(1/λ)`. Verifies (a) Newton convergence
+  in ≤ 5 iterations across λ ∈ {0.3, 0.5, 1.0} to rel_err 1e-9; (b) seed-
+  independence of the root from x0 ∈ {0.01, 1.0, 5.0}; (c) reproduction
+  of BCS universal ratio `2Δ(0)/kTc = π · e^{-γ_E} · φ(6) ≈ 3.5279` in
+  weak-coupling limit (λ=0.2) within ±10 %; (d) inline sinh anchor
+  identity `sinh(0)=0`, `sinh(1)=1.1752`, `sinh(ln 2)=3/4`; (e) n=6
+  master identity σ·φ = n·τ = 24 + Hc2 = σ·τ = 48 reproduced in solver
+  scope. Implementation note: avoids `sinh_pure`/`sqrt_pure`/`pow_pure`
+  in helper-function context due to resource-host hexa_real
+  name-resolution flake — uses inline `(exp_pure(x)−exp_pure(−x))*0.5`.
+  **18/18 PASS** · sentinel `__HEXA_RTSC_NUMERICS_BCS_SOLVER__ PASS`.
+- `verify/run_all.hexa` SCRIPTS list 17 → 18 (+ numerics_bcs_solver).
+- `cli/hexa-rtsc.hexa` cmd_verify SCRIPTS + names list 17 → 18.
+- `tests/test_calculators.hexa` CALCULATORS list 14 → 15.
+- `tests/test_verify.hexa` aggregate count 17/17 → 18/18.
+- `verify/lint_numerics.hexa` NUMERICS_SCRIPTS 9 → 10 (registered
+  + drift-locked) — lint now reports **71/71 PASS** across 10 scripts.
+- `verify/falsifier_check.hexa` F4/F5/F6 T2_SCRIPTS arrays 2 → 3
+  (numerics_bcs + numerics_bcs_parity + numerics_bcs_solver) — F-SC-1/2/3
+  closure stack-depth lifts to T2 ×3.
+
+### Closure (post iter 15)
+
+| Falsifier | T1 | T2 stack | T3 | closure |
+|-----------|----|----|----|---------|
+| F-RTSC-1 | calc_lk99 | numerics_lk99 + _parity | TBD | 67% (T2 ×2) |
+| F-RTSC-2 | calc_mcmillan | numerics_mcmillan + _parity | TBD | 67% (T2 ×2) |
+| F-RTSC-3 | calc_hc2_48t | numerics_hc2_48t + _parity | TBD | 67% (T2 ×2) |
+| F-SC-1   | calc_bcs | numerics_bcs + _parity + **_solver** | TBD | 67% (T2 ×3 ✓) |
+| F-SC-2   | calc_bcs | numerics_bcs + _parity + **_solver** | TBD | 67% (T2 ×3 ✓) |
+| F-SC-3   | calc_bcs | numerics_bcs + _parity + **_solver** | TBD | 67% (T2 ×3 ✓) |
+
+F-SC family now at T2 ×3 stack. Recipe §7.3 sat-1 progress: 3 of 6
+falsifiers at full T2 ×3 stack-depth. Pending sat-1: F-RTSC-1/2/3 each
+need a 3rd T2 leg (numerics_*_solver counterparts).
+
 ### Added (2026-05-08 — 14th iteration · lint_numerics · meta tier slot #15 · 16-script standard COMPLETE)
 
 - **`verify/lint_numerics.hexa`** (meta tier, recipe §1 slot #15, recipe §4

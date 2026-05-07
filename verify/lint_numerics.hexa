@@ -86,6 +86,7 @@ fn _check(ok: bool, label: str, detail: str) {
 let NUMERICS_SCRIPTS: [str] = [
     "numerics_bcs.hexa",
     "numerics_bcs_parity.hexa",
+    "numerics_bcs_solver.hexa",
     "numerics_mcmillan.hexa",
     "numerics_mcmillan_parity.hexa",
     "numerics_hc2_48t.hexa",

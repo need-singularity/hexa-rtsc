@@ -320,10 +320,11 @@ fn cmd_verify(a: [str]) {
         "verify/numerics_hc2_48t_parity.hexa",
         "verify/numerics_lk99_parity.hexa",
         "verify/numerics_lattice_arithmetic.hexa",
+        "verify/numerics_bcs_solver.hexa",
         "verify/falsifier_check.hexa",
         "verify/lint_numerics.hexa",
     ]
-    let names: [str] = ["lattice", "cross-doc", "calc-bcs", "calc-mcmillan", "calc-hc2-48t", "calc-lk99", "numerics-bcs", "numerics-mcmillan", "numerics-hc2-48t", "numerics-lk99", "numerics-bcs-parity", "numerics-mcmillan-parity", "numerics-hc2-48t-parity", "numerics-lk99-parity", "numerics-lattice-arithmetic", "falsifier", "lint-numerics"]
+    let names: [str] = ["lattice", "cross-doc", "calc-bcs", "calc-mcmillan", "calc-hc2-48t", "calc-lk99", "numerics-bcs", "numerics-mcmillan", "numerics-hc2-48t", "numerics-lk99", "numerics-bcs-parity", "numerics-mcmillan-parity", "numerics-hc2-48t-parity", "numerics-lk99-parity", "numerics-lattice-arithmetic", "numerics-bcs-solver", "falsifier", "lint-numerics"]
     let mut passed = 0
     let mut failed = 0
     let mut i = 0
