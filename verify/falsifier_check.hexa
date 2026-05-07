@@ -96,7 +96,7 @@ let F2_T3_DESCRIPTION = "high-Tc bench: λ-vs-Tc data above McMillan ceiling, n=
 let F3_ID            = "F-RTSC-3"
 let F3_RETRACT       = "48 T SC coil realisation gates fusion · cern · ufo 3 sister deps simultaneously"
 let F3_T1_SCRIPTS: [str] = ["calc_hc2_48t.hexa"]
-let F3_T2_SCRIPTS: [str] = ["numerics_hc2_48t.hexa", "numerics_hc2_48t_parity.hexa"]
+let F3_T2_SCRIPTS: [str] = ["numerics_hc2_48t.hexa", "numerics_hc2_48t_parity.hexa", "numerics_hc2_48t_solver.hexa"]
 let F3_T3_DESCRIPTION = "magnet bench: sustained 48 T SC coil at 4.2 K + downstream ack from 3 sisters"
 
 let F4_ID            = "F-SC-1"

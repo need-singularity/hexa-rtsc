@@ -5,6 +5,45 @@ All notable changes to **hexa-rtsc** are documented here. Format follows
 
 ## [Unreleased]
 
+### Added (2026-05-08 — 17th iteration · numerics_hc2_48t_solver · F-RTSC-3 T2 ×3 stack)
+
+- **`verify/numerics_hc2_48t_solver.hexa`** (T2 numerical, recipe §1
+  slot #6, third T2 leg on F-RTSC-3) — Newton inversion of Hc2(T) WHH
+  truncated polynomial. Forward:
+  `Hc2(t)/Hc2(0) = 1 − 1.07 t² + 0.33 t⁴ − 0.05 t⁶`, t = T/Tc.
+  Inverse: solve `g(t) = WHH(t) − Hc2_target/Hc2(0) = 0` for operating
+  T given target Hc2 = 48 T (n=6 master gate σ·τ). Cohort: NbTi
+  (Hc2(0)=14.5 T) / Nb₃Sn (28 T) / MgB₂ (16 T) / REBCO (100 T).
+  Verifies (a) admissibility classification: NbTi/Nb₃Sn/MgB₂ correctly
+  report no-real-root for 48 T (Hc2(0) < 48 T); REBCO Newton converges
+  in 4 iters to T_op ≈ 70.9 K with forward-substitution rel_err = 0.
+  (b) WHH polynomial envelope: WHH(0)=1 anchor, WHH(0.5)≈0.752 mid-
+  range, monotone-decreasing on t ∈ [0.3, 0.9]. (c) n=6 master gate
+  σ·τ = 48 T in solver scope. **11/11 PASS** · sentinel
+  `__HEXA_RTSC_NUMERICS_HC2_48T_SOLVER__ PASS`.
+- `verify/run_all.hexa` SCRIPTS list 19 → 20 (+ numerics_hc2_48t_solver).
+- `cli/hexa-rtsc.hexa` cmd_verify SCRIPTS + names list 19 → 20.
+- `tests/test_calculators.hexa` CALCULATORS list 16 → 17.
+- `tests/test_verify.hexa` aggregate count 19/19 → 20/20.
+- `verify/lint_numerics.hexa` NUMERICS_SCRIPTS 11 → 12 (now **85/85
+  PASS** across 12 scripts).
+- `verify/falsifier_check.hexa` F3_T2_SCRIPTS array 2 → 3 — F-RTSC-3
+  closure stack-depth lifts to T2 ×3.
+
+### Closure (post iter 17)
+
+| Falsifier | T1 | T2 stack | T3 | closure |
+|-----------|----|----|----|---------|
+| F-RTSC-1 | calc_lk99 | numerics_lk99 + _parity | TBD | 67% (T2 ×2) |
+| F-RTSC-2 | calc_mcmillan | numerics_mcmillan + _parity + _solver | TBD | 67% (T2 ×3 ✓) |
+| F-RTSC-3 | calc_hc2_48t | numerics_hc2_48t + _parity + **_solver** | TBD | 67% (T2 ×3 ✓) |
+| F-SC-1   | calc_bcs | numerics_bcs + _parity + _solver | TBD | 67% (T2 ×3 ✓) |
+| F-SC-2   | calc_bcs | numerics_bcs + _parity + _solver | TBD | 67% (T2 ×3 ✓) |
+| F-SC-3   | calc_bcs | numerics_bcs + _parity + _solver | TBD | 67% (T2 ×3 ✓) |
+
+Sat-1 progress: **5/6** falsifiers at T2 ×3 stack-depth. Pending: only
+F-RTSC-1 (LK-99) needs a 3rd T2 leg.
+
 ### Added (2026-05-08 — 16th iteration · numerics_mcmillan_solver · F-RTSC-2 T2 ×3 stack)
 
 - **`verify/numerics_mcmillan_solver.hexa`** (T2 numerical, recipe §1
