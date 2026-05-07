@@ -1,10 +1,16 @@
 #!hexa strict
-// tests/test_falsifier.hexa — exercise verify/falsifier_check.hexa monotonicity.
+// tests/test_falsifier.hexa — exercise verify/falsifier_check.hexa monotonicity
+// + tier-script presence audit.
 //
-// Pass criterion: 19/19 checks passed from verify/falsifier_check.hexa.
+// Pass criterion: 22/22 checks passed + __HEXA_RTSC_FALSIFIER__ PASS sentinel.
+// Composition:
+//   6 (roadmap §A.4 row+status) + 6 (.own own 2 mirror) + 6 (cli surface)
+//   + 1 (banned-status / silent-retract) + 3 (F-SC-{1,2,3} T1=calc_bcs.hexa)
+//   = 22.
 // Catches:
-//   - missing F-RTSC-{1,2,3} or F-SC-{1,2,3} ID in any of: cli / roadmap / .own
-//   - banned status tokens (RETRACTED / WITHDRAWN / ...) sneaked into a row
+//   - missing F-RTSC-{1,2,3} / F-SC-{1,2,3} ID in cli / roadmap / .own
+//   - banned status tokens (RETRACTED / WITHDRAWN / PENDING / TBD) on rows
+//   - declared tier script (Fk_T*_SCRIPTS) missing on disk
 //
 // Run:
 //     hexa run tests/test_falsifier.hexa
@@ -17,11 +23,15 @@ fn main() {
     if root.len() > 0 { p = root + "/verify/falsifier_check.hexa" }
 
     let raw = exec("hexa run " + p + " 2>&1")
-    if raw.contains("19/19 checks passed") {
-        println("test_falsifier: PASS  (verify/falsifier_check.hexa 19/19)")
+    let count_ok = raw.contains("22/22 checks passed")
+    let sentinel_ok = raw.contains("__HEXA_RTSC_FALSIFIER__ PASS")
+    if count_ok && sentinel_ok {
+        println("test_falsifier: PASS  (verify/falsifier_check.hexa 22/22 + sentinel)")
         return
     }
     println("test_falsifier: FAIL")
+    if !count_ok    { println("  · missing '22/22 checks passed'") }
+    if !sentinel_ok { println("  · missing '__HEXA_RTSC_FALSIFIER__ PASS'") }
     println(raw.trim())
     exit(1)
 }

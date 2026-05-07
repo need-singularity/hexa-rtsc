@@ -1,0 +1,48 @@
+#!hexa strict
+// tests/test_calculators.hexa — exercise verify/calc_*.hexa + numerics_*.hexa
+// regression set (T1 algebraic + T2 numerical tier).
+//
+// Pass criterion: each registered (filename, sentinel) pair runs to exit 0
+// AND emits its sentinel string. Sentinel form: __HEXA_RTSC_<NAME>__ PASS.
+//
+// Inventory (grows per iteration of docs/runnable_surface_recipe.md):
+//   verify/calc_bcs.hexa             __HEXA_RTSC_CALC_BCS__ PASS    (T1, F-SC-1/2/3)
+//
+// Run:
+//     hexa run tests/test_calculators.hexa
+//
+// Authority: own 1 (n=6 lattice) + recipe T1/T2 closure-progression contract.
+
+let CALCULATORS: [[str]] = [
+    ["verify/calc_bcs.hexa", "__HEXA_RTSC_CALC_BCS__ PASS"],
+]
+
+fn main() {
+    let root_env = env("HEXA_RTSC_ROOT")
+    let mut prefix = ""
+    if root_env.len() > 0 { prefix = root_env + "/" }
+
+    let mut passed = 0
+    let mut failed = 0
+    let mut i = 0
+    while i < CALCULATORS.len() {
+        let entry = CALCULATORS[i]
+        let path = prefix + entry[0]
+        let sentinel = entry[1]
+        let raw = exec("hexa run " + path + " 2>&1")
+        if raw.contains(sentinel) {
+            println("test_calculators: PASS  (" + entry[0] + " :: " + sentinel + ")")
+            passed = passed + 1
+        } else {
+            println("test_calculators: FAIL  (" + entry[0] + ")")
+            println("  expected sentinel: " + sentinel)
+            println(raw.trim())
+            failed = failed + 1
+        }
+        i = i + 1
+    }
+    let total = passed + failed
+    println("")
+    println("test_calculators: " + str(passed) + "/" + str(total) + " sentinels matched")
+    if failed > 0 { exit(1) }
+}

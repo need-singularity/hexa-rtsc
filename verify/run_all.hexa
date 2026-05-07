@@ -10,6 +10,7 @@
 let SCRIPTS: [str] = [
     "verify/lattice_check.hexa",
     "verify/cross_doc_audit.hexa",
+    "verify/calc_bcs.hexa",
     "verify/falsifier_check.hexa",
 ]
 

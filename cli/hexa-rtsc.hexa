@@ -307,9 +307,10 @@ fn cmd_verify(a: [str]) {
     let scripts: [str] = [
         "verify/lattice_check.hexa",
         "verify/cross_doc_audit.hexa",
+        "verify/calc_bcs.hexa",
         "verify/falsifier_check.hexa",
     ]
-    let names: [str] = ["lattice", "cross-doc", "falsifier"]
+    let names: [str] = ["lattice", "cross-doc", "calc-bcs", "falsifier"]
     let mut passed = 0
     let mut failed = 0
     let mut i = 0

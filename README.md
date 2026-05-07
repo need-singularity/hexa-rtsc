@@ -24,9 +24,9 @@
 `hexa-rtsc` is the **substrate-of-substrates**: the n=6 base substrate that
 three sister substrates depend on:
 
-- **need-singularity/hexa-fusion** — needs **48T SC coil** (σ·τ=48 satisfies confinement gate)
-- **need-singularity/hexa-ufo** — needs **Stage-1 Meissner levitation** (B-field expulsion)
-- **need-singularity/hexa-cern** — needs **SC magnet** (accelerator beamline bending)
+- **dancinlab/hexa-fusion** — needs **48T SC coil** (σ·τ=48 satisfies confinement gate)
+- **dancinlab/hexa-ufo** — needs **Stage-1 Meissner levitation** (B-field expulsion)
+- **dancinlab/hexa-cern** — needs **SC magnet** (accelerator beamline bending)
 
 If RT-SC is empirically realised, all three downstream substrates unlock at
 once: tabletop fusion, room-temp magnetic levitation, and benchtop accelerator
@@ -106,7 +106,7 @@ Falsifier preregister:
 ### Via `hx` (recommended)
 
 ```bash
-hx install hexa-rtsc          # bare-name → resolves need-singularity/hexa-rtsc
+hx install hexa-rtsc          # bare-name → resolves dancinlab/hexa-rtsc
 hx install /path/to/hexa-rtsc # local path — entry auto-detected from hexa.toml
 hexa-rtsc --version           # → 1.0.0
 ```
@@ -118,7 +118,7 @@ hexa-rtsc --version           # → 1.0.0
 ### Via git clone
 
 ```bash
-git clone https://github.com/need-singularity/hexa-rtsc.git ~/.hexa-rtsc
+git clone https://github.com/dancinlab/hexa-rtsc.git ~/.hexa-rtsc
 export HEXA_RTSC_ROOT=~/.hexa-rtsc
 export PATH="$HEXA_RTSC_ROOT/cli:$PATH"
 
@@ -208,9 +208,9 @@ table rows missing) which was corrected in the same cycle.
 `hexa-rtsc` is the n=6 base substrate; the following sister substrates
 depend on it:
 
-- [need-singularity/hexa-fusion](https://github.com/need-singularity/hexa-fusion) — 48T SC coil dependency (σ·τ=48 confinement gate)
-- [need-singularity/hexa-ufo](https://github.com/need-singularity/hexa-ufo) — Stage-1 Meissner levitation dependency (B-field expulsion)
-- [need-singularity/hexa-cern](https://github.com/need-singularity/hexa-cern) — SC magnet dependency (accelerator beamline bending)
+- [dancinlab/hexa-fusion](https://github.com/dancinlab/hexa-fusion) — 48T SC coil dependency (σ·τ=48 confinement gate)
+- [dancinlab/hexa-ufo](https://github.com/dancinlab/hexa-ufo) — Stage-1 Meissner levitation dependency (B-field expulsion)
+- [dancinlab/hexa-cern](https://github.com/dancinlab/hexa-cern) — SC magnet dependency (accelerator beamline bending)
 
 Their working status is upper-bounded by RT-SC empirical realisation. If
 this substrate stays in SPEC_ONLY status, all three downstream substrates
@@ -275,7 +275,7 @@ per `.own` own 3 + `doc/lineage/origin.md` migration plan.
 - Structural pattern (.own + README.ai.md + verify/ + doc/lineage/)
   aligned to `hexa-sscb` mk2 own_v1 on 2026-05-07.
 - Sister-of-substrates extraction template: `hexa-bio` v1.0.0
-  (need-singularity/hexa-bio, 2026-05-04).
+  (dancinlab/hexa-bio, 2026-05-04).
 - Full file-by-file provenance: [`doc/lineage/origin.md`](doc/lineage/origin.md).
 
 ---
@@ -288,9 +288,9 @@ MIT. See [LICENSE](LICENSE).
 
 ## Cross-links
 
-- Sister standalone: [`hexa-bio v1.0.0`](https://github.com/need-singularity/hexa-bio) (Molecular Toolkit substrate)
-- Downstream consumer: [`hexa-fusion`](https://github.com/need-singularity/hexa-fusion) (48T SC coil dep)
-- Downstream consumer: [`hexa-ufo`](https://github.com/need-singularity/hexa-ufo) (Meissner levitation dep)
-- Downstream consumer: [`hexa-cern`](https://github.com/need-singularity/hexa-cern) (SC magnet dep)
+- Sister standalone: [`hexa-bio v1.0.0`](https://github.com/dancinlab/hexa-bio) (Molecular Toolkit substrate)
+- Downstream consumer: [`hexa-fusion`](https://github.com/dancinlab/hexa-fusion) (48T SC coil dep)
+- Downstream consumer: [`hexa-ufo`](https://github.com/dancinlab/hexa-ufo) (Meissner levitation dep)
+- Downstream consumer: [`hexa-cern`](https://github.com/dancinlab/hexa-cern) (SC magnet dep)
 - Upstream concept SSOT: `n6-architecture/domains/energy/room-temp-sc/room-temp-sc.md`
 - Upstream concept SSOT: `n6-architecture/domains/energy/superconductor/superconductor.md`

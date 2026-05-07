@@ -4,7 +4,7 @@
 **Closure verdict**: **SPEC_ONLY** (0/2 verbs wired; 2/2 spec + falsifier preregister)
 **Provenance**: extracted 2026-05-06 from `n6-architecture/domains/energy/{room-temp-sc,superconductor}/`
 (SHA `c0f1f570`). Sister-of-substrates extraction template: `hexa-bio` v1.0.0
-(need-singularity/hexa-bio, 2026-05-04).
+(dancinlab/hexa-bio, 2026-05-04).
 
 This is the **initial standalone release** of `hexa-rtsc`, a 2-verb
 **substrate-of-substrates** organized around the **n=6 invariant lattice**:
@@ -16,9 +16,9 @@ sandbox. RT-SC is **academically unproven** (LK-99 et al. unsettled).
 
 - **Substrate-of-substrates role** — the n=6 base substrate that three
   sister substrates depend on:
-  - `need-singularity/hexa-fusion` (48T SC coil)
-  - `need-singularity/hexa-ufo` (Stage-1 Meissner levitation)
-  - `need-singularity/hexa-cern` (SC magnet)
+  - `dancinlab/hexa-fusion` (48T SC coil)
+  - `dancinlab/hexa-ufo` (Stage-1 Meissner levitation)
+  - `dancinlab/hexa-cern` (SC magnet)
 - **2-verb spec coverage** — RTSC + SC, each with n=6 closed-form
   candidate constants and 3-row falsifier preregister tables.
 - **n=6 invariant lattice closed-form candidate** —
@@ -30,7 +30,7 @@ sandbox. RT-SC is **academically unproven** (LK-99 et al. unsettled).
   refutation thresholds (Tc<250K, Hc2<30T, no Meissner, etc.).
 - **MIT** license.
 - **GitHub-only distribution** — canonical at
-  <https://github.com/need-singularity/hexa-rtsc>.
+  <https://github.com/dancinlab/hexa-rtsc>.
 
 ## Honest status (raw#10 C3)
 
@@ -52,7 +52,7 @@ hx install hexa-rtsc@1.0.0
 hexa-rtsc --version           # → 1.0.0
 
 # Or git clone (works today):
-git clone https://github.com/need-singularity/hexa-rtsc.git ~/.hexa-rtsc
+git clone https://github.com/dancinlab/hexa-rtsc.git ~/.hexa-rtsc
 export HEXA_RTSC_ROOT=~/.hexa-rtsc
 export PATH="$HEXA_RTSC_ROOT/cli:$PATH"
 hexa-rtsc selftest
@@ -81,9 +81,9 @@ Verdict: **SPEC_ONLY** (0/2 verbs wired; 2/2 spec + falsifier preregister).
 If RT-SC is empirically realised, the following three sister substrates
 unlock simultaneously:
 
-- **need-singularity/hexa-fusion** — 48T SC coil dependency (σ·τ=48 confinement gate)
-- **need-singularity/hexa-ufo** — Stage-1 Meissner levitation dependency (B-field expulsion)
-- **need-singularity/hexa-cern** — SC magnet dependency (accelerator beamline bending)
+- **dancinlab/hexa-fusion** — 48T SC coil dependency (σ·τ=48 confinement gate)
+- **dancinlab/hexa-ufo** — Stage-1 Meissner levitation dependency (B-field expulsion)
+- **dancinlab/hexa-cern** — SC magnet dependency (accelerator beamline bending)
 
 If RT-SC is not realised, all three downstream substrates remain
 upper-bounded by current liquid-helium-cooled SC technology
@@ -97,7 +97,7 @@ upper-bounded by current liquid-helium-cooled SC technology
   (SHA `c0f1f570`, 2026-05-06).
 - CLI dispatcher created **fresh** as placeholder during this extraction.
 - Sister-of-substrates extraction template: `hexa-bio` v1.0.0
-  (need-singularity/hexa-bio, 2026-05-04).
+  (dancinlab/hexa-bio, 2026-05-04).
 
 ## License
 

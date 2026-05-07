@@ -15,7 +15,7 @@
   - Hc2 ≡ σ·τ = 48 T (critical magnetic field gate)
   - master identity: σ·φ = n·τ = 24 (J₂ Mathieu/Leech symmetry)
 - **Parent (canonical SSOT)**: `n6-architecture/domains/energy/{room-temp-sc,superconductor}/`
-- **Distribution**: `https://github.com/need-singularity/hexa-rtsc` (public)
+- **Distribution**: `https://github.com/dancinlab/hexa-rtsc` (public)
 
 ## Hierarchy (canonical pattern, v1.0.0 + v1.1.0 target)
 

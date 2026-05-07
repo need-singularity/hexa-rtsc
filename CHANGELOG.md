@@ -3,6 +3,50 @@
 All notable changes to **hexa-rtsc** are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and SemVer.
 
+## [Unreleased]
+
+### Added (2026-05-07 — 1st iteration · runnable surface bootstrap)
+
+Recipe ref: `~/core/bedrock/docs/runnable_surface_recipe.md` §1 (16-script
+inventory) + §2 (7-step cycle). closure-depth accumulation begin.
+
+- **`verify/calc_bcs.hexa`** (T1 algebraic, slot #3, pillar `sc`) — closed-form
+  derivation anchoring F-SC-{1,2,3}: Cooper pair φ(6)=2, Abrikosov CN=6,
+  BCS specific-heat molecule σ(6)=12. Live divisor-function lattice
+  (σ/τ/φ/sopfr/J₂), master identity σ·φ = n·τ = 24, §8.1 Universal Cooper
+  index n/φ=3, §8.2 closure section [φ, σ/φ]=[2,6] verified for BCS s-wave
+  (3.528) / d-wave (4.3) / Allen–Dynes (5.3), §8.3 λ regime ladder + μ*
+  ceiling 1/sopfr=0.2. **32/32 PASS** · sentinel `__HEXA_RTSC_CALC_BCS__ PASS`.
+- **`verify/falsifier_check.hexa`** refactored from monotone-audit to combined
+  closure-progress tracker (recipe §1 slot #14, §3 closure-pct ladder).
+  Each falsifier (F-RTSC-{1,2,3} + F-SC-{1,2,3}) now emits T1/T2/T3 tier
+  status + closure pct (0/33/67/100). F-SC-{1,2,3} at 33% (T1 = calc_bcs);
+  F-RTSC-{1,2,3} at 0% (no T1 yet). Existing monotone-audit (roadmap §A.4
+  row+status / .own own 2 mirror / cli surface / banned-status) retained.
+  **22/22 PASS** · sentinel `__HEXA_RTSC_FALSIFIER__ PASS`.
+- **`tests/test_calculators.hexa`** (recipe §1 build/tests) — registered
+  (filename, sentinel) for calc_bcs.hexa; grows per future calc_/numerics_
+  iteration.
+
+### Changed
+
+- `verify/run_all.hexa`: SCRIPTS list 3 → 4 (calc_bcs added).
+- `cli/hexa-rtsc.hexa`: `verify` subcommand inventory 3 → 4 (calc_bcs added).
+- `tests/test_falsifier.hexa`: pass criterion 19/19 → 22/22 + sentinel match.
+- `tests/test_verify.hexa`: pass criterion 3/3 → 4/4.
+- `hexa.toml` `[test].files`: `tests/test_calculators.hexa` registered.
+
+### Closure progress (recipe §3, post-iter-1)
+
+| Falsifier | T1 | T2 | T3 | closure |
+|-----------|----|----|----|---------|
+| F-RTSC-1  | ✗  | ✗  | ✗  | 0% UNVERIFIED |
+| F-RTSC-2  | ✗  | ✗  | ✗  | 0% UNVERIFIED |
+| F-RTSC-3  | ✗  | ✗  | ✗  | 0% UNVERIFIED |
+| F-SC-1    | ✓ calc_bcs | ✗ | ✗ | 33% EARLY (algebra only) |
+| F-SC-2    | ✓ calc_bcs | ✗ | ✗ | 33% EARLY (algebra only) |
+| F-SC-3    | ✓ calc_bcs | ✗ | ✗ | 33% EARLY (algebra only) |
+
 ## [1.0.0] — 2026-05-06
 
 ### Added
@@ -35,8 +79,8 @@ All notable changes to **hexa-rtsc** are documented here. Format follows
 
 ### Substrate-of-substrates downstream consumers
 
-- `need-singularity/hexa-fusion` — 48T SC coil dependency
-- `need-singularity/hexa-ufo` — Stage-1 Meissner levitation dependency
-- `need-singularity/hexa-cern` — SC magnet dependency
+- `dancinlab/hexa-fusion` — 48T SC coil dependency
+- `dancinlab/hexa-ufo` — Stage-1 Meissner levitation dependency
+- `dancinlab/hexa-cern` — SC magnet dependency
 
-[1.0.0]: https://github.com/need-singularity/hexa-rtsc/releases/tag/v1.0.0
+[1.0.0]: https://github.com/dancinlab/hexa-rtsc/releases/tag/v1.0.0

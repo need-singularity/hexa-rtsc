@@ -18,7 +18,7 @@ traced back to (or propagated upstream to) the source-of-truth.
 - Extraction date: 2026-05-06
 - Extraction SHA: `c0f1f570`
 - Extractor: sister-of-substrates extraction following the `hexa-bio`
-  v1.0.0 template (`need-singularity/hexa-bio` 2026-05-04).
+  v1.0.0 template (`dancinlab/hexa-bio` 2026-05-04).
 
 ## File-by-file provenance
 
@@ -51,7 +51,7 @@ traced back to (or propagated upstream to) the source-of-truth.
 ## Sister-of-substrates extraction template
 
 The extraction template was inherited from sibling `hexa-bio` v1.0.0
-(2026-05-04, `need-singularity/hexa-bio`):
+(2026-05-04, `dancinlab/hexa-bio`):
 
 | Sibling | Axis | Extracted | Verbs |
 |---|---|---|---|
