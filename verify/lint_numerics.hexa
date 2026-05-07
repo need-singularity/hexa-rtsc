@@ -89,6 +89,7 @@ let NUMERICS_SCRIPTS: [str] = [
     "numerics_bcs_solver.hexa",
     "numerics_mcmillan.hexa",
     "numerics_mcmillan_parity.hexa",
+    "numerics_mcmillan_solver.hexa",
     "numerics_hc2_48t.hexa",
     "numerics_hc2_48t_parity.hexa",
     "numerics_lk99.hexa",
