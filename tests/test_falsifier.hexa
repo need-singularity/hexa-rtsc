@@ -1,0 +1,27 @@
+#!hexa strict
+// tests/test_falsifier.hexa — exercise verify/falsifier_check.hexa monotonicity.
+//
+// Pass criterion: 19/19 checks passed from verify/falsifier_check.hexa.
+// Catches:
+//   - missing F-RTSC-{1,2,3} or F-SC-{1,2,3} ID in any of: cli / roadmap / .own
+//   - banned status tokens (RETRACTED / WITHDRAWN / ...) sneaked into a row
+//
+// Run:
+//     hexa run tests/test_falsifier.hexa
+//
+// Authority: own 2 (RT-SC empirical-unproven contractual + falsifier monotone).
+
+fn main() {
+    let root = env("HEXA_RTSC_ROOT")
+    let mut p = "verify/falsifier_check.hexa"
+    if root.len() > 0 { p = root + "/verify/falsifier_check.hexa" }
+
+    let raw = exec("hexa run " + p + " 2>&1")
+    if raw.contains("19/19 checks passed") {
+        println("test_falsifier: PASS  (verify/falsifier_check.hexa 19/19)")
+        return
+    }
+    println("test_falsifier: FAIL")
+    println(raw.trim())
+    exit(1)
+}

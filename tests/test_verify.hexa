@@ -1,0 +1,23 @@
+#!hexa strict
+// tests/test_verify.hexa — exercise verify/run_all.hexa (3 invariant audits).
+//
+// Pass criterion: "3/3 scripts passed" from verify/run_all.hexa.
+// Run:
+//     hexa run tests/test_verify.hexa
+//
+// Authority: own 1 (lattice), own 2 (falsifier), own 3 (code-scope).
+
+fn main() {
+    let root = env("HEXA_RTSC_ROOT")
+    let mut p = "verify/run_all.hexa"
+    if root.len() > 0 { p = root + "/verify/run_all.hexa" }
+
+    let raw = exec("hexa run " + p + " 2>&1")
+    if raw.contains("3/3 scripts passed") {
+        println("test_verify: PASS  (verify/run_all.hexa 3/3)")
+        return
+    }
+    println("test_verify: FAIL")
+    println(raw.trim())
+    exit(1)
+}

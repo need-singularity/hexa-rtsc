@@ -26,6 +26,9 @@ path = "cli/hexa-rtsc.hexa"
 runner = "hexa"
 files = [
     "tests/test_selftest.hexa",
+    "tests/test_lattice.hexa",
+    "tests/test_verify.hexa",
+    "tests/test_falsifier.hexa",
 ]
 
 # ── hx install hook ───────────────────────────────────────

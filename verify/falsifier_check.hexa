@@ -1,0 +1,162 @@
+#!hexa strict
+// hexa-rtsc/verify/falsifier_check.hexa — falsifier preregister monotone audit.
+//
+// Sister of hexa-sscb/verify (FALSIFIERS sentinel list in sscb_verify.py).
+//
+// Per .own own 2 contract: F-RTSC-{1,2,3} + F-SC-{1,2,3} are MONOTONE — they
+// flip OPEN → CONFIRMED or OPEN → DEMOTED but never silently retract.
+// This script audits:
+//
+//   1. Each falsifier ID appears with status token (OPEN / CONFIRMED / DEMOTED)
+//      in .roadmap.hexa_rtsc §A.4.
+//   2. Status set is exactly {OPEN, CONFIRMED, DEMOTED} — no other tokens
+//      (i.e. no ambiguous "PENDING", "TBD", "WIP" sneaking in).
+//   3. Each falsifier ID also appears in .own own 2 decl rows (SSOT mirror).
+//
+// Run:
+//     hexa run verify/falsifier_check.hexa     # exit 0 = monotone
+//
+// Authority: own 2 (RT-SC empirical-unproven contractual + falsifier monotone).
+
+let mut FAIL_COUNT = 0
+let mut PASS_COUNT = 0
+
+fn check(label: str, ok: bool, detail: str) {
+    if ok {
+        PASS_COUNT = PASS_COUNT + 1
+        println("  [PASS] " + label)
+        if detail.len() > 0 { println("         · " + detail) }
+    } else {
+        FAIL_COUNT = FAIL_COUNT + 1
+        println("  [FAIL] " + label)
+        if detail.len() > 0 { println("         · " + detail) }
+    }
+}
+
+fn read_file(path: str) -> str {
+    return exec("cat " + path + " 2>/dev/null")
+}
+
+let FALSIFIER_IDS: [str] = [
+    "F-RTSC-1", "F-RTSC-2", "F-RTSC-3",
+    "F-SC-1",   "F-SC-2",   "F-SC-3",
+]
+
+let ALLOWED_STATUSES: [str] = ["OPEN", "CONFIRMED", "DEMOTED"]
+
+// ─── §A.4 falsifier table parser (very loose — line-grep) ───
+//
+// Each table row in .roadmap §A.4 looks like:
+//     | F-RTSC-1   | LK-99 ... | OPEN — v1.1.0 catalog ... |
+// We only need to confirm that for each ID, the line bearing that ID also
+// contains one of the allowed status tokens (case-insensitive substring).
+
+fn line_contains(line: str, frag: str) -> bool {
+    return line.contains(frag)
+}
+
+fn audit_roadmap(roadmap: str) {
+    let lines = roadmap.split("\n")
+    for id in FALSIFIER_IDS {
+        let mut found_line = ""
+        for ln in lines {
+            if line_contains(ln, "| " + id) || line_contains(ln, id + " ") {
+                if line_contains(ln, "Witness schema") { continue }
+                if line_contains(ln, "raw_77_") { continue }   // witness table
+                found_line = ln
+                break
+            }
+        }
+        if found_line.len() == 0 {
+            check(".roadmap §A.4: " + id + " row missing", false, "")
+            continue
+        }
+        let mut status_ok = false
+        let mut status_seen = ""
+        for st in ALLOWED_STATUSES {
+            if line_contains(found_line, st) { status_ok = true; status_seen = st; break }
+        }
+        if status_ok {
+            check(".roadmap §A.4: " + id + " status token present",
+                true, "status=" + status_seen)
+        } else {
+            check(".roadmap §A.4: " + id + " status token missing",
+                false, "row had no OPEN/CONFIRMED/DEMOTED — line: " + found_line.trim())
+        }
+    }
+}
+
+fn audit_own(own_text: str) {
+    for id in FALSIFIER_IDS {
+        let ok = own_text.contains(id)
+        check(".own own 2 decl: " + id + " mirrored",
+            ok, if ok { "found" } else { "missing in own 2" })
+    }
+}
+
+fn audit_cli(cli_text: str) {
+    // CLI must surface all 6 IDs in some verb table for raw#10 honest-C3.
+    for id in FALSIFIER_IDS {
+        check("cli/hexa-rtsc.hexa: " + id + " surfaced",
+            cli_text.contains(id), "")
+    }
+}
+
+// ─── ban list: forbidden status tokens that imply silent retract ───
+
+fn audit_no_silent_retract(roadmap: str) {
+    let banned: [str] = [
+        "RETRACTED", "WITHDRAWN", "REMOVED", "PENDING", "TBD"
+    ]
+    let mut hits: [str] = []
+    for b in banned {
+        // Allow "TBD" anywhere except inside a falsifier table row.
+        // Loose check: if any falsifier ID line contains banned token, fail.
+        let lines = roadmap.split("\n")
+        for ln in lines {
+            for id in FALSIFIER_IDS {
+                if ln.contains(id) && ln.contains(b) {
+                    hits = hits + [id + " uses banned status " + b]
+                }
+            }
+        }
+    }
+    if hits.len() == 0 {
+        check("falsifier monotone: no banned status tokens (RETRACTED/WITHDRAWN/...)",
+            true, "all 6 IDs use OPEN/CONFIRMED/DEMOTED only")
+    } else {
+        let mut s = ""
+        for h in hits {
+            if s.len() > 0 { s = s + "; " }
+            s = s + h
+        }
+        check("falsifier monotone: banned status detected", false, s)
+    }
+}
+
+// ─── main ───
+
+fn main() {
+    println("========================================================================")
+    println("  hexa-rtsc — falsifier preregister monotone audit")
+    println("========================================================================")
+
+    let roadmap   = read_file(".roadmap.hexa_rtsc")
+    let own_file  = read_file(".own")
+    let cli_text  = read_file("cli/hexa-rtsc.hexa")
+
+    audit_roadmap(roadmap)
+    audit_own(own_file)
+    audit_cli(cli_text)
+    audit_no_silent_retract(roadmap)
+
+    println("========================================================================")
+    let total = PASS_COUNT + FAIL_COUNT
+    println("  " + str(PASS_COUNT) + "/" + str(total) + " checks passed")
+    if FAIL_COUNT > 0 {
+        println("  Falsifier preregister NOT monotone — fix before merging.")
+        exit(1)
+    }
+    println("  All 6 falsifiers (F-RTSC-{1,2,3} + F-SC-{1,2,3}) preregistered.")
+    println("  HONEST C3: empirical RT-SC unproven; cli sentinel ≠ empirical PASS.")
+}

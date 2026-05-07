@@ -1,0 +1,55 @@
+#!hexa strict
+// hexa-rtsc/verify/run_all.hexa — orchestrator (.hexa primary).
+//
+// Single CLI entry that runs all verify/*.hexa scripts and aggregates
+// pass/fail. Sister of hexa-sscb's "make verify" pattern.
+//
+// Run:
+//     hexa run verify/run_all.hexa     # exit 0 = all subscripts PASS
+
+let SCRIPTS: [str] = [
+    "verify/lattice_check.hexa",
+    "verify/cross_doc_audit.hexa",
+    "verify/falsifier_check.hexa",
+]
+
+fn main() {
+    println("========================================================================")
+    println("  hexa-rtsc verify/run_all — aggregate sweep")
+    println("========================================================================")
+    let mut passed = 0
+    let mut failed = 0
+    for s in SCRIPTS {
+        println("")
+        println("---- " + s + " ----")
+        let rc_str = exec("hexa run " + s + " >/tmp/_hexa_rtsc_v.out 2>&1; echo $?").trim()
+        let rc = int(rc_str)
+        let out = exec("cat /tmp/_hexa_rtsc_v.out 2>/dev/null")
+        // print last 6 lines for compactness
+        let lines = out.split("\n")
+        let n = lines.len()
+        let mut start = 0
+        if n > 6 { start = n - 6 }
+        let mut k = start
+        while k < n {
+            println(lines[k])
+            k = k + 1
+        }
+        if rc == 0 {
+            passed = passed + 1
+            println("  → " + s + " PASS")
+        } else {
+            failed = failed + 1
+            println("  → " + s + " FAIL (rc=" + str(rc) + ")")
+        }
+    }
+    println("")
+    println("========================================================================")
+    let total = passed + failed
+    println("  " + str(passed) + "/" + str(total) + " scripts passed")
+    if failed > 0 {
+        println("  verify sweep FAILED — see per-script output above.")
+        exit(1)
+    }
+    println("  PASS — all hexa-rtsc invariants hold.")
+}
