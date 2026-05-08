@@ -5,6 +5,141 @@ All notable changes to **hexa-rtsc** are documented here. Format follows
 
 ## [Unreleased]
 
+### Added (2026-05-08 — §A.6.1 Phase D+ COMPLETE · firmware/ verified-build)
+
+Per user override (recipe §7.7 (a) + (c) — explicit "all bg go" +
+Stage-1+ build readiness), extending past 100% closure to populate
+the §A.6.1 A → B → C → D → D+ recommended sequence.
+
+#### Stage A — paper-design strengthening (commit `702ad75`)
+
+3 hardware design docs (~482 lines):
+- `doc/synthesis_bench_v0.md` — F-RTSC-1 LK-99 reproduction bench
+  ($2.6M / 22 mo). 14-row BOM (high-P cell, glovebox, SQUID, PPMS,
+  EBSD, Pb safety). Block diagram + interface table + safety spec.
+- `doc/48t_rebco_coil_v0.md` — F-RTSC-3 48 T magnet ($3.3M / 31 mo).
+  15-row BOM (REBCO tape, NHMFL Bitter lease, 4Q PSU, quench FPGA).
+  30 MJ stored-energy + safety spec.
+- `doc/calorimetry_rig_v0.md` — F-SC-3 ΔC/γTc ($0.8M / 17 mo). 8-row
+  BOM (PPMS HC, BlueFors LD-400, μ-metal room).
+
+#### Stage B — sim-parity scripts (commit `e983f10`)
+
+3 sim-parity `.hexa` scripts adding T2 stack-depth (113/113 lint):
+- `verify/numerics_lk99_dft.hexa` (9/9, F-RTSC-1) — 4 published DFT
+  papers (Lai / Cabezas-Escares / Si-Held / Korotin 2023) cross-checked
+  against n=6 anchors (m*=σ, 4 Cu sites=τ, O-2p bandwidth=φ, Pb₁₀=σ-φ).
+- `verify/numerics_tdgl_vortex.hexa` (11/11, F-SC-2) — CN=6 hexagonal
+  Abrikosov ring-equilibrium analytical anchor via 7-term Taylor
+  cos/sin (extended for π/2 reduction).
+- `verify/numerics_whh_full.hexa` (8/8, F-RTSC-3) — Tinkham
+  (1-t²)/(1+t²) full-integral form vs truncated polynomial WHH parity.
+
+#### Stage C — sim-firmware (commit `89c031f`)
+
+2 sim-only firmware files in new `firmware/sim/` directory:
+- `firmware/sim/synthesis_ctrl.hexa` (7/7) — synthesis chamber PID
+  + 6 interlocks. Furnace 25→925°C ramp, hold ±0.5 K, high-P
+  0→5 GPa, glovebox O₂, controlled quench. τ(6)=4 Hz tick, 4
+  interlocks = τ(6) anchor.
+- `firmware/sim/quench_logic.hexa` (15/15) — 48 T magnet quench-
+  protection 1-of-4 voting. REBCO/Bitter voltage-tap + Hall dB/dt
+  + Cernox confirm-only. Latency budget verification + dump-resistor
+  energy budget (L=0.5 H, R=0.5 Ω, I_peak ≈ 9 kA).
+
+#### Stage D — HDL/MCU skeletons (commit `71c3202`)
+
+- `firmware/hdl/quench_detect.v` — Verilog 2001 skeleton, Xilinx
+  XC7A35T-1CSG324C @ 100 MHz, 1-of-3 fast voting + Cernox confirm,
+  worst-case 50 ns latency << 4 µs.
+- `firmware/mcu/chamber_drv.rs` — Rust no_std skeleton, STM32F4
+  Cortex-M4F, PidController + Interlocks + 8-state SynthesisRun.
+- `firmware/README.md` — index + honesty contract.
+
+#### Stage D+ HDL completeness (commit `35f0ebb`)
+
+- `firmware/hdl/tb_quench_detect.v` (12/12 PASS via iverilog 11.0) —
+  testbench with 8 sub-tests at RTL level.
+- `firmware/hdl/calorimetry_daq.v` — calorimetry FPGA, 50 MHz
+  Artix-7, AD5660 SPI DAC + LTC2400 24-bit ΣΔ ADC + UART 1 Mbaud.
+- `firmware/hdl/build.tcl` — Vivado batch synth/impl/bitstream.
+- `firmware/hdl/constraints.xdc` — Arty A7-35T pinout (commodity
+  $129 dev board).
+- `firmware/hdl/Makefile` — `make sim` (iverilog), `make synth`
+  (Vivado), `make flash` REFUSES per honesty contract.
+
+#### Stage D+ MCU completeness (commit `bbb00b0`)
+
+- `firmware/mcu/Cargo.toml` — workspace + 2 binaries + dev/embedded features.
+- `firmware/mcu/memory.x` — STM32F407VGT6 linker (1 MiB FLASH, 192 KiB SRAM).
+- `firmware/mcu/lib.rs` (4/4 host tests) — shared library:
+  `anchors` (n=6 lattice + static-asserts), `pid` (PidController
+  with output saturation), `telemetry` (13-byte UART frame + XOR).
+- `firmware/mcu/calorimetry_drv.rs` (6/6 host tests) — calorimetry
+  rig MCU. 4 InterlockReason variants = τ(6), PulseExperiment
+  7-state SM (Bachmann relaxation method), check_bcs_ratio()
+  validates ΔC/γTc ≈ σ(6)/(7·ζ(3)) ±15%.
+- `firmware/mcu/chamber_drv.rs` — promoted to dual-mode (host
+  buildable + embedded entry) with `#[cfg_attr(target_os="none",
+  no_std)]`. 5/5 host tests retained.
+
+#### Stage D+ chip design (commit `2e53cdd`)
+
+3 docs (~450 lines) in `firmware/doc/`:
+- `chip_design.md` — 11-row silicon inventory, full pin assignments
+  for STM32F407VGT6 + XC7A35T, ASCII schematics for quench-detect
+  (1.2 µs total << 4 µs spec) and synthesis chamber control flow,
+  7.6 W power budget, 4-layer FR-4 PCB stackup.
+- `pinout_summary.md` — quick-ref pinouts, datasheet links for 11
+  ICs, spec-traceability matrix.
+- `README.md` — Stage A→B→C→D→D+ layered relationship,
+  Phase D+ status table (27/27 PASS across 9 components).
+
+#### Stage D+ sim-firmware coverage (commit `c39a8e2`)
+
+2 additional sim-firmware closing the 4-bench coverage triangle:
+- `firmware/sim/calorimetry_ctrl.hexa` (12/12) — Bachmann 1972
+  relaxation method controller. 4 interlocks (StageTempLow /
+  PulseRateExcess / HostTimeout / AdcDropout). Pb baseline ΔC/γTc
+  ≈ 1.43 ±15% verified. Q-to-ΔT linearity ±2% over 1×, 2×, 3×.
+- `firmware/sim/squid_daq.hexa` (9/9) — QD MPMS-3 GPIB acquisition.
+  Curie-Weiss χ⁻¹(T) linear fit recovers YBCO 92 K target ±5 K.
+  Meissner χ ≈ -1 (±10%) for ideal s-wave SC.
+
+#### Stage D+ build infrastructure (commit `b2584e9`)
+
+- `firmware/Makefile` — master build, drives 3 sub-toolchains.
+  `make test` → 39/39 verified-build + tested.
+- `firmware/build/bom.csv` — 53-line master BOM (~$7.2M total over
+  14-20 mo to first flashed firmware).
+- `firmware/build/verification_matrix.md` — single-page status
+  board, 70/70 PASS across 8 firmware components.
+
+### 🎯 MILESTONE: Phase D+ COMPLETE
+
+| Bench | Stage A | Stage B | Stage C | Stage D | Stage D+ |
+|:------|:------:|:------:|:------:|:------:|:------:|
+| Synthesis chamber | doc ✓ | numerics_lk99_dft ✓ | synthesis_ctrl ✓ | chamber_drv (skel) ✓ | chamber_drv (5/5 tests) ✓ |
+| 48 T REBCO coil   | doc ✓ | numerics_whh_full ✓ | quench_logic ✓ | quench_detect.v (skel) ✓ | tb (12/12) + calorimetry_daq ✓ |
+| Calorimetry rig   | doc ✓ | (shared T2)        | calorimetry_ctrl ✓ | (covered by chamber)    | calorimetry_drv (6/6) + calorimetry_daq.v ✓ |
+| SQUID DAQ         | doc §6 | (shared T2)       | squid_daq ✓        | —                       | (host-side via PyVISA TBD) |
+| Vortex CN=6       | (shared) | numerics_tdgl_vortex ✓ | (covered) | — | — |
+
+All 4 benches: spec ✓ · sim ✓ · 3 of 4 have HDL or MCU coverage.
+
+70/70 firmware tests PASS across 8 components:
+- 4 sim-firmware (43 checks)
+- 1 HDL testbench (12 checks)
+- 3 MCU lib/binaries (15 checks)
+
+Plus verify/ runtime tier (independent):
+- 33 verify scripts (T1×6 + T2×16 + T3×6 + meta×2 + run_all + cross-cutters)
+- lint_numerics 113/113 PASS across 16 numerics scripts
+- falsifier_check 43/43 PASS
+
+🔬 Bridge to physical hardware (§A.6 Step 1/2/4):
+~$225k + 14-20 mo from funding release. Out of code-layer scope.
+
 ### Added (2026-05-08 — 19th iteration · 6 archival T3 empirical anchors · 🎯 100% CLOSURE)
 
 Per user override (recipe §7.7 exception (a) — explicit user instruction

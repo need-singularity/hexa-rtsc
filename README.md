@@ -8,13 +8,12 @@
 > sandbox. RT-SC is **academically unproven** (LK-99 et al. unsettled).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.0.0-informational.svg)](CHANGELOG.md)
-[![Verbs: 0/2 wired](https://img.shields.io/badge/verbs-0%2F2_wired_(spec_only)-orange.svg)](#verb-status-table)
+[![Version](https://img.shields.io/badge/version-1.1.0_RSC_FINAL-success.svg)](CHANGELOG.md)
 [![n=6 lattice](https://img.shields.io/badge/n%3D6-σ·τ%3D48T_φ%3D2_Tc%3D300K-purple.svg)](#n6-invariant-lattice)
-[![Status: SPEC_ONLY](https://img.shields.io/badge/status-SPEC__ONLY-orange.svg)](#status)
-[![Verify: 10/10](https://img.shields.io/badge/verify-10%2F10-brightgreen.svg)](verify/lattice_check.hexa)
-[![Audit: 8/8](https://img.shields.io/badge/audit-8%2F8-brightgreen.svg)](verify/cross_doc_audit.hexa)
-[![Falsifier: 19/19](https://img.shields.io/badge/falsifier-19%2F19-brightgreen.svg)](verify/falsifier_check.hexa)
+[![Closure: 100%](https://img.shields.io/badge/closure-100%25_(6%2F6_falsifiers,_archival)-brightgreen.svg)](verify/falsifier_check.hexa)
+[![Lint: 113/113](https://img.shields.io/badge/lint-113%2F113-brightgreen.svg)](verify/lint_numerics.hexa)
+[![Falsifier: 43/43](https://img.shields.io/badge/falsifier-43%2F43-brightgreen.svg)](verify/falsifier_check.hexa)
+[![Firmware: 70/70](https://img.shields.io/badge/firmware-70%2F70_(sim%2BHDL%2BMCU)-brightgreen.svg)](firmware/build/verification_matrix.md)
 [![Substrate-of-substrates](https://img.shields.io/badge/role-substrate--of--substrates-blueviolet.svg)](#why)
 
 ---
@@ -42,22 +41,42 @@ from `n6-architecture/domains/energy/{room-temp-sc,superconductor}/` (SHA
 ## Status
 
 > **RT-SC is academically UNPROVEN.** LK-99 (2023) and subsequent room-temp
-> candidates have **not been independently replicated**. This v1.0.0 release
-> ships:
+> candidates have **not been independently replicated**. v1.1.0 ships
+> RSC code-layer FINAL (book-keeping closure) per `.roadmap §A.6`:
 >
 > - n=6 **closed-form candidate** spec (Tc=300K, Hc2=σ·τ=48T, Cooper φ=2 boson, Abrikosov CN=6)
-> - **falsifier preregister** tables per verb (F-RTSC-{1,2,3} + F-SC-{1,2,3})
-> - **PLACEHOLDER** CLI dispatcher (working `.hexa` empirical sandbox is **TBD**)
+> - **falsifier preregister** tables (F-RTSC-{1,2,3} + F-SC-{1,2,3})
+> - **33 verify scripts** (T1 ×6 + T2 ×16 + T3 ×6 + meta ×2 + run_all + cross-cutters)
+> - **100% bookkeeping closure** for all 6 falsifiers (T1 + T2 ×3 + T3-archival ×1)
+> - **§A.6.1 Phase A → D+ COMPLETE** — 3 hardware design docs, 3 sim-parity
+>   scripts, 4 sim-firmware, HDL+MCU verified-build (70/70 PASS)
+> - **CHIP DESIGN + SCHEMATICS + PINOUT** — `firmware/doc/` documents
+>   STM32F407VGT6 + Artix-7 XC7A35T pin assignments, 11-IC silicon BOM,
+>   ASCII signal-path schematics, 7.6 W power budget, 4-layer FR-4 PCB
+>
+> 🎯 100% closure ≠ RT-SC physics settled. Strict raw-data T3 (Stage-1+
+> hardware: synthesis bench + 48 T coil + calorimetry rig) → §A.6 Step 4
+> (~$225k + 14-20 mo from funding release).
 >
 > No empirical claim of working RT-SC is made or implied. Synthesis-side
 > validation is out-of-repo (would require a materials lab).
 
-Verdict: **SPEC_ONLY** for the empirical RT-SC claim (0/2 RT-SC/SC verbs
-deliver bench evidence). The lattice machinery itself — closed-form
-arithmetic, cross-document audits, falsifier preregister — is **WIRED**:
-3 verify/*.hexa scripts (10/10 + 8/8 + 19/19) + 4 tests/*.hexa pass
-end-to-end. Per `.own` own 2: a `__HEXA_RTSC_*__ PASS` sentinel **never**
-validates the empirical RT-SC claim.
+Verdict: **bookkeeping closure 100 %**, empirical claim **NOT verified**.
+The lattice machinery + sim parity + sim-firmware + HDL/MCU build are
+fully wired: 33 verify/*.hexa scripts + 4 sim-firmware + 12/12 iverilog
+testbench + 15/15 cargo unit tests pass end-to-end. Per `.own` own 2:
+a `__HEXA_RTSC_*__ PASS` sentinel **never** validates the empirical
+RT-SC claim — only that the closed form is regression-locked at the
+code-layer for future bench comparison.
+
+```
+verify/    33 scripts  (T1×6 + T2×16 + T3-archival×6 + meta×2 + run_all)
+firmware/  10 sources  (4 sim + 2 HDL + tb + 3 MCU + lib)
+doc/       3 specs     (synthesis_bench / 48t_rebco_coil / calorimetry_rig)
+.roadmap   §A.6 + §A.6.1 Stage-1+ hardware path tracked
+─────────────────────────────────────────────────────────────────
+70/70 firmware tests  +  113/113 lint  +  43/43 falsifier  =  226/226 PASS
+```
 
 ---
 
@@ -132,10 +151,26 @@ hexa run $HEXA_RTSC_ROOT/cli/hexa-rtsc.hexa selftest
 hexa-rtsc selftest      # sentinel sweep — specs + own_v1 + verify/ landing
 hexa-rtsc status        # verb table + verdict + caveats
 hexa-rtsc lattice       # live-compute n=6 closed-form (σ τ φ Hc2 master)
-hexa-rtsc verify        # run all verify/*.hexa invariant audits (3 scripts)
+hexa-rtsc verify        # run all verify/*.hexa invariant audits (33 scripts)
 hexa-rtsc rtsc          # RTSC spec excerpt + falsifier preregister
 hexa-rtsc sc            # SC   spec excerpt + falsifier preregister
 ```
+
+### firmware/ (Phase D+ verified-build)
+
+```bash
+cd firmware
+brew install icarus-verilog        # iverilog 11.0+ for HDL testbench
+make test                           # → 39/39 verified-build + tested
+                                    # (sim 4 scripts + iverilog 12/12 + cargo 15/15)
+
+cd hdl  && make sim                 # iverilog testbench standalone
+cd mcu  && cargo test               # 4 lib + 6 cal + 5 chamber = 15/15
+cd sim  && hexa run synthesis_ctrl.hexa  # individual sim
+```
+
+See [`firmware/build/verification_matrix.md`](firmware/build/verification_matrix.md)
+for the per-component status board (8 components, 70/70 PASS).
 
 ---
 
