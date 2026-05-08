@@ -58,7 +58,8 @@ Plus verify/ runtime tier (separate from firmware/):
 | **D+ MCU** | workspace + lib + 2nd binary + 15 tests | $0 | 1 d | ✓ pushed bbb00b0 |
 | **D+ doc** | chip design + schematics + pinout | $0 | 1 d | ✓ pushed 2e53cdd |
 | **D+ sim** | calorimetry_ctrl + squid_daq | $0 | 1 d | ✓ pushed c39a8e2 |
-| **D+ build** | this Makefile + bom.csv + matrix | $0 | 1 d | ← this commit |
+| **D+ build** | this Makefile + bom.csv + matrix | $0 | 1 d | ✓ pushed b2584e9 |
+| **D+ md**    | comprehensive .md doc refresh    | $0 | 1 d | ✓ pushed fe7e021 |
 | **Step 1** | external collab decision (NIMS / NHMFL / Lake Shore) | $20k pre-dev | 2–4 mo | ✗ |
 | **Step 2** | Funding round + PCB pilot (5 boards × 3 designs) | +$15k | 2 mo | ✗ |
 | **Step 2.5** | Procurement (silicon + Cs + AMI 4Q) | +$140k | 6 mo | ✗ |
