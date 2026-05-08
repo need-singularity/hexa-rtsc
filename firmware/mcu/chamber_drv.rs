@@ -26,8 +26,8 @@
 //   cargo build --release --target thumbv7em-none-eabihf
 // Full peripheral wiring + flash + cold-test → §A.6 Step 4.
 
-#![no_std]
-#![no_main]
+#![cfg_attr(target_os = "none", no_std)]
+#![cfg_attr(target_os = "none", no_main)]
 
 // ─── n=6 lattice anchor constants ───────────────────────────────────────
 
@@ -244,6 +244,22 @@ impl SynthesisRun {
 //     // emergency power-down + safe state
 //     loop { cortex_m::asm::wfi(); }
 // }
+
+// ─── host main stub (so `cargo build` works on macOS / Linux) ──────────
+#[cfg(not(target_os = "none"))]
+fn main() {
+    println!("hexa-rtsc chamber_drv — host stub");
+    println!("  τ(6) = {} interlocks · σ·τ = 48 T anchor", DETECTION_CHANNELS);
+    println!("  control loop = {} Hz", 1000 / TICK_MS);
+    println!("  embedded build: cargo build --release --target thumbv7em-none-eabihf");
+}
+
+// ─── embedded entry placeholder ────────────────────────────────────────
+#[cfg(target_os = "none")]
+#[no_mangle]
+pub extern "C" fn _start() -> ! {
+    loop {}
+}
 
 // ─── unit tests (host-side, std-allocated for cargo test) ──────────────
 
