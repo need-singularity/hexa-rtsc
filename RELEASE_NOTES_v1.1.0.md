@@ -44,7 +44,7 @@ pattern (hexa-cern v1.1.0 sister) and extending into hardware-prototype layer
 | 18   | `numerics_lk99_solver.hexa` — F-RTSC-1 → T2 ×3 (sat-1 + sat-2) |
 | 19   | 6 `empirical_*_arxiv.hexa` scripts — 100 % closure |
 
-### §A.6.1 Phase A → D+ extension (post-saturation, user-overridden):
+### §A.6.1 Phase A → E1+ extension (post-saturation, user-overridden):
 
 | Phase | Commits | Deliverable |
 |:------|:-------|:------------|
@@ -58,6 +58,9 @@ pattern (hexa-cern v1.1.0 sister) and extending into hardware-prototype layer
 | D+ sim| c39a8e2 | calorimetry_ctrl + squid_daq |
 | D+ build | b2584e9 | master Makefile + BOM csv + verification matrix |
 | D+ md | fe7e021 | comprehensive .md update across CHANGELOG + 3 READMEs |
+| D+ release | d5af939 | RELEASE_NOTES_v1.1.0.md + verification_matrix refresh |
+| E1    | 8f74f28 | KiCad schematic (1 board) + EDA BOM + kicad-cli wrapper |
+| E1+   | (this commit) | 4 schematics + power-tree subsheet + PCB skel + multi-target build |
 
 ## Falsifier closure table (post-v1.1.0)
 

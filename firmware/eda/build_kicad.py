@@ -33,11 +33,23 @@ import sys
 from pathlib import Path
 
 THIS_DIR = Path(__file__).parent.resolve()
-SCH_FILE = THIS_DIR / "quench_detect.kicad_sch"
-PCB_FILE = THIS_DIR / "quench_detect.kicad_pcb"   # TBD — Phase E1 schematic-only for now
-PROJ_FILE = THIS_DIR / "quench_detect.kicad_pro"
-BOM_CSV = THIS_DIR / "bom_kicad.csv"
 OUT_DIR = THIS_DIR / "build"
+
+# All schematic targets (Phase E1+ multi-board)
+SCH_TARGETS = [
+    "quench_detect",
+    "synthesis_chamber",
+    "calorimetry_rig",
+    "squid_host_adapter",
+    "power_tree",
+]
+
+# Boards with PCB layout files (Phase E2 progresses incrementally)
+PCB_TARGETS = [
+    "quench_detect",   # skeleton ships in Phase E1+ (4-layer stackup, board outline only)
+]
+
+BOM_CSV = THIS_DIR / "bom_kicad.csv"
 
 
 def find_kicad_cli():
@@ -72,57 +84,79 @@ def run_cmd(cmd, label):
 
 
 def cmd_erc(cli):
-    """Run ERC (electrical rules check) on schematic."""
+    """Run ERC on every schematic in SCH_TARGETS."""
     OUT_DIR.mkdir(exist_ok=True)
-    cmd = [
-        cli, "sch", "erc",
-        "--output", str(OUT_DIR / "erc_report.txt"),
-        "--format", "report",
-        str(SCH_FILE)
-    ]
-    return run_cmd(cmd, "ERC report")
+    rc = 0
+    for target in SCH_TARGETS:
+        sch = THIS_DIR / f"{target}.kicad_sch"
+        if not sch.exists():
+            print(f"    [SKIP] {sch.name} not present")
+            continue
+        cmd = [
+            cli, "sch", "erc",
+            "--output", str(OUT_DIR / f"erc_{target}.txt"),
+            "--format", "report",
+            str(sch)
+        ]
+        rc |= run_cmd(cmd, f"ERC: {target}")
+    return rc
 
 
 def cmd_netlist(cli):
-    """Generate netlist from schematic."""
+    """Generate netlist for every schematic."""
     OUT_DIR.mkdir(exist_ok=True)
-    cmd = [
-        cli, "sch", "export", "netlist",
-        "--output", str(OUT_DIR / "netlist.net"),
-        "--format", "kicadsexpr",
-        str(SCH_FILE)
-    ]
-    return run_cmd(cmd, "Netlist (KiCad S-expr)")
+    rc = 0
+    for target in SCH_TARGETS:
+        sch = THIS_DIR / f"{target}.kicad_sch"
+        if not sch.exists():
+            continue
+        cmd = [
+            cli, "sch", "export", "netlist",
+            "--output", str(OUT_DIR / f"netlist_{target}.net"),
+            "--format", "kicadsexpr",
+            str(sch)
+        ]
+        rc |= run_cmd(cmd, f"Netlist: {target}")
+    return rc
 
 
 def cmd_bom(cli):
-    """Generate BOM CSV from schematic."""
+    """Generate BOM CSV for every schematic."""
     OUT_DIR.mkdir(exist_ok=True)
-    cmd = [
-        cli, "sch", "export", "bom",
-        "--output", str(OUT_DIR / "bom_generated.csv"),
-        "--fields", "Reference,Value,Footprint,Manufacturer,MPN,Datasheet",
-        str(SCH_FILE)
-    ]
-    return run_cmd(cmd, "BOM CSV")
+    rc = 0
+    for target in SCH_TARGETS:
+        sch = THIS_DIR / f"{target}.kicad_sch"
+        if not sch.exists():
+            continue
+        cmd = [
+            cli, "sch", "export", "bom",
+            "--output", str(OUT_DIR / f"bom_{target}.csv"),
+            "--fields", "Reference,Value,Footprint,Manufacturer,MPN,Datasheet",
+            str(sch)
+        ]
+        rc |= run_cmd(cmd, f"BOM: {target}")
+    return rc
 
 
 def cmd_gerber(cli):
-    """Generate Gerber files from PCB layout (Phase E2)."""
-    if not PCB_FILE.exists():
-        print(f"    [SKIP] {PCB_FILE.name} not yet authored — Phase E2 deliverable.")
-        print(f"           Phase E1 contract: schematic-only (this commit).")
-        return 0
+    """Generate Gerber files for every PCB target (Phase E2)."""
     OUT_DIR.mkdir(exist_ok=True)
-    gerber_dir = OUT_DIR / "gerbers"
-    gerber_dir.mkdir(exist_ok=True)
-    cmd = [
-        cli, "pcb", "export", "gerbers",
-        "--output", str(gerber_dir),
-        "--layers", "F.Cu,B.Cu,F.Mask,B.Mask,F.SilkS,B.SilkS,Edge.Cuts",
-        str(PCB_FILE)
-    ]
-    return run_cmd(cmd, "Gerber files")
+    rc = 0
+    for target in PCB_TARGETS:
+        pcb = THIS_DIR / f"{target}.kicad_pcb"
+        if not pcb.exists():
+            print(f"    [SKIP] {target}.kicad_pcb not yet authored — Phase E2 deliverable.")
+            continue
+        gerber_dir = OUT_DIR / f"gerbers_{target}"
+        gerber_dir.mkdir(exist_ok=True)
+        cmd = [
+            cli, "pcb", "export", "gerbers",
+            "--output", str(gerber_dir),
+            "--layers", "F.Cu,B.Cu,F.Mask,B.Mask,F.SilkS,B.SilkS,Edge.Cuts",
+            str(pcb)
+        ]
+        rc |= run_cmd(cmd, f"Gerber: {target}")
+    return rc
 
 
 def main():
@@ -144,10 +178,10 @@ def main():
         sys.exit(0)
 
     print(f"=========================================================================")
-    print(f"  hexa-rtsc Phase E1 — KiCad CLI build")
+    print(f"  hexa-rtsc Phase E1+ — KiCad CLI build (multi-target)")
     print(f"  cli: {cli}")
-    print(f"  sch: {SCH_FILE}")
-    print(f"  pcb: {PCB_FILE} {'(present)' if PCB_FILE.exists() else '(TBD Phase E2)'}")
+    print(f"  sch targets: {len(SCH_TARGETS)} ({', '.join(SCH_TARGETS)})")
+    print(f"  pcb targets: {len(PCB_TARGETS)} ({', '.join(PCB_TARGETS)})")
     print(f"=========================================================================")
 
     rc = 0

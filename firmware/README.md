@@ -12,6 +12,7 @@ Per `.roadmap.hexa_rtsc §A.6.1` recommended A → B → C → D → D+ ordering
 | `hdl/` | D + D+ | Verilog 2001 | iverilog 11.0 + Vivado 2024.2 | 4 + tb + Makefile + tcl + xdc | 12/12 PASS |
 | `mcu/` | D + D+ | Rust no_std (dual-mode) | cargo 1.94 + thumbv7em-none-eabihf | 2 bins + lib + Cargo.toml + memory.x | 15/15 PASS |
 | `doc/` | D+ | Markdown | (paper) | 3 | spec-traceable |
+| `eda/` | E1+ | KiCad 7+ S-expr | kicad-cli (skip-clean if absent) | 4 sch + power_tree + .kicad_pcb skel + .kicad_pro + bom.csv + build_kicad.py + README | verified-parse |
 | `build/` | D+ | Make + CSV | make | Makefile + bom.csv + matrix | aggregator |
 
 `make test` from this directory runs the entire chain end-to-end.

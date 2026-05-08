@@ -5,6 +5,54 @@ All notable changes to **hexa-rtsc** are documented here. Format follows
 
 ## [Unreleased]
 
+### Added (2026-05-08 — §A.6.1 Phase E1+ EDA layer (KiCad schematic / BOM / PCB skeleton))
+
+Per user table review (commit `8f74f28` Phase E1) + extension prompt
+"all bg go" — fill remaining 3 board schematics + power-tree subsheet
++ PCB layout skeleton, completing the EDA-layer 5/5 coverage.
+
+#### Phase E1+ deliverables (commit pending)
+
+- **4 board schematics** (KiCad 7+ S-expression text format):
+  - `firmware/eda/quench_detect.kicad_sch` (Phase E1 baseline)
+  - `firmware/eda/synthesis_chamber.kicad_sch` (NEW) — STM32F407VGT6
+    + DRV2700 PWM + 2× Pt100 RTD bridges + 6 interlock inputs
+  - `firmware/eda/calorimetry_rig.kicad_sch` (NEW) — STM32F407VGT6
+    + AD5660 DAC + LTC2400 24-bit ΣΔ ADC + Cernox sensor
+  - `firmware/eda/squid_host_adapter.kicad_sch` (NEW) — FT232H USB
+    + NAT9914 GPIB controller + 24-pin IEEE-488 connector
+- **Power-tree subsheet**: `firmware/eda/power_tree.kicad_sch` (NEW)
+  — shared topology: 24V hot-swap (LM5060) → TPS7A4901 +3V3/+5V
+  + TPS7A30 +15V analog + TPS7A33 -15V analog. Power-budget
+  annotation matches `firmware/doc/chip_design.md §6` (7.6 W total).
+- **PCB skeleton**: `firmware/eda/quench_detect.kicad_pcb` (NEW)
+  — 100×80 mm board outline + 4-layer ENIG stackup (F.Cu / GND /
+  PWR split / B.Cu) + 4 corner M3 mounting holes + silkscreen
+  title block. Component placement + routing TBD Phase E2.
+- **Multi-target build**: `firmware/eda/build_kicad.py` updated
+  to iterate over `SCH_TARGETS = [quench_detect, synthesis_chamber,
+  calorimetry_rig, squid_host_adapter, power_tree]` for ERC +
+  netlist + BOM. PCB targets list separately for Gerber.
+
+#### Coverage matrix update (5/5 EDA schematic layer)
+
+| Bench               | EDA schematic ✓                                           |
+|:--------------------|:----------------------------------------------------------|
+| Synthesis chamber   | synthesis_chamber.kicad_sch                              |
+| 48 T REBCO coil     | quench_detect.kicad_sch + quench_detect.kicad_pcb skel    |
+| Calorimetry rig     | calorimetry_rig.kicad_sch                                |
+| SQUID DAQ pipeline  | squid_host_adapter.kicad_sch                             |
+| Power tree (shared) | power_tree.kicad_sch                                     |
+
+#### Phase E sub-stage table (refreshed)
+
+| Phase | Status | Cost | Time |
+|:-----:|:------:|:----:|:----:|
+| E1    | ✓ pushed 8f74f28 (1 board) | $0 | 1 d |
+| E1+   | ← this commit (4 boards + power tree + PCB skel) | $0 | 1 d |
+| E2    | ✗ funding-gated (PCB layout + Gerber + DRC) | $1k | 2 mo |
+| E3    | ✗ §A.6 Step 4 (cold-test on real REBCO + Cernox) | $25k | 4 mo |
+
 ### Added (2026-05-08 — §A.6.1 Phase D+ COMPLETE · firmware/ verified-build)
 
 Per user override (recipe §7.7 (a) + (c) — explicit "all bg go" +
