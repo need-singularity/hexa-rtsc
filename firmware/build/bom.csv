@@ -1,0 +1,68 @@
+# firmware/build/bom.csv — Phase D+ master Bill of Materials
+# §A.6.1 Phase D+ deliverable per .roadmap.hexa_rtsc.
+# Aggregates BOMs from doc/{synthesis_bench, 48t_rebco_coil, calorimetry_rig}_v0.md.
+#
+# Column key:
+#   bench         — which Stage A bench this part serves
+#   item          — short name
+#   spec          — critical params
+#   vendor        — primary supplier (alternates not listed)
+#   pn            — manufacturer part number
+#   unit_cost_usd — single-unit price (volume discount not applied)
+#   qty           — quantity per build
+#   subtotal_usd  — unit_cost × qty
+#   lead_weeks    — typical lead time
+#   note          — additional context
+
+bench,item,spec,vendor,pn,unit_cost_usd,qty,subtotal_usd,lead_weeks,note
+synthesis,High-pressure cell,5-20 GPa Belt apparatus,Almax Easylab,BX90,180000,1,180000,16,LK-99 + hydride synthesis
+synthesis,Tube furnace,RT-1500 C 60mm bore,Carbolite Gero,STF15/180,12000,1,12000,8,925C heat treatment
+synthesis,Vacuum + Ar,1e-6 mbar + 5N Ar,Pfeiffer + Praxair,HiCube80,28000,1,28000,4,inert atmosphere
+synthesis,Glovebox,<0.1 ppm O2/H2O,MBraun,UNILAB Pro,65000,1,65000,12,air-sensitive precursors
+synthesis,Powder XRD,Cu Kalpha 5-120deg,Bruker,D2 Phaser,50000,1,50000,8,phase confirmation
+synthesis,SQUID,1.8-400K +/-7T,Quantum Design,MPMS-3,600000,1,600000,16,Tc + Meissner
+synthesis,Resistivity rig,1.5-300K 4-probe 0-9T,Quantum Design,PPMS DynaCool,800000,1,800000,16,rho(T) cross-check
+synthesis,Inert ball mill,WC vials 1500rpm,Retsch,PM 100,18000,1,18000,4,precursor mixing
+synthesis,Optical + Raman,532nm 1um spot,Renishaw,inVia,220000,1,220000,12,grain composition
+synthesis,EBSD detector (opt),OIM 8 EDAX,EDAX,TSL OIM 8,250000,1,250000,12,crystallographic orientation
+synthesis,Sample loading port,UHV Pb-shielded,custom,N/A,8000,1,8000,4,radiation-safe transfer
+synthesis,DI water + N2 skid,2 L/min DI 200 L/min N2,Millipore + Praxair,N/A,6000,1,6000,2,post-synthesis cleaning
+synthesis,Pb dust extractor,HEPA H14 chimney,Camfil,Megalam,14000,1,14000,4,Pb apatite dust hazard
+synthesis,H2S monitor,0.1-100 ppm 4-wire,RKI,03 Series,3000,2,6000,2,redundant safety
+hc2-coil,REBCO tape,4mm wide 100m Ic>600A,SuperPower,SCS4050,220000,1,220000,32,n=6 anchor 4mm = tau(6)
+hc2-coil,Inner mandrel,C-C composite 40mm bore,TPI Composites,N/A,18000,1,18000,8,sigma-phi=10mm clearance
+hc2-coil,Outer mandrel,G10/G11 fiberglass,Cuming Microwave,N/A,12000,1,12000,8,
+hc2-coil,Bitter coil (lease),32T water-cooled,NHMFL,N/A,1800000,1,1800000,52,annual lease
+hc2-coil,Cryostat,4.2K LHe 350mm bore,Cryomagnetics,CN-350,320000,1,320000,24,
+hc2-coil,Power supply,0-600A 4Q EtherCAT,American Magnetics,4Q,85000,1,85000,16,quench-protection
+hc2-coil,Quench switch,0.5 Ohm + IGBT,Infineon + custom,FF1400R12IP4,25000,1,25000,4,4 ms detect 100 ms dump
+hc2-coil,Quench detector,Hall + voltage taps + FPGA,custom + Arty A7,N/A,15000,1,15000,2,Stage D HDL
+hc2-coil,Field probe,NMR proton + Hall 0-50T,Group3,LPT-141,35000,1,35000,12,absolute B
+hc2-coil,Strain gauges,4 axial + 4 hoop,HBM,N/A,5000,1,5000,4,mechanical safety
+hc2-coil,T monitors,Cernox CX-1080 x16 + TC x16,Lake Shore,CX-1080-CU,22000,1,22000,8,T(z) profile
+hc2-coil,LHe transfer,25m flex VJ,Wessington,N/A,18000,1,18000,12,operations
+hc2-coil,LN2 supply,1000L dewar + 100L day,local vendor,N/A,8000,1,8000,2,operations
+hc2-coil,Magnetic shielding,mu-metal 6x8m,MMT Industries,N/A,95000,1,95000,16,5-Gauss line
+hc2-coil,DAQ + control,64-ch 16-bit 1MS/s NI,National Instruments,cDAQ,28000,1,28000,4,quench capture
+calorimetry,Adiabatic cal,0.1-300K +/-0.1%,Quantum Design,PPMS HC option,90000,1,90000,12,relaxation method
+calorimetry,Dilution fridge,10mK base BlueFors,BlueFors,LD-400,480000,1,480000,32,sub-K range
+calorimetry,Sample mounts,sapphire + Pt RTD,custom,N/A,8000,1,8000,4,heat capacity carrier
+calorimetry,Heat pulse gen,1nJ-10mJ 1ms-10s,Keithley,6221,12000,1,12000,8,programmable Q
+calorimetry,mu-metal room,4x4m <1nT,MMT,N/A,65000,1,65000,16,Earth-field shielding
+calorimetry,LHe + LN2 supply,100 LHe/wk + 200 LN2/wk,local,N/A,4000,1,4000,2,monthly operations
+calorimetry,Vibration table,active piezo,Newport,S-2000A,28000,1,28000,8,SQUID + dilution stability
+calorimetry,DAQ + control,NI cDAQ + LabVIEW,National Instruments,cDAQ-9189,18000,1,18000,4,
+firmware,STM32F407VGT6,Cortex-M4F LQFP-100,ST,STM32F407VGT6,12,2,24,4,chamber + calorimetry MCUs
+firmware,Artix-7 XC7A35T,33k LUT 50 BRAM,AMD/Xilinx,XC7A35T-1CSG324C,30,2,60,8,quench + cal FPGAs
+firmware,Arty A7-35T board,dev board with PMOD/UART,Digilent,Arty A7-35T,129,2,258,2,FPGA carrier
+firmware,AD5660 DAC,16-bit 1.25us,Analog Devices,AD5660BRMZ-1,13,2,26,2,heat-pulse driver
+firmware,LTC2400 ADC,24-bit ΣΔ 7.5Hz,Linear Tech,LTC2400CS8,11,4,44,2,Pt-RTD readout
+firmware,LTC2378-20 ADC,20-bit 1MS/s differential,Linear Tech,LTC2378-20,48,4,192,4,REBCO voltage tap
+firmware,AD8429 diff amp,low-noise 1nV/sqrt(Hz),Analog Devices,AD8429,18,8,144,2,REBCO + Bitter taps
+firmware,ISO224 isolator,reinforced 125V CMR,TI,ISO224,8,8,64,2,cryogen boundary
+firmware,TLP358 opto,250ns 30kV/us,Toshiba,TLP358,4,2,8,2,IGBT gate driver
+firmware,IGBT module,1.4kA 1.2kV,Infineon,FF1400R12IP4,1200,1,1200,16,dump switch
+firmware,Cs ref,10MHz 5e-13,Microsemi,Cs5071A,50000,1,50000,52,frequency reference (calorimetry)
+firmware,PCB + PCBA pilot,4-layer FR-4 ENIG 5 boards,PCBWay + JLCPCB,custom,3000,1,3000,4,5-board pilot run
+firmware,Power supplies,linear regulators TPS7A,TI,TPS7A series,5,12,60,2,low-noise rails
+TOTAL,,,,,,,7159990,,~7.2 M USD over 14-20 mo
