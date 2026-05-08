@@ -75,11 +75,19 @@ n=6 invariant lattice (§A.1) 는 도착지의 *correctness machinery* — 도�
       regression test for `verify/saturation_check.hexa` (sentinel
       ends in STOP not PASS, so test_calculators 가 미커버). 4 조건
       (count 9/9 + sat-1 TRUE + sat-2 TRUE + STOP sentinel) AND
-      iter #1 prose 의 "22-check" → "9-check" 정정 (실제 _check 호출
-      6+2+1=9). 추가로 추 doc 정확성 회복 wave.
+      iter #1 prose 의 "22-check" → "9-check" 정정 wave.
+    - **iter #4**: 슬롯 #12 (`build/Makefile` + `build/header.tex`).
+      pandoc + xelatex 3-corpus PDF rebuild (pillars + roadmap +
+      hardware). Non-predicate-bearing reader-facing tool — closure
+      pct 변동 없음.
+    - **iter #5**: 슬롯 #13 (`docs/numerics_methodology.md`).
+      T1/T2/T3/T4 4-tier 사다리 narrative + 4 pillar 방법론 prose +
+      "What's NOT covered" honesty disclaimer + "How to add a new
+      pillar" 7-step gateway. Non-predicate-bearing.
   closure-honesty: 여전히 bookkeeping/archival 만, T4 live hardware
-  는 §A.6 Step 4 미해결. 남은 §7.4 슬롯 #12/#13 narrative-only —
-  별도 explicit user signal 필요 (§9.1 polish-as-chunk 회피).
+  는 §A.6 Step 4 미해결. recipe §7.4 priority table 모든 슬롯
+  (#1-#15 + cross-cutters) 충족 → §9.1 saturation 후 health-check
+  모드만 가능 (3가지 합법 예외 외 새 chunk 금지).
 
 ## §A.4 Falsifier preregister
 

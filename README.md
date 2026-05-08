@@ -74,6 +74,8 @@ verify/    35 scripts  (T1×6 + T2×17 + T3-archival×6 + meta×3 + run_all)
            ├─ T2 ×17: 4 closed-form + 4 parity + 4 solver + lk99_dft + tdgl + whh
            │          + lattice_arithmetic + cross_pillar  (recipe §1 #7+#13)
            └─ meta×3: falsifier_check + lint_numerics + saturation_check (recipe §7.3)
+build/     pandoc + xelatex PDF rebuild (Makefile + header.tex; recipe §1 #12)
+docs/      numerics_methodology.md — T1/T2/T3/T4 ladder narrative (recipe §1 #13)
 firmware/  10 sources  (4 sim + 2 HDL + tb + 3 MCU + lib)
 doc/       3 specs     (synthesis_bench / 48t_rebco_coil / calorimetry_rig)
 .roadmap   §A.6 + §A.6.1 Stage-1+ hardware path tracked

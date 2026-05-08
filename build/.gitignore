@@ -1,0 +1,6 @@
+# Ephemeral pandoc + xelatex artefacts. Build via `make -C build all`.
+out/
+*.aux
+*.log
+*.out
+*.toc

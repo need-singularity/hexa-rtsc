@@ -5,6 +5,64 @@ All notable changes to **hexa-rtsc** are documented here. Format follows
 
 ## [Unreleased]
 
+### Added (2026-05-08 — recipe §1 slots #12 + #13 · narrative tier (PDF rebuild + numerics_methodology))
+
+심화 봉쇄 iter #4 + iter #5 ("all bg go" 사용자 명시 신호 — narrative
+slot naming 으로 §9.1 polish-as-chunk 가드 통과). 이 두 chunk 는
+predicate-bearing 이 아닌 reader-facing 도구이므로 closure pct 를
+움직이지 않으며 falsifier 상태도 변경하지 않는다 (각 파일 head 에
+명시된 honesty disclaimer).
+
+#### iter #4 — `build/Makefile` + `build/header.tex` (slot #12)
+
+- **`build/header.tex`** — pandoc → xelatex 프리앰블. Korean+English
+  mix (xeCJK + Noto Sans CJK KR), 수식 (unicode-math + Latin Modern
+  Math), A4/2.5cm margin, hyperref colored links.
+- **`build/Makefile`** — 3-corpus PDF rebuild:
+  - `pillars`  → `out/{rtsc,sc}.pdf` (n=6 closed-form pillar specs)
+  - `roadmap`  → `out/roadmap.pdf` (.roadmap.hexa_rtsc)
+  - `hardware` → 5 hw_*.pdf (3 doc/_v0.md + 2 firmware/doc/.md)
+  - `all` / `clean` / `check-tools` / `help` 메타-target.
+- **`build/.gitignore`** — out/ + xelatex 부산물 (aux/log/toc) 무시.
+- 출력은 `build/out/` 으로 ephemeral.
+- Toolchain 의존: pandoc ≥ 2.19 + xelatex (TeX Live ≥ 2022) +
+  fontspec/xeCJK/unicode-math/hyperref/geometry 등 + Noto Sans CJK
+  KR 폰트.
+- **Honesty**: PDF rebuild 는 reader-facing distribution 도구
+  → T1/T2/T3 closure pct 변동 없음. 수학은 이미 calc_*.hexa +
+  numerics_*.hexa 에 살고 있음.
+
+#### iter #5 — `docs/numerics_methodology.md` (slot #13)
+
+- T1 / T2 / T3 / T4 4-tier 사다리 narrative — 각 tier 가 무엇을
+  PROVE 하고 무엇을 PROVE 하지 못하는지 명시.
+- 5 invariants + (6) drift-lock 의 lint_numerics 컨트랙트 prose
+  설명.
+- 4 pillar 별 methodology (BCS / McMillan / Hc2 / LK-99) — 각 pillar
+  의 closed-form anchor + parity script 의 published-data 기준점.
+- "What's NOT covered" 섹션 — 4가지 솔직한 미해결 (mechanism
+  uniqueness, out-of-distribution, synthesis route, falsifier coverage
+  completeness) 명시 → closure-honesty 컨트랙트 강화.
+- "How to add a new pillar" 7-step gateway — 미래 cycle 에서 5번째
+  pillar (예: hydride H₃S/LaH₁₀ family) 분리 시 대응 절차.
+- Cross-reference index — recipe SSOT, 핵심 verify/ scripts,
+  RELEASE_NOTES, .roadmap §A.4-A.6 등.
+
+#### Why narrative now (post-saturation)
+
+memory `feedback_post_saturation_chunks.md` 가이드: narrative slot
+은 별도 explicit naming signal 필요. 사용자가 "all bg go" + "narrative
+go" 컨텍스트에서 이를 satisfy. 두 chunk 모두 head 에 explicit
+"non-predicate-bearing" disclaimer 포함 → polish-as-chunk 위장 회피
+(§9.1 violation list 검사 통과).
+
+#### Wire updates
+
+- README 인벤토리 트리에 build/ + docs/ 추가.
+- `.roadmap.hexa_rtsc §A.3` cycle history 갱신 (iter #4/#5 항목).
+- `firmware/build/verification_matrix.md` 의 "Bridge to physical
+  hardware" 섹션 변경 없음 (별도 build 영역).
+
 ### Added (2026-05-08 — recipe §1 slot #11 · `tests/test_saturation.hexa` (isolated regression test for saturation_check))
 
 심화 봉쇄 iter #3 (continuation). Fills recipe §7.4 priority slot #11

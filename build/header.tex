@@ -1,0 +1,71 @@
+% hexa-rtsc/build/header.tex — pandoc → xelatex preamble
+%
+% Recipe §1 slot #12 ("build/Makefile + build/header.tex | pandoc +
+% xelatex 로 모든 pillar PDF rebuild"). Sister of hexa-cern's
+% build/header.tex.
+%
+% Targets two corpora:
+%   1. pillar specs (rtsc/room-temp-sc.md + sc/superconductor.md) —
+%      n=6 closed-form derivation, dense math, Korean+English mix.
+%   2. .roadmap.hexa_rtsc + doc/*_v0.md hardware specs — narrative
+%      heavy, occasional formulas.
+%
+% Choices:
+%   - xelatex (not pdflatex) — required for Korean glyphs without TeX
+%     mojibake; pdflatex+inputenc cannot encode 한글.
+%   - mainfont: TeX Gyre Termes (libre Times-equivalent, ships with
+%     TeX Live).
+%   - CJKmainfont: Noto Sans CJK KR — present on macOS + most Linux
+%     TeX Live distributions.
+%   - amsmath / amssymb / unicode-math — closed-form derivations need
+%     ⊕ ⊗ σ τ φ etc. as Unicode-direct, not legacy macros.
+%   - hyperref colored links — cross-reference between roadmap §A.4
+%     falsifier rows and pillar §8.x derivations is heavy.
+
+% ─── Unicode + fonts ────────────────────────────────────────────────────
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\setmainfont{TeX Gyre Termes}
+\setsansfont{TeX Gyre Heros}
+\setmonofont{TeX Gyre Cursor}
+\setCJKmainfont{Noto Sans CJK KR}[%
+  AutoFakeBold=2,%
+  AutoFakeSlant=0.2%
+]
+
+% ─── math ─────────────────────────────────────────────────────────────
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{unicode-math}
+\setmathfont{Latin Modern Math}
+
+% ─── layout ───────────────────────────────────────────────────────────
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{microtype}
+\setlength{\parskip}{0.5\baselineskip}
+\setlength{\parindent}{0pt}
+
+% ─── tables ───────────────────────────────────────────────────────────
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{array}
+
+% ─── code blocks ──────────────────────────────────────────────────────
+\usepackage{fvextra}
+\usepackage{xcolor}
+\definecolor{codebg}{HTML}{F5F5F5}
+\definecolor{codefg}{HTML}{222222}
+
+% ─── hyperref (last per LaTeX convention) ─────────────────────────────
+\usepackage[%
+  colorlinks=true,%
+  linkcolor=black,%
+  urlcolor=blue,%
+  citecolor=teal,%
+  pdfborder={0 0 0}%
+]{hyperref}
+
+% ─── title block helpers (used by Makefile-driven --metadata) ─────────
+\title{hexa-rtsc — n=6 closed-form Room-Temp Superconductor substrate}
+\author{dancinlab/hexa-rtsc}
+\date{\today}
