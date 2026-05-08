@@ -5,6 +5,54 @@ All notable changes to **hexa-rtsc** are documented here. Format follows
 
 ## [Unreleased]
 
+### Added (2026-05-08 — recipe §1 slot #11 · `tests/test_saturation.hexa` (isolated regression test for saturation_check))
+
+심화 봉쇄 iter #3 (continuation). Fills recipe §7.4 priority slot #11
+("tests/test_*.hexa 보강") with the only truly-empty isolated
+regression test surface — `verify/saturation_check.hexa` had no
+count-locked test because its sentinel ends in `STOP` (recipe §7.3
+canonical form) rather than `PASS`, so the existing
+`tests/test_calculators.hexa` (which scans for `... PASS` sentinels)
+never bound on it. Sister of `tests/test_falsifier.hexa`.
+
+#### New script (tests/)
+
+- **`tests/test_saturation.hexa`** — runs `verify/saturation_check.hexa`
+  and asserts 4 conditions on the output:
+  1. `9/9 saturation predicates passed` count line
+  2. `sat-1 (all 6 falsifier rows complete) = TRUE`
+  3. `sat-2 (inventory ≥ 9 + lint clean) = TRUE`
+  4. `__HEXA_RTSC_RSC_SATURATED__ STOP` sentinel
+  Failing any condition emits a labelled diagnostic + exit 1.
+
+#### Doc-correction wave (count fix)
+
+The previous iter #1 commit (07b457a) described `saturation_check`
+as a "22-check predicate" — actual `_check()` invocation count is **9**
+(6 sat-1 rows + 2 sat-2 rows + 1 drift-lock mirror). This commit
+corrects:
+- `CHANGELOG.md` "22-check" → "9-check" in iter #1 entry.
+- `firmware/build/verification_matrix.md` "saturation 22/22" → "9/9".
+The verify-side script itself was always emitting `9/9` correctly;
+only the prose annotations were stale.
+
+#### Why this slot is recipe §9.1-legitimate
+
+Three-part justification for this post-saturation chunk:
+1. User explicit "keep going" instruction (case 2 of §9.1).
+2. Predicate-bearing — `test_saturation` can FAIL (4 distinct
+   conditions, each independently checkable) per
+   feedback/post-saturation-chunks discipline.
+3. Closes a real coverage gap — saturation_check had no isolated
+   regression test previously (test_calculators silent on STOP-
+   suffix sentinels).
+
+Now exhausts the predicate-bearing slot inventory: only narrative
+slots #12 (PDF doc rebuild) + #13 (numerics_methodology.md) remain
+in recipe §7.4. Per closure-honesty + post-saturation-chunks
+discipline, those require a separate explicit naming signal — not
+generic "keep going" — to avoid §9.1 polish-as-chunk drift.
+
 ### Added (2026-05-08 — recipe §1 slot #7 · `verify/numerics_cross_pillar.hexa` (4-pillar T2 cross-cutter))
 
 심화 봉쇄 iter #2 (continuation of explicit user instruction). recipe
@@ -75,7 +123,7 @@ predicate emitting the canonical sentinel that recipe §7.3 names.
 #### New script (verify/)
 
 - **`verify/saturation_check.hexa`** (meta tier, recipe §7.3 +
-  §9.1 self-stop signal) — 22-check predicate:
+  §9.1 self-stop signal) — 9-check predicate:
   - **sat-1 row** (6 checks): for each falsifier Fi ∈ {F-RTSC-1..3,
     F-SC-1..3}, assert Fi.T1 ≥ 1 ∧ Fi.T2 ≥ 1 ∧ Fi.T3 ≥ 1 evidence
     file present on disk (mirrors `falsifier_check.hexa`'s SSOT
