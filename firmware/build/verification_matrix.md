@@ -34,7 +34,7 @@ Plus verify/ runtime tier (separate from firmware/):
 | T1 algebraic | 6  | (calc_*.hexa pass count varies) |
 | T2 numerical | 16 | 113 lint checks |
 | T3 archival  | 6  | per-empirical 3/3 |
-| meta         | 2  | falsifier 43/43 + lint 113/113 |
+| meta         | 3  | falsifier 43/43 + lint 113/113 + saturation 22/22 (recipe §7.3) |
 
 ## Toolchain status
 

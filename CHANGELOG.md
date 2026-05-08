@@ -5,6 +5,59 @@ All notable changes to **hexa-rtsc** are documented here. Format follows
 
 ## [Unreleased]
 
+### Added (2026-05-08 — recipe §7.3 self-stop signal · `verify/saturation_check.hexa`)
+
+Per user override "심화 봉쇄 진행" (recipe §9.1 legitimate exception #2 —
+explicit user instruction), filling the only previously-unfilled slot
+on recipe §7.4 priority table (#15 saturation_check). Until this commit
+the `sat-1 + sat-2` predicate was carried by hand from `falsifier_check`
++ `lint_numerics` output; this script lifts it into a single auditable
+predicate emitting the canonical sentinel that recipe §7.3 names.
+
+#### New script (verify/)
+
+- **`verify/saturation_check.hexa`** (meta tier, recipe §7.3 +
+  §9.1 self-stop signal) — 22-check predicate:
+  - **sat-1 row** (6 checks): for each falsifier Fi ∈ {F-RTSC-1..3,
+    F-SC-1..3}, assert Fi.T1 ≥ 1 ∧ Fi.T2 ≥ 1 ∧ Fi.T3 ≥ 1 evidence
+    file present on disk (mirrors `falsifier_check.hexa`'s SSOT
+    arrays).
+  - **sat-2 row** (2 checks): inv_count(verify/numerics_*.hexa) ≥ 9
+    AND `lint_numerics.hexa` exits 0 (5-invariant lint clean).
+  - **drift-lock** (1 check): all 23 tier-scripts listed here must
+    appear in `falsifier_check.hexa` body (catches divergence
+    between the two meta files).
+  - PASS sentinel: `__HEXA_RTSC_RSC_SATURATED__ STOP` (recipe §7.3
+    canonical form — STOP suffix, not PASS, signals loop-self-end).
+  - FAIL sentinel: `__HEXA_RTSC_RSC_SATURATED__ FAIL` + per-row
+    breakdown of which T-tier scripts are owed.
+  - Honesty disclaimer (closure-honesty-contract): "saturated" =
+    bookkeeping/archival closure, NOT physics-settled. T3 here =
+    arXiv-corpus existence parity, not live raw-data. Underlying
+    RT-SC empirical claim stays UNPROVEN until §A.6 Step 4.
+
+#### Wire updates
+
+- `verify/run_all.hexa` SCRIPTS list 34 → 35 (+ saturation_check).
+- `cli/hexa-rtsc.hexa` `cmd_verify` scripts/names arrays 30 → 31
+  (+ `saturation`).
+- `tests/test_verify.hexa` expected aggregate 30 → 35 (catches the
+  pre-existing stale count + bumps for new entry).
+
+#### Why this chunk is recipe §9.1-legitimate
+
+Recipe §9.1 prohibits auto-adding chunks post-saturation, with three
+exceptions:
+1. saturation_check goes PASS → FAIL (real regression) — N/A.
+2. **explicit user instruction** ← this commit ("심화 봉쇄 진행").
+3. T3 (Stage-1+) actually begins — N/A (still funding-gated).
+
+Additionally, this slot (recipe §7.4 priority #15, "saturation_check.hexa
+self-stop signal") was the ONLY truly-empty slot on the recipe priority
+table. Filling it converts implicit folklore into an explicit predicate
+without manufacturing new closure depth — no over-saturation polish-
+as-chunk smell (§9.1 violation list).
+
 ### Added (2026-05-08 — §A.6.1 Phase E1+ EDA layer (KiCad schematic / BOM / PCB skeleton))
 
 Per user table review (commit `8f74f28` Phase E1) + extension prompt

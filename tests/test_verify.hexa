@@ -1,13 +1,21 @@
 #!hexa strict
-// tests/test_verify.hexa — exercise verify/run_all.hexa (8 invariant audits).
+// tests/test_verify.hexa — exercise verify/run_all.hexa aggregate sweep.
 //
-// Pass criterion: "8/8 scripts passed" from verify/run_all.hexa
-//   (lattice + cross_doc + 4×calc_* + numerics_bcs + falsifier).
-// F-SC-{1,2,3} at 67% (T1+T2); F-RTSC-{1,2,3} at 33% (T1 only).
+// Pass criterion: "35/35 scripts passed" from verify/run_all.hexa.
+// Composition (post saturation_check landing):
+//   - T1 algebra ×6     : lattice + cross_doc + 4×calc_*
+//   - T2 numerics ×9    : 4×numerics_* + 4×_parity + lattice_arithmetic
+//   - T2-solver ×4      : 4×numerics_*_solver
+//   - T2-extended ×3    : numerics_lk99_dft + tdgl_vortex + whh_full
+//   - T3 archival ×6    : 6×empirical_*_arxiv
+//   - meta ×3           : falsifier_check + lint_numerics + saturation_check
+//   - sim-firmware ×4   : firmware/sim/{synthesis,quench,calorimetry,squid}
+// All 6 falsifiers at 100% bookkeeping closure (T1 + T2≥1 + T3≥1).
 // Run:
 //     hexa run tests/test_verify.hexa
 //
-// Authority: own 1 (lattice), own 2 (falsifier), own 3 (code-scope).
+// Authority: own 1 (lattice), own 2 (falsifier), own 3 (code-scope) +
+//            recipe §7.2/§7.3 (saturation predicate).
 
 fn main() {
     let root = env("HEXA_RTSC_ROOT")
@@ -15,8 +23,8 @@ fn main() {
     if root.len() > 0 { p = root + "/verify/run_all.hexa" }
 
     let raw = exec("hexa run " + p + " 2>&1")
-    if raw.contains("30/30 scripts passed") {
-        println("test_verify: PASS  (verify/run_all.hexa 30/30)")
+    if raw.contains("35/35 scripts passed") {
+        println("test_verify: PASS  (verify/run_all.hexa 35/35)")
         return
     }
     println("test_verify: FAIL")
