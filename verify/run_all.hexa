@@ -38,6 +38,10 @@ let SCRIPTS: [str] = [
     "verify/empirical_specific_heat_arxiv.hexa",
     "verify/falsifier_check.hexa",
     "verify/lint_numerics.hexa",
+    "firmware/sim/synthesis_ctrl.hexa",
+    "firmware/sim/quench_logic.hexa",
+    "firmware/sim/calorimetry_ctrl.hexa",
+    "firmware/sim/squid_daq.hexa",
 ]
 
 fn main() {
