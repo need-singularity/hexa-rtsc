@@ -5,12 +5,12 @@
 
 ## Matrix view
 
-| Bench / subsystem | Stage A spec | Sim ([.hexa](../sim/)) | HDL ([.v](../hdl/)) | MCU ([.rs](../mcu/)) | Chip design ([doc/](../doc/)) | Status |
-|:----|:----|:--:|:--:|:--:|:--:|:------:|
-| Synthesis chamber | [synthesis_bench_v0.md](../../doc/synthesis_bench_v0.md) | synthesis_ctrl ✓ 7/7 | — | chamber_drv ✓ 5/5 | ✓ | **5/5** |
-| 48 T REBCO coil   | [48t_rebco_coil_v0.md](../../doc/48t_rebco_coil_v0.md)     | quench_logic ✓ 15/15 | quench_detect + tb ✓ 12/12 | — | ✓ | **5/5** |
-| Calorimetry rig   | [calorimetry_rig_v0.md](../../doc/calorimetry_rig_v0.md)   | calorimetry_ctrl ✓ 12/12 | calorimetry_daq ✓ compile | calorimetry_drv ✓ 6/6 | ✓ | **5/5** |
-| SQUID DAQ pipeline| synthesis_bench_v0.md §6  | squid_daq ✓ 9/9 | — | — (host-side via PyVISA TBD) | ✓ | **3/5** |
+| Bench / subsystem | Stage A spec | Sim ([.hexa](../sim/)) | HDL ([.v](../hdl/)) | MCU ([.rs](../mcu/)) | Chip design ([doc/](../doc/)) | EDA ([eda/](../eda/)) | Status |
+|:----|:----|:--:|:--:|:--:|:--:|:--:|:------:|
+| Synthesis chamber | [synthesis_bench_v0.md](../../doc/synthesis_bench_v0.md) | synthesis_ctrl ✓ 7/7 | — | chamber_drv ✓ 5/5 | ✓ | (shared with quench) | **5/6** |
+| 48 T REBCO coil   | [48t_rebco_coil_v0.md](../../doc/48t_rebco_coil_v0.md)     | quench_logic ✓ 15/15 | quench_detect + tb ✓ 12/12 | — | ✓ | quench_detect.kicad_sch ✓ | **6/6** |
+| Calorimetry rig   | [calorimetry_rig_v0.md](../../doc/calorimetry_rig_v0.md)   | calorimetry_ctrl ✓ 12/12 | calorimetry_daq ✓ compile | calorimetry_drv ✓ 6/6 | ✓ | calorimetry.kicad_sch (TBD E2) | **5/6** |
+| SQUID DAQ pipeline| synthesis_bench_v0.md §6  | squid_daq ✓ 9/9 | — | — (host-side via PyVISA TBD) | ✓ | (host-only) | **3/6** |
 
 ## Test count per layer
 
@@ -60,6 +60,9 @@ Plus verify/ runtime tier (separate from firmware/):
 | **D+ sim** | calorimetry_ctrl + squid_daq | $0 | 1 d | ✓ pushed c39a8e2 |
 | **D+ build** | this Makefile + bom.csv + matrix | $0 | 1 d | ✓ pushed b2584e9 |
 | **D+ md**    | comprehensive .md doc refresh    | $0 | 1 d | ✓ pushed fe7e021 |
+| **E1**       | KiCad schematic + EDA BOM + build script | $0 | 1 d | ← this commit |
+| **E2**       | PCB layout (.kicad_pcb) + Gerber + DRC   | $1k | 2 mo | ✗ funding-gated |
+| **E3**       | Cold-test on real REBCO + Cernox         | $25k | 4 mo | ✗ §A.6 Step 4 |
 | **Step 1** | external collab decision (NIMS / NHMFL / Lake Shore) | $20k pre-dev | 2–4 mo | ✗ |
 | **Step 2** | Funding round + PCB pilot (5 boards × 3 designs) | +$15k | 2 mo | ✗ |
 | **Step 2.5** | Procurement (silicon + Cs + AMI 4Q) | +$140k | 6 mo | ✗ |

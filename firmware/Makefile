@@ -3,9 +3,9 @@
 # §A.6.1 Phase D+ deliverable per .roadmap.hexa_rtsc.
 # Drives all 3 sub-toolchains (hexa sim, iverilog HDL, cargo MCU).
 
-.PHONY: all sim hdl mcu test verify clean status help
+.PHONY: all sim hdl mcu eda test verify clean status help
 
-all: sim hdl mcu
+all: sim hdl mcu eda
 
 # ─── sim layer (hexa runtime) ──────────────────────────────────────────
 sim:
@@ -26,15 +26,21 @@ mcu:
 	@cd mcu && cargo build --bins 2>&1 | tail -3
 	@cd mcu && cargo test 2>&1 | grep -E "test result"
 
-# ─── full verification (sim + HDL + MCU) ───────────────────────────────
-test: sim hdl mcu
+# ─── EDA layer (KiCad CLI verified-parse) ──────────────────────────────
+eda:
+	@echo "═══ firmware/eda/ — KiCad CLI verified-parse ══════════════════════"
+	@python3 eda/build_kicad.py all 2>&1 | tail -10
+
+# ─── full verification (sim + HDL + MCU + EDA) ─────────────────────────
+test: sim hdl mcu eda
 	@echo ""
-	@echo "═══ Phase D+ verification matrix ════════════════════════════════"
+	@echo "═══ Phase D+/E1 verification matrix ════════════════════════════"
 	@echo "  sim-firmware:        4 scripts (synthesis_ctrl, quench_logic,"
 	@echo "                                  calorimetry_ctrl, squid_daq)"
 	@echo "  HDL testbench:       1 testbench (tb_quench_detect.v 12/12)"
 	@echo "  MCU host tests:      4 lib + 6 cal + 5 chamber = 15/15 PASS"
-	@echo "  TOTAL:               39/39 verified-build + tested"
+	@echo "  EDA schematic:       quench_detect.kicad_sch + BOM (SKIP w/o KiCad)"
+	@echo "  TOTAL:               39/39 verified-build + tested + EDA-parse"
 
 # ─── alias: verify ↔ test ──────────────────────────────────────────────
 verify: test
@@ -49,20 +55,22 @@ clean:
 	cd mcu && cargo clean
 
 help:
-	@echo "firmware/ Makefile — Phase D+ master build"
+	@echo "firmware/ Makefile — Phase D+/E1 master build"
 	@echo ""
 	@echo "Targets:"
-	@echo "  all     — build sim + HDL + MCU"
+	@echo "  all     — build sim + HDL + MCU + EDA"
 	@echo "  sim     — run 4 hexa sim-firmware scripts"
 	@echo "  hdl     — iverilog testbench (firmware/hdl/Makefile)"
 	@echo "  mcu     — cargo build + cargo test"
-	@echo "  test    — sim + HDL + MCU + summary matrix"
+	@echo "  eda     — KiCad CLI ERC + netlist + BOM (SKIP w/o kicad-cli)"
+	@echo "  test    — sim + HDL + MCU + EDA + summary matrix"
 	@echo "  verify  — alias for test"
 	@echo "  status  — print Phase D+ status table"
 	@echo "  clean   — remove build artifacts"
 	@echo ""
 	@echo "Per-toolchain:"
-	@echo "  cd hdl && make sim    # iverilog 11.0+"
-	@echo "  cd hdl && make synth  # Vivado 2024.2+"
-	@echo "  cd mcu && cargo test  # cargo 1.94+"
+	@echo "  cd hdl && make sim                    # iverilog 11.0+"
+	@echo "  cd hdl && make synth                  # Vivado 2024.2+"
+	@echo "  cd mcu && cargo test                  # cargo 1.94+"
 	@echo "  cd mcu && cargo build --release --target thumbv7em-none-eabihf"
+	@echo "  cd eda && python3 build_kicad.py all  # KiCad 7+ (brew install --cask kicad)"
