@@ -100,6 +100,7 @@ let NUMERICS_SCRIPTS: [str] = [
     "numerics_tdgl_vortex.hexa",
     "numerics_whh_full.hexa",
     "numerics_lattice_arithmetic.hexa",
+    "numerics_cross_pillar.hexa",
 ]
 
 // ─── falsifier mapping (anchors lint into preregister surface) ──────────
@@ -110,6 +111,7 @@ let FALSIFIERS: [str] = [
     "F-RTSC-3: numerics_hc2_48t + numerics_hc2_48t_parity must satisfy invariants (1)-(5)",
     "F-SC-1/2/3: numerics_bcs + numerics_bcs_parity must satisfy invariants (1)-(5)",
     "cross-cutter: numerics_lattice_arithmetic must satisfy invariants (1)-(5)",
+    "cross-cutter: numerics_cross_pillar must satisfy invariants (1)-(5)",
     "drift-lock: NUMERICS_SCRIPTS array len == on-disk verify/numerics_*.hexa glob len",
 ]
 

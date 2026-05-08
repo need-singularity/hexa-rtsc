@@ -46,7 +46,7 @@ from `n6-architecture/domains/energy/{room-temp-sc,superconductor}/` (SHA
 >
 > - n=6 **closed-form candidate** spec (Tc=300K, Hc2=σ·τ=48T, Cooper φ=2 boson, Abrikosov CN=6)
 > - **falsifier preregister** tables (F-RTSC-{1,2,3} + F-SC-{1,2,3})
-> - **34 verify scripts** (T1 ×6 + T2 ×16 + T3 ×6 + meta ×3 + run_all + cross-cutters; meta = falsifier_check + lint_numerics + saturation_check)
+> - **35 verify scripts** (T1 ×6 + T2 ×17 + T3 ×6 + meta ×3 + run_all + cross-cutters; meta = falsifier_check + lint_numerics + saturation_check; T2 includes numerics_cross_pillar 4-pillar consistency)
 > - **100% bookkeeping closure** for all 6 falsifiers (T1 + T2 ×3 + T3-archival ×1)
 > - **§A.6.1 Phase A → D+ COMPLETE** — 3 hardware design docs, 3 sim-parity
 >   scripts, 4 sim-firmware, HDL+MCU verified-build (70/70 PASS)
@@ -63,14 +63,16 @@ from `n6-architecture/domains/energy/{room-temp-sc,superconductor}/` (SHA
 
 Verdict: **bookkeeping closure 100 %**, empirical claim **NOT verified**.
 The lattice machinery + sim parity + sim-firmware + HDL/MCU build are
-fully wired: 34 verify/*.hexa scripts + 4 sim-firmware + 12/12 iverilog
+fully wired: 35 verify/*.hexa scripts + 4 sim-firmware + 12/12 iverilog
 testbench + 15/15 cargo unit tests pass end-to-end. Per `.own` own 2:
 a `__HEXA_RTSC_*__ PASS` sentinel **never** validates the empirical
 RT-SC claim — only that the closed form is regression-locked at the
 code-layer for future bench comparison.
 
 ```
-verify/    34 scripts  (T1×6 + T2×16 + T3-archival×6 + meta×3 + run_all)
+verify/    35 scripts  (T1×6 + T2×17 + T3-archival×6 + meta×3 + run_all)
+           ├─ T2 ×17: 4 closed-form + 4 parity + 4 solver + lk99_dft + tdgl + whh
+           │          + lattice_arithmetic + cross_pillar  (recipe §1 #7+#13)
            └─ meta×3: falsifier_check + lint_numerics + saturation_check (recipe §7.3)
 firmware/  10 sources  (4 sim + 2 HDL + tb + 3 MCU + lib)
 doc/       3 specs     (synthesis_bench / 48t_rebco_coil / calorimetry_rig)
@@ -152,7 +154,7 @@ hexa run $HEXA_RTSC_ROOT/cli/hexa-rtsc.hexa selftest
 hexa-rtsc selftest      # sentinel sweep — specs + own_v1 + verify/ landing
 hexa-rtsc status        # verb table + verdict + caveats
 hexa-rtsc lattice       # live-compute n=6 closed-form (σ τ φ Hc2 master)
-hexa-rtsc verify        # run all verify/*.hexa invariant audits (34 scripts)
+hexa-rtsc verify        # run all verify/*.hexa invariant audits (35 scripts)
 hexa-rtsc rtsc          # RTSC spec excerpt + falsifier preregister
 hexa-rtsc sc            # SC   spec excerpt + falsifier preregister
 ```

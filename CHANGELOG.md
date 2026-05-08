@@ -5,6 +5,64 @@ All notable changes to **hexa-rtsc** are documented here. Format follows
 
 ## [Unreleased]
 
+### Added (2026-05-08 — recipe §1 slot #7 · `verify/numerics_cross_pillar.hexa` (4-pillar T2 cross-cutter))
+
+심화 봉쇄 iter #2 (continuation of explicit user instruction). recipe
+§7.4 priority table slot #7 ("numerics_cross_pillar.hexa — pillar 간
+numerical anchor 일치") was the second still-empty slot after iter #1
+landed saturation_check. Sister of `numerics_lattice_arithmetic.hexa`
+(vertical regression-lock on math_pure floats) — this script provides
+the **horizontal** lock: every one of the 4 pillars (BCS / McMillan /
+Hc2 / LK-99) must agree on the SSOT lattice anchors when each derives
+them independently, so silent pillar-level drift is caught.
+
+#### New script (verify/)
+
+- **`verify/numerics_cross_pillar.hexa`** (T2 numerical cross-cutter,
+  recipe §1 slot #7) — 6 inter-pillar invariants:
+  - **I1**: SSOT lattice presence — every pillar's calc + numerics
+    body must mention σ=12 / τ=4 / φ=2 / J₂=24 / n=6 (all 5 anchors).
+    4 pillars × 1 row each = 4 sub-checks.
+  - **I2**: master identity σ·φ = n·τ = J₂ = 24 reproduced via
+    math_pure float arithmetic (3 sub-checks: σ·φ=J₂, n·τ=J₂, σ·φ=n·τ).
+  - **I3**: Hc2 master gate — σ·τ = 48 T independently re-derived
+    AND the Hc2 pillar body cites 48 (2 sub-checks).
+  - **I4**: Cooper pair φ=2 surface in BCS pillar (calc_bcs +
+    numerics_bcs + numerics_bcs_parity bodies).
+  - **I5**: McMillan(λ→0) / BCS exponent ratio ∈ [1.0, 1.1] (Allen-
+    Dynes 1975 weak-coupling limit numerical cross-check).
+  - **I6**: LK-99 negative-result preserves σ=12 substrate molecule
+    (σ−1=11 candidates remain; σ molecule itself untouched). 2 sub-
+    checks (token preservation + numerical σ−1=11).
+  Total: 12 cross-pillar predicates, sentinel
+  `__HEXA_RTSC_NUMERICS_CROSS_PILLAR__ PASS` (recipe §4 5-invariant
+  compliant).
+
+#### Wire updates
+
+- `verify/run_all.hexa`             SCRIPTS list 35 → 36.
+- `verify/lint_numerics.hexa`       NUMERICS_SCRIPTS array 16 → 17 +
+                                    FALSIFIERS row 6 → 7 (cross_pillar
+                                    cross-cutter line). Lint count
+                                    113 → 119 (+ 5 invariants × 1 file
+                                    + 1 inventory row).
+- `cli/hexa-rtsc.hexa cmd_verify`   scripts/names arrays 31 → 32 (+
+                                    `numerics-cross-pillar`).
+- `tests/test_calculators.hexa`     CALCULATORS array bumped (+ cross-
+                                    pillar PASS sentinel pair).
+- `tests/test_verify.hexa`          expected aggregate 35/35 → 36/36.
+- README / .roadmap §A.3 / firmware/build/verification_matrix      
+                                    counters refreshed.
+
+#### Why this slot is recipe §9.1-legitimate (continuation iter)
+
+Same exception applies as iter #1 (explicit user instruction "심화 봉쇄
+진행"). This is the SECOND of the two truly-empty slots on the recipe
+priority table. After this commit, only narrative slots (#13 docs/
+numerics_methodology.md, #12 PDF doc build) remain — those are
+borderline-polish and SHOULD wait for a separate user signal before
+landing, per closure-honesty contract.
+
 ### Added (2026-05-08 — recipe §7.3 self-stop signal · `verify/saturation_check.hexa`)
 
 Per user override "심화 봉쇄 진행" (recipe §9.1 legitimate exception #2 —

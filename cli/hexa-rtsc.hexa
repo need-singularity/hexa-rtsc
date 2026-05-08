@@ -320,6 +320,7 @@ fn cmd_verify(a: [str]) {
         "verify/numerics_hc2_48t_parity.hexa",
         "verify/numerics_lk99_parity.hexa",
         "verify/numerics_lattice_arithmetic.hexa",
+        "verify/numerics_cross_pillar.hexa",
         "verify/numerics_bcs_solver.hexa",
         "verify/numerics_mcmillan_solver.hexa",
         "verify/numerics_hc2_48t_solver.hexa",
@@ -337,7 +338,7 @@ fn cmd_verify(a: [str]) {
         "verify/lint_numerics.hexa",
         "verify/saturation_check.hexa",
     ]
-    let names: [str] = ["lattice", "cross-doc", "calc-bcs", "calc-mcmillan", "calc-hc2-48t", "calc-lk99", "numerics-bcs", "numerics-mcmillan", "numerics-hc2-48t", "numerics-lk99", "numerics-bcs-parity", "numerics-mcmillan-parity", "numerics-hc2-48t-parity", "numerics-lk99-parity", "numerics-lattice-arithmetic", "numerics-bcs-solver", "numerics-mcmillan-solver", "numerics-hc2-48t-solver", "numerics-lk99-solver", "numerics-lk99-dft", "numerics-tdgl-vortex", "numerics-whh-full", "empirical-lk99", "empirical-mcmillan", "empirical-hc2", "empirical-bcs-cooper", "empirical-abrikosov", "empirical-specific-heat", "falsifier", "lint-numerics", "saturation"]
+    let names: [str] = ["lattice", "cross-doc", "calc-bcs", "calc-mcmillan", "calc-hc2-48t", "calc-lk99", "numerics-bcs", "numerics-mcmillan", "numerics-hc2-48t", "numerics-lk99", "numerics-bcs-parity", "numerics-mcmillan-parity", "numerics-hc2-48t-parity", "numerics-lk99-parity", "numerics-lattice-arithmetic", "numerics-cross-pillar", "numerics-bcs-solver", "numerics-mcmillan-solver", "numerics-hc2-48t-solver", "numerics-lk99-solver", "numerics-lk99-dft", "numerics-tdgl-vortex", "numerics-whh-full", "empirical-lk99", "empirical-mcmillan", "empirical-hc2", "empirical-bcs-cooper", "empirical-abrikosov", "empirical-specific-heat", "falsifier", "lint-numerics", "saturation"]
     let mut passed = 0
     let mut failed = 0
     let mut i = 0

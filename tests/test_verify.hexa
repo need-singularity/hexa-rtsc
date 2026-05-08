@@ -2,9 +2,9 @@
 // tests/test_verify.hexa — exercise verify/run_all.hexa aggregate sweep.
 //
 // Pass criterion: "35/35 scripts passed" from verify/run_all.hexa.
-// Composition (post saturation_check landing):
+// Composition (post numerics_cross_pillar landing):
 //   - T1 algebra ×6     : lattice + cross_doc + 4×calc_*
-//   - T2 numerics ×9    : 4×numerics_* + 4×_parity + lattice_arithmetic
+//   - T2 numerics ×10   : 4×numerics_* + 4×_parity + lattice_arithmetic + cross_pillar
 //   - T2-solver ×4      : 4×numerics_*_solver
 //   - T2-extended ×3    : numerics_lk99_dft + tdgl_vortex + whh_full
 //   - T3 archival ×6    : 6×empirical_*_arxiv
@@ -23,8 +23,8 @@ fn main() {
     if root.len() > 0 { p = root + "/verify/run_all.hexa" }
 
     let raw = exec("hexa run " + p + " 2>&1")
-    if raw.contains("35/35 scripts passed") {
-        println("test_verify: PASS  (verify/run_all.hexa 35/35)")
+    if raw.contains("36/36 scripts passed") {
+        println("test_verify: PASS  (verify/run_all.hexa 36/36)")
         return
     }
     println("test_verify: FAIL")
