@@ -2,7 +2,7 @@
 
 **Release date**: 2026-05-06
 **Closure verdict**: **SPEC_ONLY** (0/2 verbs wired; 2/2 spec + falsifier preregister)
-**Provenance**: extracted 2026-05-06 from `n6-architecture/domains/energy/{room-temp-sc,superconductor}/`
+**Provenance**: extracted 2026-05-06 from `canon/domains/energy/{room-temp-sc,superconductor}/`
 (SHA `c0f1f570`). Sister-of-substrates extraction template: `hexa-bio` v1.0.0
 (dancinlab/hexa-bio, 2026-05-04).
 
@@ -91,9 +91,9 @@ upper-bounded by current liquid-helium-cooled SC technology
 
 ## Provenance
 
-- RTSC spec **imported** from `n6-architecture/domains/energy/room-temp-sc/`
+- RTSC spec **imported** from `canon/domains/energy/room-temp-sc/`
   (SHA `c0f1f570`, 2026-05-06).
-- SC spec **imported** from `n6-architecture/domains/energy/superconductor/`
+- SC spec **imported** from `canon/domains/energy/superconductor/`
   (SHA `c0f1f570`, 2026-05-06).
 - CLI dispatcher created **fresh** as placeholder during this extraction.
 - Sister-of-substrates extraction template: `hexa-bio` v1.0.0

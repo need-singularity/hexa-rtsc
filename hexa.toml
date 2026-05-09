@@ -2,7 +2,7 @@
 #
 # Spec: shared/hexa-lang/hexa-toml-spec.json (version 1.0.0)
 # Distribution target: hx install hexa-rtsc
-# Provenance: extracted from n6-architecture/domains/energy/{room-temp-sc,superconductor}/
+# Provenance: extracted from canon/domains/energy/{room-temp-sc,superconductor}/
 #             on 2026-05-06 (n6-arch SHA c0f1f570). Sister-of-substrates extraction.
 
 [package]
@@ -38,8 +38,8 @@ files = [
 install = "install.hexa"
 
 # ── Modules manifest (2 verbs spec only) ──────────────────
-# rtsc — IMPORTED from n6-architecture/domains/energy/room-temp-sc/ (SHA c0f1f570)
-# sc   — IMPORTED from n6-architecture/domains/energy/superconductor/ (SHA c0f1f570)
+# rtsc — IMPORTED from canon/domains/energy/room-temp-sc/ (SHA c0f1f570)
+# sc   — IMPORTED from canon/domains/energy/superconductor/ (SHA c0f1f570)
 [modules]
 spec = [
     "rtsc/room-temp-sc.md",
@@ -72,7 +72,7 @@ verbs_total = 2
 verbs_wired = 0
 verbs_stub = 2
 verdict = "SPEC_ONLY"
-extracted_from = "n6-architecture/domains/energy/{room-temp-sc,superconductor}/ @ c0f1f570"
+extracted_from = "canon/domains/energy/{room-temp-sc,superconductor}/ @ c0f1f570"
 
 # ── Scope honesty (raw#10 C3) ─────────────────────────────
 [scope]

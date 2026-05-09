@@ -1121,7 +1121,7 @@ inventory) + §2 (7-step cycle). closure-depth accumulation begin.
 
 ### Added
 
-- Initial standalone extraction from `n6-architecture/domains/energy/`
+- Initial standalone extraction from `canon/domains/energy/`
   - `rtsc/` ← `room-temp-sc/` (full directory copy, n6-arch SHA `c0f1f570`)
   - `sc/`   ← `superconductor/` (full directory copy, n6-arch SHA `c0f1f570`)
 - 2-verb spec coverage: `rtsc` (Tc=300K, Hc2=σ·τ=48T, Cooper φ=2) and

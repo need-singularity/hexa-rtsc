@@ -33,7 +33,7 @@ beamlines. If it is not, all three remain upper-bounded by current
 liquid-helium-cooled cuprate / Nb-Ti / Nb₃Sn limits.
 
 This repo extracts the n=6 closed-form candidate spec + falsifier preregister
-from `n6-architecture/domains/energy/{room-temp-sc,superconductor}/` (SHA
+from `canon/domains/energy/{room-temp-sc,superconductor}/` (SHA
 `c0f1f570`, 2026-05-06).
 
 ---
@@ -306,9 +306,9 @@ per `.own` own 3 + `doc/lineage/origin.md` migration plan.
 
 ## Provenance
 
-- RTSC spec **imported** from `n6-architecture/domains/energy/room-temp-sc/`
+- RTSC spec **imported** from `canon/domains/energy/room-temp-sc/`
   (SHA `c0f1f570`, 2026-05-06).
-- SC spec **imported** from `n6-architecture/domains/energy/superconductor/`
+- SC spec **imported** from `canon/domains/energy/superconductor/`
   (SHA `c0f1f570`, 2026-05-06).
 - CLI dispatcher created **fresh** at extraction; `lattice` + `verify`
   subcommands wired 2026-05-07.
@@ -332,5 +332,5 @@ MIT. See [LICENSE](LICENSE).
 - Downstream consumer: [`hexa-fusion`](https://github.com/dancinlab/hexa-fusion) (48T SC coil dep)
 - Downstream consumer: [`hexa-ufo`](https://github.com/dancinlab/hexa-ufo) (Meissner levitation dep)
 - Downstream consumer: [`hexa-cern`](https://github.com/dancinlab/hexa-cern) (SC magnet dep)
-- Upstream concept SSOT: `n6-architecture/domains/energy/room-temp-sc/room-temp-sc.md`
-- Upstream concept SSOT: `n6-architecture/domains/energy/superconductor/superconductor.md`
+- Upstream concept SSOT: `canon/domains/energy/room-temp-sc/room-temp-sc.md`
+- Upstream concept SSOT: `canon/domains/energy/superconductor/superconductor.md`

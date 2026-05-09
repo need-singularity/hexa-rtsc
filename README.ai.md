@@ -14,7 +14,7 @@
   - φ(6) ≡ 2 (Cooper pair = 2-electron boson)
   - Hc2 ≡ σ·τ = 48 T (critical magnetic field gate)
   - master identity: σ·φ = n·τ = 24 (J₂ Mathieu/Leech symmetry)
-- **Parent (canonical SSOT)**: `n6-architecture/domains/energy/{room-temp-sc,superconductor}/`
+- **Parent (canonical SSOT)**: `canon/domains/energy/{room-temp-sc,superconductor}/`
 - **Distribution**: `https://github.com/dancinlab/hexa-rtsc` (public)
 
 ## Hierarchy (canonical pattern, v1.1.0 RSC code-layer FINAL)
@@ -145,6 +145,6 @@ remains §A.6 Step 4 deliverable — out of code-layer scope, ~$225k +
 
 ## Lineage tag
 
-This repo was extracted from `n6-architecture` on **2026-05-06**.
+This repo was extracted from `canon` on **2026-05-06**.
 Source commits: see [`doc/lineage/origin.md`](doc/lineage/origin.md).
 Structural pattern aligned to `hexa-sscb` mk2 own_v1 on **2026-05-07**.

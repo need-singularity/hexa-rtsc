@@ -421,7 +421,7 @@ fn cmd_selftest(a: [str]) {
 
 fn cmd_version() {
     println("hexa-rtsc " + VERSION)
-    println("standalone Room-Temp Superconductor substrate (extracted from n6-architecture 2026-05-06)")
+    println("standalone Room-Temp Superconductor substrate (extracted from canon 2026-05-06)")
     println("license: MIT")
     println("repo:    https://github.com/dancinlab/hexa-rtsc")
 }

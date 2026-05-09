@@ -1,6 +1,6 @@
 # Origin & lineage
 
-This repository was extracted from the **n6-architecture** monorepo on
+This repository was extracted from the **canon** monorepo on
 **2026-05-06** (SHA `c0f1f570`). This document records the exact upstream
 paths each file was pulled from, so that any change in this repo can be
 traced back to (or propagated upstream to) the source-of-truth.
@@ -13,7 +13,7 @@ traced back to (or propagated upstream to) the source-of-truth.
 
 ## Upstream
 
-- Repo: `n6-architecture` (local working copy at `~/core/n6-architecture`)
+- Repo: `canon` (local working copy at `~/core/canon`)
 - Branch: `main`
 - Extraction date: 2026-05-06
 - Extraction SHA: `c0f1f570`
@@ -70,7 +70,7 @@ v1.1.0.
 
 If you change a file in `rtsc/` or `sc/` here and want to push it upstream:
 
-1. Reproduce the change in `n6-architecture/domains/energy/{room-temp-sc,superconductor}/`.
+1. Reproduce the change in `canon/domains/energy/{room-temp-sc,superconductor}/`.
 2. If the change touches the n=6 lattice (σ/τ/φ/Hc2), also update
    `.roadmap.hexa_rtsc` §A.1 and re-run `verify/lattice_check.hexa`.
 3. If the change touches a falsifier (F-RTSC-{1,2,3} or F-SC-{1,2,3}),

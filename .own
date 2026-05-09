@@ -13,7 +13,7 @@
 # Authoritative rule content remains in `own N <status> ...` blocks below.
 #
 # This repo is the public distribution form of HEXA-RTSC v1.0.0, extracted
-# from n6-architecture/domains/energy/{room-temp-sc,superconductor}/ on
+# from canon/domains/energy/{room-temp-sc,superconductor}/ on
 # 2026-05-06 (SHA c0f1f570). Sister-of-substrates extraction following the
 # hexa-bio v1.0.0 template; structural pattern aligned to hexa-sscb on
 # 2026-05-07 (this .own + README.ai.md + verify/ landing).
@@ -23,7 +23,7 @@
 # - claude opus / sonnet / haiku (AI agents — autonomous within own baselines)
 #
 # ## baselines
-# - n6-architecture canonical SSOT — extraction consumer (sync mapping in doc/lineage/origin.md)
+# - canon canonical SSOT — extraction consumer (sync mapping in doc/lineage/origin.md)
 # - rtsc/ + sc/ feature directory names preserved post-rename — must stay 1:1 with upstream domains/energy/{room-temp-sc,superconductor}/
 # - hexa-only orchestration (raw#9) — no Python bridge in verify/build/tests/cli; .hexa primary
 # - doc-first repo with thin runnable surface (verify/ + cli/ + tests/ only at v1.0.0; module/ reserved for v1.1.0+ per .roadmap)
@@ -35,7 +35,7 @@
 # - rtsc/room-temp-sc.md + sc/superconductor.md = SSOT for empirical claims — module/* and verify/* derive; if numbers disagree spec.md wins
 # - falsifier preregister monotone — F-RTSC-{1,2,3} + F-SC-{1,2,3} disposition only flips one direction (OPEN → DEMOTED or OPEN → CONFIRMED); never silently retract a falsifier
 # - additive-only at doc layer — additions OK, renames/moves require doc/lineage/origin.md update + redirect note
-# - upstream sync mapping: rtsc/room-temp-sc.md ↔ n6-architecture/domains/energy/room-temp-sc/room-temp-sc.md, sc/superconductor.md ↔ same domain superconductor.md
+# - upstream sync mapping: rtsc/room-temp-sc.md ↔ canon/domains/energy/room-temp-sc/room-temp-sc.md, sc/superconductor.md ↔ same domain superconductor.md
 #
 # ## cross_link_to_specs
 # - hive/spec/schema/own_v1.schema.yaml — THIS schema authority
