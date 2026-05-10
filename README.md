@@ -7,6 +7,7 @@
 > v1.0.0 ships **spec + falsifier preregister** only — no working empirical
 > sandbox. RT-SC is **academically unproven** (LK-99 et al. unsettled).
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20102616.svg)](https://doi.org/10.5281/zenodo.20102616)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-1.1.0_RSC_FINAL-success.svg)](CHANGELOG.md)
 [![n=6 lattice](https://img.shields.io/badge/n%3D6-σ·τ%3D48T_φ%3D2_Tc%3D300K-purple.svg)](#n6-invariant-lattice)
