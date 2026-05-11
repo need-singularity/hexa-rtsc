@@ -131,134 +131,28 @@ Falsifier preregister:
 ### Via `hx` (recommended)
 
 ```bash
-hx install hexa-rtsc          # bare-name → resolves dancinlab/hexa-rtsc
-hx install /path/to/hexa-rtsc # local path — entry auto-detected from hexa.toml
-hexa-rtsc --version           # → 1.0.0
+# Install hexa-lang (ships `hexa` + `hx` package manager)
+curl -fsSL https://raw.githubusercontent.com/dancinlab/hexa-lang/main/install.sh | bash
+
+# Install hexa-rtsc
+hx install hexa-rtsc          # global, pulls latest from registry
+hx install hexa-rtsc@1.0.0    # pin specific version
+hexa-rtsc --version
 ```
 
-> Entry auto-detection requires hx with the 2026-05-07 `detect_entry()` patch
-> (parses `[package].entry` / `[[bin]].path` from `hexa.toml`, plus
-> `cli/<name>.hexa` candidate). Older hx needs `--entry cli/hexa-rtsc.hexa`.
+`hx install hexa-rtsc` pulls from <https://github.com/dancinlab/hexa-rtsc> and
+installs the standalone CLI under `$HX_HOME/bin/hexa-rtsc`. The hexa-lang
+package registry resolves any cross-substrate dependencies declared in
+`hexa.toml`.
 
-### Via git clone
+### Optional deps
 
-```bash
-git clone https://github.com/dancinlab/hexa-rtsc.git ~/.hexa-rtsc
-export HEXA_RTSC_ROOT=~/.hexa-rtsc
-export PATH="$HEXA_RTSC_ROOT/cli:$PATH"
-
-# Run any subcommand:
-hexa run $HEXA_RTSC_ROOT/cli/hexa-rtsc.hexa selftest
-```
-
-### Quick Start
-
-```bash
-hexa-rtsc selftest      # sentinel sweep — specs + own_v1 + verify/ landing
-hexa-rtsc status        # verb table + verdict + caveats
-hexa-rtsc lattice       # live-compute n=6 closed-form (σ τ φ Hc2 master)
-hexa-rtsc verify        # run all verify/*.hexa invariant audits (35 scripts)
-hexa-rtsc rtsc          # RTSC spec excerpt + falsifier preregister
-hexa-rtsc sc            # SC   spec excerpt + falsifier preregister
-```
-
-### firmware/ (Phase D+ verified-build)
-
-```bash
-cd firmware
-brew install icarus-verilog        # iverilog 11.0+ for HDL testbench
-make test                           # → 39/39 verified-build + tested
-                                    # (sim 4 scripts + iverilog 12/12 + cargo 15/15)
-
-cd hdl  && make sim                 # iverilog testbench standalone
-cd mcu  && cargo test               # 4 lib + 6 cal + 5 chamber = 15/15
-cd sim  && hexa run synthesis_ctrl.hexa  # individual sim
-```
-
-See [`firmware/build/verification_matrix.md`](firmware/build/verification_matrix.md)
-for the per-component status board (8 components, 70/70 PASS).
+`hexa-rtsc` is **pure hexa-lang stdlib** — zero Python deps, zero external.
+All default subcommands run with `hx install hexa-rtsc` alone. Cross-substrate
+extras (e.g. `qmirror` for ANU-QRNG + Aer state-vector simulator) are
+auto-resolved by `hx install` when declared in `hexa.toml`.
 
 ---
-
-## Verb status table
-
-| Verb       | Status        | n=6 lattice candidate          | Empirical sandbox     |
-|------------|---------------|--------------------------------|-----------------------|
-| `rtsc`     | SPEC v1.0.0   | Tc=300K, σ·τ=48T, φ=2          | UNPROVEN (TBD)        |
-| `sc`       | SPEC v1.0.0   | Cooper φ=2, Abrikosov CN=6     | UNPROVEN (TBD)        |
-| `lattice`  | WIRED v1.0.x  | live divisor-fn computation    | n/a (math only)       |
-| `verify`   | WIRED v1.0.x  | runs 3 verify/*.hexa scripts   | n/a (sentinel)        |
-| `selftest` | WIRED v1.0.x  | sentinel sweep (8 files)       | n/a (sentinel)        |
-
-Verdict: **SPEC_ONLY for the empirical claim** (0/2 RT-SC/SC verbs deliver
-empirical evidence) **+ WIRED for the lattice machinery** (3/3 invariant
-audits + 4/4 .hexa tests pass; closed-form arithmetic verifiable live).
-
----
-
-## n=6 invariant lattice
-
-The lattice anchors the substrate to a single algebraic identity:
-
-```
-σ(6) = 12        BCS specific-heat molecule + 12-vertex Cooper-pair shell
-τ(6) = 4         4-state ladder (normal / fluctuation / pair / condensate)
-φ(6) = 2         binary dichotomy (Cooper pair: 2-electron boson)
-J₂   = 24        octahedral O ⊂ icosahedral I subgroup (vortex grouping)
-
-master identity:   σ · φ = n · τ = 12 · 2 = 6 · 4 = 24
-derived:           Hc2  = σ · τ  = 12 · 4 = 48 T   (critical field gate)
-```
-
-These are **closed-form candidates**, not empirically fitted constants.
-Synthesis-side validation is out-of-repo.
-
----
-
-## Build & verify
-
-```bash
-hexa-rtsc selftest                 # sentinel sweep — 8 files (specs + own + verify/ + lineage)
-hexa-rtsc verify                   # 3 invariant audits, exit 0 = all PASS
-hexa-rtsc lattice                  # live n=6 closed-form computation
-hexa run verify/lattice_check.hexa # 10/10 PASS expected (direct invocation)
-hexa run verify/run_all.hexa       # 3/3 verify scripts (orchestrator)
-hexa test tests/test_lattice.hexa  # native hexa test runner
-```
-
-### Last validation sweep — 2026-05-07
-
-| Check                              | Result        | Notes                                                  |
-|------------------------------------|---------------|--------------------------------------------------------|
-| `verify/lattice_check.hexa`        | ✅ 10/10 PASS | σ=12, τ=4, φ=2, Hc2=σ·τ=48 T, master σ·φ=n·τ=24       |
-| `verify/cross_doc_audit.hexa`      | ✅ 8/8 PASS   | lattice tokens + 6 falsifiers across spec/cli/roadmap |
-| `verify/falsifier_check.hexa`      | ✅ 19/19 PASS | F-RTSC-{1,2,3} + F-SC-{1,2,3} monotone (no banned tokens) |
-| `verify/run_all.hexa`              | ✅ 3/3 PASS   | aggregator                                             |
-| `tests/test_*.hexa`                | ✅ 4/4 PASS   | selftest / lattice / verify / falsifier                |
-| `hx install /path/to/hexa-rtsc`    | ✅ shim OK    | entry auto-detected (hexa.toml `[package].entry`)      |
-| `hexa-rtsc {selftest,lattice,verify,status,rtsc,sc}` | ✅ all OK | sentinel-only — does NOT validate empirical RT-SC      |
-
-`verify/` exits non-zero on lattice / cross-doc / falsifier drift; the
-falsifier audit caught a real `.roadmap §A.4` gap on first run (F-SC-{1,2,3}
-table rows missing) which was corrected in the same cycle.
-
----
-
-## Cross-link — substrate-of-substrates downstream consumers
-
-`hexa-rtsc` is the n=6 base substrate; the following sister substrates
-depend on it:
-
-- [dancinlab/hexa-fusion](https://github.com/dancinlab/hexa-fusion) — 48T SC coil dependency (σ·τ=48 confinement gate)
-- [dancinlab/hexa-ufo](https://github.com/dancinlab/hexa-ufo) — Stage-1 Meissner levitation dependency (B-field expulsion)
-- [dancinlab/hexa-cern](https://github.com/dancinlab/hexa-cern) — SC magnet dependency (accelerator beamline bending)
-
-Their working status is upper-bounded by RT-SC empirical realisation. If
-this substrate stays in SPEC_ONLY status, all three downstream substrates
-also stay upper-bounded by current cryogenic SC technology.
-
----
-
 ## Architecture
 
 ```
