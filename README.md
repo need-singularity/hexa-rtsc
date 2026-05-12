@@ -128,29 +128,24 @@ Falsifier preregister:
 
 ## Install
 
-### Via `hx` (recommended)
-
 ```bash
-# Install hexa-lang (ships `hexa` + `hx` package manager)
-curl -fsSL https://raw.githubusercontent.com/dancinlab/hexa-lang/main/install.sh | bash
+# 1. Install hexa-lang (gives you `hexa` + `hx` package manager)
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/dancinlab/hexa-lang/main/install.sh)"
 
-# Install hexa-rtsc
-hx install hexa-rtsc          # global, pulls latest from registry
-hx install hexa-rtsc@1.0.0    # pin specific version
-hexa-rtsc --version
+# 2. Install hexa-rtsc
+hx install hexa-rtsc
 ```
 
-`hx install hexa-rtsc` pulls from <https://github.com/dancinlab/hexa-rtsc> and
-installs the standalone CLI under `$HX_HOME/bin/hexa-rtsc`. The hexa-lang
-package registry resolves any cross-substrate dependencies declared in
-`hexa.toml`.
+## Run
 
-### Optional deps
-
-`hexa-rtsc` is **pure hexa-lang stdlib** — zero Python deps, zero external.
-All default subcommands run with `hx install hexa-rtsc` alone. Cross-substrate
-extras (e.g. `qmirror` for ANU-QRNG + Aer state-vector simulator) are
-auto-resolved by `hx install` when declared in `hexa.toml`.
+```bash
+hexa-rtsc rtsc       # room-temp superconductor (Tc=300K, 48T)    [SPEC]
+hexa-rtsc sc         # superconductor (BCS / Abrikosov)            [SPEC]
+hexa-rtsc status     # 0/2-wired verb table + verdict + caveats
+hexa-rtsc lattice    # live-compute n=6 closed-form (σ τ φ Hc2 master)
+hexa-rtsc verify     # run all verify/*.hexa invariant audits
+hexa-rtsc selftest   # sentinel sweep (specs + own_v1 + verify/ landing)
+```
 
 ---
 ## Architecture
