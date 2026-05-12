@@ -86,46 +86,6 @@ doc/       3 specs     (synthesis_bench / 48t_rebco_coil / calorimetry_rig)
 
 ---
 
-## Verbs
-
-### `rtsc` — Room-Temp Superconductor (SPEC)
-
-n=6 closed-form candidate:
-
-| symbol      | value                       | role                              |
-|-------------|-----------------------------|-----------------------------------|
-| Tc          | 300 K                       | room-temperature target           |
-| Hc2         | σ(6)·τ(6) = 12·4 = 48 T     | critical magnetic field           |
-| cooper pair | φ(6) = 2                    | electron boson pair → R=0         |
-| meissner    | full B-expulsion            | substrate of UFO levitation       |
-| miniaturise | 1/(σ-φ) = 1/10              | SC magnet shrink ratio            |
-
-Falsifier preregister:
-
-- **F-RTSC-1**: Tc(measured) < 250 K → DEMOTE n=6 Tc claim
-- **F-RTSC-2**: Hc2 < 30 T at 4.2 K → DEMOTE σ·τ=48 closed-form
-- **F-RTSC-3**: no Meissner expulsion → DEMOTE φ=2 boson claim
-
-### `sc` — Superconductor (BCS / Abrikosov) (SPEC)
-
-n=6 closed-form candidate:
-
-| symbol       | value                  | role                                    |
-|--------------|------------------------|-----------------------------------------|
-| cooper       | φ(6) = 2               | electron boson pair                     |
-| abrikosov    | CN = 6                 | hexagonal vortex lattice coordination   |
-| bcs_ratio    | σ(6) = 12              | specific-heat jump molecule             |
-| flux_quantum | Φ₀ = h/(2e)            | φ=2 denominator                         |
-| Tc_high      | 150 K → RT-SC 300 K    | rtsc verb upgrade target                |
-
-Falsifier preregister:
-
-- **F-SC-1**: Cooper pair size ≠ φ=2 → DEMOTE φ=2 pair claim
-- **F-SC-2**: vortex lattice not CN=6 → DEMOTE Abrikosov CN=6 claim
-- **F-SC-3**: BCS ratio ΔC/γTc ≠ ~1.43 → DEMOTE σ=12 molecule claim
-
----
-
 ## Install
 
 ```bash
