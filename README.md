@@ -1,4 +1,26 @@
-# 🧲 hexa-rtsc — Room-Temp Superconductor (substrate-of-substrates)
+<p align="center">
+  <img src="docs/logo.svg" width="140" alt="hexa-rtsc">
+</p>
+
+<h1 align="center">🧊 hexa-rtsc</h1>
+
+<p align="center"><strong>HEXA-RT-SC Family</strong> — room-temperature superconductor · 48T SC coil · substrate-of-substrates · n=6 closed form</p>
+
+<p align="center">
+  <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-blue"></a>
+  <a href=".github/workflows/lint.yml"><img alt="CI" src="https://github.com/dancinlab/hexa-rtsc/actions/workflows/lint.yml/badge.svg"></a>
+  <img alt="Version" src="https://img.shields.io/badge/version-1.1.0-success">
+  <img alt="Closure" src="https://img.shields.io/badge/closure-100%25-informational">
+  <img alt="Lint" src="https://img.shields.io/badge/lint-113%2F113-informational">
+  <img alt="Falsifier" src="https://img.shields.io/badge/falsifier-43%2F43-informational">
+  <img alt="Firmware" src="https://img.shields.io/badge/firmware-70%2F70-informational">
+  <a href="https://doi.org/10.5281/zenodo.20102616"><img alt="DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.20102616.svg"></a>
+  <img alt="Downstream" src="https://img.shields.io/badge/downstream-hexa--fusion%20·%20hexa--ufo%20·%20hexa--cern-blueviolet">
+</p>
+
+<p align="center">Room-temperature superconductor · Meissner · 48T coil · BCS · Abrikosov · LK-99 · n=6 lattice · falsifier-preregister</p>
+
+---
 
 > **Room-Temp Superconductor — Meissner + 48T SC coil. Substrate-of-substrates for fusion · UFO · accelerator.**
 >
@@ -6,16 +28,6 @@
 > RTSC (Tc=300K, Hc2=σ·τ=48T, Cooper φ=2) / SC (BCS, Abrikosov CN=6).
 > v1.0.0 ships **spec + falsifier preregister** only — no working empirical
 > sandbox. RT-SC is **academically unproven** (LK-99 et al. unsettled).
-
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20102616.svg)](https://doi.org/10.5281/zenodo.20102616)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.1.0_RSC_FINAL-success.svg)](CHANGELOG.md)
-[![n=6 lattice](https://img.shields.io/badge/n%3D6-σ·τ%3D48T_φ%3D2_Tc%3D300K-purple.svg)](#n6-invariant-lattice)
-[![Closure: 100%](https://img.shields.io/badge/closure-100%25_(6%2F6_falsifiers,_archival)-brightgreen.svg)](verify/falsifier_check.hexa)
-[![Lint: 113/113](https://img.shields.io/badge/lint-113%2F113-brightgreen.svg)](verify/lint_numerics.hexa)
-[![Falsifier: 43/43](https://img.shields.io/badge/falsifier-43%2F43-brightgreen.svg)](verify/falsifier_check.hexa)
-[![Firmware: 70/70](https://img.shields.io/badge/firmware-70%2F70_(sim%2BHDL%2BMCU)-brightgreen.svg)](firmware/build/verification_matrix.md)
-[![Substrate-of-substrates](https://img.shields.io/badge/role-substrate--of--substrates-blueviolet.svg)](#why)
 
 ---
 
@@ -108,7 +120,8 @@ hexa-rtsc selftest   # sentinel sweep (specs + own_v1 + verify/ landing)
 ```
 
 ---
-## Architecture
+
+## Repo layout
 
 ```
 hexa-rtsc/
