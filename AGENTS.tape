@@ -46,7 +46,7 @@
 @I id001 := "hexa-rtsc" :: identity-claim [d=2026-05-14 active]
   kind = "HEXA-RT-SC family — room-temp superconductor"
   brief = "HEXA-RT-SC family · room-temperature superconductor"
-  parent = "dancinlab/echoes"
+  parent = "dancinlab"
 
 @L l1 := "repo-layout" :: structure [active]
   .roadmap.hexa_rtsc -> "file"
